@@ -1,0 +1,13 @@
+﻿@model List<Model.EF.ProductCategory>
+
+
+
+<select id="agileinfo-nav_search" name="agileinfo_search" class="border" required="" onchange="javascript: handleSelect(this)">
+    <option value="">Danh mục sản phẩm</option>
+    @foreach (var item in Model)
+    {
+        <option value="/san-pham/@item.MetaTitle-@item.ID">@item.Name</option>
+    }
+</select>
+
+

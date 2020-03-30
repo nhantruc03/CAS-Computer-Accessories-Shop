@@ -1,0 +1,86 @@
+﻿@*@model PagedList.IPagedList<Model.EF.User>
+    @using PagedList.Mvc;*@
+
+@model IEnumerable<CAS.Areas.Admin.Models.MPC_Content_Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@section header{
+    Danh sách tin tức
+}
+
+@section jsFooter{
+<script src="/Assets/Admin/js/Controller/contentController.js"></script>
+    }
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách người dùng</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Metatitle</th>
+                        <th>Danh mục</th>
+                        <th>Mô tả</th>
+                        <th>Hình ảnh</th>
+                        <th>Trạng thái</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Metatitle</th>
+                        <th>Danh mục</th>
+                        <th>Mô tả</th>
+                        <th>Hình ảnh</th>
+                        <th>Trạng thái</th>
+                        <th>#</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr id="row_@item.content.ID">
+                        <td>@item.content.Name</td>
+                        <td>@item.content.Metatitle</td>
+                        <td>@item.category.ID</td>
+                        <td>@item.content.Descriptions</td>
+                        <td>
+                            <img src="@item.content.Image" width="95" title="cover" />
+                        </td>
+                        <td><a href="#" class="btn-active" data-id="@item.content.ID">@(item.content.Status ? "Kích hoạt" : "Khóa")</a></td>
+                        <td>
+                            <a href="/Admin/Content/Edit/@item.content.ID" class="btn btn-primary btn-default">Sửa</a>
+                            |
+                            @Ajax.ActionLink("Xóa","Delete", new {@id=item.content.ID },new AjaxOptions
+                       {
+                           HttpMethod = "Delete",
+                           Confirm ="Bạn có muốn xóa tin tức " + @item.content.Name+" ?",
+                           OnSuccess="RemoveRow",
+
+                       },new { @class ="btn btn-danger"})
+                            @*<a href="/Admin/User/Delete/@item.ID">Xóa</a>*@
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+            @Html.ActionLink("Tạo tin tức mới", "Create", "Content", new { @class = "btn btn-success btn-default" })
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+        function RemoveRow() {
+            var $tr = $(this).closest('tr');
+            $tr.remove();
+        }
+</script>

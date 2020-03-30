@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Model.EF.MenuType>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@section header{
+    Danh sách tin tức
+}
+
+@section jsFooter{
+    <script src="/Assets/Admin/js/Controller/menuController.js"></script>
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách người dùng</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Tên</th>
+                        <th>#</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row_@item.ID">
+                            <td>@item.Name</td>
+                            <td>
+                                <a href="/Admin/MenuType/Edit/@item.ID" class="btn btn-primary btn-default">Sửa</a>
+                                |
+                                @Ajax.ActionLink("Xóa","Delete", new {@id=item.ID },new AjaxOptions
+                           {
+                               HttpMethod = "Delete",
+                               Confirm ="Bạn có muốn xóa loại menu" + @item.Name+" ?",
+                               OnSuccess="RemoveRow",
+
+                           },new { @class ="btn btn-danger"})
+                                @*<a href="/Admin/User/Delete/@item.ID">Xóa</a>*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+            @Html.ActionLink("Tạo loại menu mới", "Create", "MenuType", new { @class = "btn btn-success btn-default" })
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+        function RemoveRow() {
+            var $tr = $(this).closest('tr');
+            $tr.remove();
+        }
+</script>

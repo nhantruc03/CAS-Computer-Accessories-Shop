@@ -1,0 +1,16 @@
+D:\CAS\CAS\Model\bin\Debug\Model.dll.config
+D:\CAS\CAS\Model\bin\Debug\Model.dll
+D:\CAS\CAS\Model\bin\Debug\Model.pdb
+D:\CAS\CAS\Model\bin\Debug\EntityFramework.dll
+D:\CAS\CAS\Model\bin\Debug\EntityFramework.SqlServer.dll
+D:\CAS\CAS\Model\bin\Debug\EntityFramework.xml
+D:\CAS\CAS\Model\bin\Debug\EntityFramework.SqlServer.xml
+D:\CAS\CAS\Model\obj\Debug\Model.csprojAssemblyReference.cache
+D:\CAS\CAS\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+D:\CAS\CAS\Model\obj\Debug\Model.csproj.CopyComplete
+D:\CAS\CAS\Model\obj\Debug\Model.dll
+D:\CAS\CAS\Model\obj\Debug\Model.pdb
+D:\CAS\CAS\Model\bin\Debug\PagedList.dll
+D:\CAS\CAS\Model\bin\Debug\PagedList.Mvc.dll
+D:\CAS\CAS\Model\bin\Debug\PagedList.xml
+D:\CAS\CAS\Model\bin\Debug\PagedList.Mvc.xml
