@@ -12,7 +12,7 @@
         public long ID { get; set; }
 
         [StringLength(50)]
-        [Display(Name="Tài khoản")]
+        [Display(Name = "Tài khoản")]
         [Required(ErrorMessage = "Mời nhập User Name!")]
         public string UserName { get; set; }
 

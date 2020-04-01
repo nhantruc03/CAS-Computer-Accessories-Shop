@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Model.Dao;
+using CAS.Models;
+using CAS.Common;
 namespace CAS.Controllers
 {
     public class HomeController : Controller
@@ -35,8 +37,14 @@ namespace CAS.Controllers
         [ChildActionOnly]
         public ActionResult HelpMenu()
         {
-          //  var model = new MenuDao().ListByGroupId(2);
-            return PartialView();
+            //  var model = new MenuDao().ListByGroupId(2);
+            var cart = Session[CommonConstants.CartSession];
+            var list = new List<CartItem>();
+            if (cart != null)
+            {
+                list = (List<CartItem>)cart;
+            }
+            return PartialView(list);
         }
 
       

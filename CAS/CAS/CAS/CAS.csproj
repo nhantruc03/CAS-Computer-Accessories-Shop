@@ -157,11 +157,13 @@
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2842,6 +2844,7 @@
     <Content Include="Assets\Client\images\sii3.jpg" />
     <Content Include="Assets\Client\images\user.jpg" />
     <Content Include="Assets\Client\js\bootstrap.js" />
+    <Content Include="Assets\Client\js\controller\cartcontroller.js" />
     <Content Include="Assets\Client\js\creditly.js" />
     <Content Include="Assets\Client\js\creditly2.js" />
     <Content Include="Assets\Client\js\easing.js" />
@@ -3134,13 +3137,15 @@
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Product\Category.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Payment.cshtml" />
+    <Content Include="Views\Cart\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Data\files\" />
     <Folder Include="Data\flash\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
