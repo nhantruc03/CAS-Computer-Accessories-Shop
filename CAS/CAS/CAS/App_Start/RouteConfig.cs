@@ -13,6 +13,9 @@ namespace CAS
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.IgnoreRoute("{*botdetect}",
+   new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
+
             routes.MapRoute(
                name: "Product Category",
                url: "san-pham/{metatitle}-{id}",
@@ -35,6 +38,20 @@ namespace CAS
            );
 
             routes.MapRoute(
+               name: "Contact",
+               url: "lien-he",
+               defaults: new { controller = "Contact", action = "Index", id = UrlParameter.Optional },
+               namespaces: new[] { "CAS.Controllers" }
+           );
+
+            routes.MapRoute(
+              name: "Register",
+              url: "dang-ky",
+              defaults: new { controller = "User", action = "Register", id = UrlParameter.Optional },
+              namespaces: new[] { "CAS.Controllers" }
+          );
+
+            routes.MapRoute(
              name: "Cart",
              url: "gio-hang",
              defaults: new { controller = "Cart", action = "Index", id = UrlParameter.Optional },
@@ -55,12 +72,12 @@ namespace CAS
             namespaces: new[] { "CAS.Controllers" }
         );
 
-        //    routes.MapRoute(
-        //    name: "Payment",
-        //    url: "loi-thanh-toan",
-        //    defaults: new { controller = "Cart", action = "Fail", id = UrlParameter.Optional },
-        //    namespaces: new[] { "CAS.Controllers" }
-        //);
+            //    routes.MapRoute(
+            //    name: "Payment",
+            //    url: "loi-thanh-toan",
+            //    defaults: new { controller = "Cart", action = "Fail", id = UrlParameter.Optional },
+            //    namespaces: new[] { "CAS.Controllers" }
+            //);
 
             routes.MapRoute(
               name: "Add To Cart",
@@ -73,7 +90,7 @@ namespace CAS
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new[] {"CAS.Controllers"}
+                namespaces: new[] { "CAS.Controllers" }
             );
         }
     }

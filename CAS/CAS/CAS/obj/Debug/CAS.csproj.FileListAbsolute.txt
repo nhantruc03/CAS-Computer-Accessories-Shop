@@ -176,3 +176,8 @@ D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\obj\Debug\CAS.csproj.CoreCompileInp
 D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\obj\Debug\CAS.csproj.CopyComplete
 D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\obj\Debug\CAS.dll
 D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\obj\Debug\CAS.pdb
+D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\BotDetect.dll
+D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\BotDetect.Web.Mvc.dll
+D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\System.Data.SQLite.dll
+D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\System.Data.SQLite.xml
+D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\System.Data.SQLite.dll.config
