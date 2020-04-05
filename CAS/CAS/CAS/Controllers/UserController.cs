@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BotDetect.Web.Mvc;
-using CAS.Common;
+using Common;
 using CAS.Models;
 using Model.Dao;
 using Model.EF;
@@ -17,6 +17,55 @@ namespace CAS.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginModel entity)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDao();
+                var result = dao.Login(entity.UserName, Encryptor.MD5Hash(entity.PassWord));
+                if (result == 1)
+                {
+                    var user = dao.GetById(entity.UserName);
+                    var userSession = new UserLogin();
+                    userSession.UserName = user.UserName;
+                    userSession.UserID = user.ID;
+                    Session.Add(CommonConstants.USER_SESSION, userSession);
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (result == 0)
+                {
+                    ModelState.AddModelError("", "Tài khoản không tồn tại!");
+                }
+                else if (result == -2)
+                {
+                    ModelState.AddModelError("", "Tài khoản đã bị khóa!");
+                }
+                else if (result == -1)
+                {
+                    ModelState.AddModelError("", "Mật khẩu không đúng!");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Đăng nhập thất bại!");
+                }
+            }
+            return View("Index");
+        }
+
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            Session[CommonConstants.USER_SESSION] = null;
+            return Redirect("/");
         }
 
         [HttpPost]
@@ -39,15 +88,14 @@ namespace CAS.Controllers
                     var user = new User();
                     user.UserName = entity.UserName;
                     user.Name = entity.Name;
-                    var encryptedmd5hash = Encryptor.MD5Hash(user.Password);
-                    user.Password = encryptedmd5hash;
+                    user.Password = Encryptor.MD5Hash(user.Password);
                     user.Phone = entity.Phone;
                     user.Email = entity.Email;
                     user.Address = entity.Address;
                     user.CreateDate = DateTime.Now;
                     user.Status = true;
                     var result = dao.Insert(user);
-                    if(result>0)
+                    if (result > 0)
                     {
                         ViewBag.Success = "Đăng ký thành công";
                         entity = new RegisterModel();

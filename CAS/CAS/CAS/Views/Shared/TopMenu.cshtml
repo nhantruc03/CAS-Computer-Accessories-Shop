@@ -10,31 +10,46 @@
             </div>
             <div class="col-lg-8 header-right mt-lg-0 mt-2">
                 <!-- header lists -->
-                <ul>
-                    <li class="text-center border-right text-white">
-                        <a class="play-icon popup-with-zoom-anim text-white" href="#small-dialog1">
-                            <i class="fas fa-map-marker mr-2"></i>Chọn khu vực
-                        </a>
-                    </li>
-                    <li class="text-center border-right text-white">
-                        <i class="fas fa-phone mr-2"></i> 0919 395 172
-                    </li>
-                    <li class="text-center border-right text-white">
-                        <a href="#" data-toggle="modal" class="text-white">
-                            <i class="fas fa-envelope mr-2"></i> Liên hệ
-                        </a>
-                    </li>
-                    <li class="text-center border-right text-white">
-                        <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-                            <i class="fas fa-sign-in-alt mr-2"></i> Đăng nhập
-                        </a>
-                    </li>
-                    <li class="text-center text-white">
-                        <a href="/dang-ky" class="text-white">
-                            <i class="fas fa-sign-out-alt mr-2"></i>Đăng ký
-                        </a>
-                    </li>
-                </ul>
+                @{
+                    var session = (Common.UserLogin)Session[Common.CommonConstants.USER_SESSION];
+                }
+                @if (session == null)
+                {
+                    <ul>
+
+                        <li class="text-center border-right text-white">
+                            <a class="play-icon popup-with-zoom-anim text-white" href="#small-dialog1">
+                                <i class="fas fa-map-marker mr-2"></i>Chọn khu vực
+                            </a>
+                        </li>
+                        <li class="text-center border-right text-white">
+                            <i class="fas fa-phone mr-2"></i> 0919 395 172
+                        </li>
+                        <li class="text-center border-right text-white">
+                            <a href="#" data-toggle="modal" class="text-white">
+                                <i class="fas fa-envelope mr-2"></i> Liên hệ
+                            </a>
+                        </li>
+                        <li class="text-center border-right text-white">
+                            <a href="/dang-nhap" class="text-white">
+                                <i class="fas fa-sign-in-alt mr-2"></i> Đăng nhập
+                            </a>
+                        </li>
+                        <li class="text-center text-white">
+                            <a href="/dang-ky" class="text-white">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Đăng ký
+                            </a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul>
+                        <li>Xin chào: @session.UserName </li>
+                        <li>@Html.ActionLink("Đăng xuất","LogOut","User") </li>
+                    </ul>
+                }
+
                 <!-- //header lists -->
             </div>
         </div>

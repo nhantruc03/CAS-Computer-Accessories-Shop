@@ -45,11 +45,25 @@ namespace CAS
            );
 
             routes.MapRoute(
+             name: "Login",
+             url: "dang-nhap",
+             defaults: new { controller = "User", action = "Login", id = UrlParameter.Optional },
+             namespaces: new[] { "CAS.Controllers" }
+         );
+
+            routes.MapRoute(
               name: "Register",
               url: "dang-ky",
               defaults: new { controller = "User", action = "Register", id = UrlParameter.Optional },
               namespaces: new[] { "CAS.Controllers" }
           );
+
+            routes.MapRoute(
+            name: "Search",
+            url: "tim-kiem",
+            defaults: new { controller = "Product", action = "Search", id = UrlParameter.Optional },
+            namespaces: new[] { "CAS.Controllers" }
+        );
 
             routes.MapRoute(
              name: "Cart",

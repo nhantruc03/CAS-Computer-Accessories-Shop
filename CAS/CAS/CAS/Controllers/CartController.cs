@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using CAS.Models;
 using Model.EF;
 using Model.Dao;
-using CAS.Common;
+using Common;
 using System.Web.Script.Serialization;
 namespace CAS.Controllers
 {
@@ -150,7 +150,7 @@ namespace CAS.Controllers
                     detailDao.Insert(orderDetail);
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return Redirect("/loi-thanh-toan");
             }

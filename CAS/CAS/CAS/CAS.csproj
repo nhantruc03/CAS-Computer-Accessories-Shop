@@ -162,9 +162,7 @@
     <Compile Include="Areas\Admin\Models\MPC_Content_Category.cs" />
     <Compile Include="Areas\Admin\Models\MPC_Menu_MenuType.cs" />
     <Compile Include="Areas\Admin\Models\MPC_Product_ProductCategory.cs" />
-    <Compile Include="Common\CommonConstants.cs" />
-    <Compile Include="Common\Encryptor.cs" />
-    <Compile Include="Common\UserLogin.cs" />
+    <Compile Include="Common\CheckCredentialAttribute.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -175,6 +173,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -2789,6 +2788,7 @@
     <Content Include="Assets\Client\css\easy-responsive-tabs.css" />
     <Content Include="Assets\Client\css\flexslider.css" />
     <Content Include="Assets\Client\css\fontawesome-all.css" />
+    <Content Include="Assets\Client\css\jquery-ui.css" />
     <Content Include="Assets\Client\css\menu.css" />
     <Content Include="Assets\Client\css\popuo-box.css" />
     <Content Include="Assets\Client\css\style.css" />
@@ -2856,6 +2856,7 @@
     <Content Include="Assets\Client\images\sii3.jpg" />
     <Content Include="Assets\Client\images\user.jpg" />
     <Content Include="Assets\Client\js\bootstrap.js" />
+    <Content Include="Assets\Client\js\controller\baseController.js" />
     <Content Include="Assets\Client\js\controller\cartcontroller.js" />
     <Content Include="Assets\Client\js\controller\contactController.js" />
     <Content Include="Assets\Client\js\creditly.js" />
@@ -2864,6 +2865,7 @@
     <Content Include="Assets\Client\js\easyResponsiveTabs.js" />
     <Content Include="Assets\Client\js\imagezoom.js" />
     <Content Include="Assets\Client\js\jquery-2.2.3.min.js" />
+    <Content Include="Assets\Client\js\jquery-ui.js" />
     <Content Include="Assets\Client\js\jquery.flexslider.js" />
     <Content Include="Assets\Client\js\jquery.magnific-popup.js" />
     <Content Include="Assets\Client\js\minicart.js" />
@@ -3120,6 +3122,7 @@
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\401.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -3155,6 +3158,8 @@
     <Content Include="Views\Cart\Success.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3176,6 +3181,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{f176b4ee-da1b-42ca-950c-1527f80914a2}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{4c534e4d-e1b3-4040-ba50-7bfcce295ad1}</Project>
       <Name>Model</Name>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Model.Dao;
 using Model.EF;
+using Common;
 namespace CAS.Areas.Admin.Controllers
 {
     public class ProductCategoryController : Controller
@@ -32,13 +33,21 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Create(ProductCategory entitiy)
+        public ActionResult Create(ProductCategory entity)
         {
             if (ModelState.IsValid)
             {
                 var dao = new ProductCategoryDao();
-                entitiy.CreateDate = DateTime.Now;
-                long id = dao.Insert(entitiy);
+                entity.CreateDate = DateTime.Now;
+                if(entity.DisplayOrder==null)
+                {
+                    entity.DisplayOrder = 0;
+                }
+                if(string.IsNullOrEmpty(entity.MetaTitle))
+                {
+                    entity.MetaTitle = StringHelper.ToUnsignString(entity.Name);
+                }
+                long id = dao.Insert(entity);
                 if (id > 0)
                 {
                     return RedirectToAction("Index", "ProductCategory");
@@ -58,6 +67,10 @@ namespace CAS.Areas.Admin.Controllers
             {
                 var dao = new ProductCategoryDao();
                 entity.ModifiedDate = DateTime.Now;
+                if (string.IsNullOrEmpty(entity.MetaTitle))
+                {
+                    entity.MetaTitle = StringHelper.ToUnsignString(entity.Name);
+                }
                 bool result = dao.Update(entity);
                 if (result)
                 {

@@ -30,3 +30,5 @@ D:\CAS-Computer Accessories Shop\CAS\CAS\Model\obj\Debug\Model.csproj.CoreCompil
 D:\CAS-Computer Accessories Shop\CAS\CAS\Model\obj\Debug\Model.csproj.CopyComplete
 D:\CAS-Computer Accessories Shop\CAS\CAS\Model\obj\Debug\Model.dll
 D:\CAS-Computer Accessories Shop\CAS\CAS\Model\obj\Debug\Model.pdb
+D:\CAS-Computer Accessories Shop\CAS\CAS\Model\bin\Debug\Common.dll
+D:\CAS-Computer Accessories Shop\CAS\CAS\Model\bin\Debug\Common.pdb

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Model.Dao;
 using CAS.Models;
-using CAS.Common;
+using Common;
 namespace CAS.Controllers
 {
     public class HomeController : Controller

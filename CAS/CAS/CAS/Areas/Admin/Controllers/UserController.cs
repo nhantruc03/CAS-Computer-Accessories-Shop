@@ -5,13 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using Model.EF;
 using Model.Dao;
-using CAS.Common;
+using Common;
 using PagedList;
 namespace CAS.Areas.Admin.Controllers
 {
     public class UserController : Controller
     {
         // GET: Admin/User
+        [CheckCredential(RoleID ="VIEW_USER")]
         public ActionResult Index(int page = 1, int pagesize = 10)
         {
             var dao = new UserDao();
@@ -21,6 +22,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "ADD_USER")]
         public ActionResult Create()
         {
             return View();

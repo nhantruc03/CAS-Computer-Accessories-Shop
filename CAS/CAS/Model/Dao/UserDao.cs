@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Model.EF;
 using PagedList;
+using Common;
 namespace Model.Dao
 {
     public class UserDao
@@ -32,13 +33,33 @@ namespace Model.Dao
             return db.Users.Find(id);
         }
 
+        public List<string>GetListCredential(string username)
+        {
+            var user = db.Users.SingleOrDefault(x => x.UserName == username);
+            var data = (from a in db.Credentials
+                       join b in db.UserGroups
+                       on a.UserGroupID equals b.ID
+                       join c in db.Roles
+                       on a.RoleID equals c.ID
+                       where b.ID== user.GroupID
+                       select new
+                       {
+                           RoleID=a.RoleID,
+                           UserGroupID=a.UserGroupID
+                       }).AsEnumerable().Select(x => new Credential() {
+                           RoleID=x.RoleID,
+                           UserGroupID = x.UserGroupID
+                       });
+            return data.Select(x => x.RoleID).ToList();
+        }
+
         public bool Update(User entity)
         {
             try
             {
                 var user = db.Users.Find(entity.ID);
                 user.Name = entity.Name;
-                if(!string.IsNullOrEmpty(entity.Password))
+                if (!string.IsNullOrEmpty(entity.Password))
                 {
                     user.Password = entity.Password;
                 }
@@ -49,17 +70,17 @@ namespace Model.Dao
                 db.SaveChanges();
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
-            
+
         }
 
 
         public IEnumerable<User> ListAll(int page, int pageSize)
         {
-            return db.Users.OrderByDescending(x=>x.CreateDate).ToPagedList(page,pageSize);
+            return db.Users.OrderByDescending(x => x.CreateDate).ToPagedList(page, pageSize);
         }
 
         public IEnumerable<User> ListAll()
@@ -67,7 +88,7 @@ namespace Model.Dao
             return db.Users.OrderByDescending(x => x.CreateDate).ToList();
         }
 
-        public int Login(string userName,string passWord)
+        public int Login(string userName, string passWord, bool isLoginAdmin = false)
         {
             var result = db.Users.SingleOrDefault(x => x.UserName == userName);
             if (result == null)
@@ -76,21 +97,51 @@ namespace Model.Dao
             }
             else
             {
-                if (result.Status == false)
+                if (isLoginAdmin == true)
                 {
-                    return -2;
-                }
-                else
-                {
-                    if (result.Password == passWord)
+                    if(result.GroupID==CommonConstants.ADMIN_GROUP || result.GroupID == CommonConstants.ORDERCHECKER_GROUP || result.GroupID == CommonConstants.STROREKEEPER_GROUP)
                     {
-                        return 1;
+                        if (result.Status == false)
+                        {
+                            return -2;
+                        }
+                        else
+                        {
+                            if (result.Password == passWord)
+                            {
+                                return 1;
+                            }
+                            else
+                            {
+                                return -1;
+                            }
+                        }
                     }
                     else
                     {
-                        return -1;
+                        return -3;
                     }
                 }
+                else
+                {
+                    if (result.Status == false)
+                    {
+                        return -2;
+                    }
+                    else
+                    {
+                        if (result.Password == passWord)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            return -1;
+                        }
+                    }
+                }
+               
+
             }
         }
 
@@ -112,7 +163,7 @@ namespace Model.Dao
                 db.SaveChanges();
                 return true;
             }
-            catch ( Exception)
+            catch (Exception)
             {
                 return false;
             }

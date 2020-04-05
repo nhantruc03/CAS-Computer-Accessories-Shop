@@ -52,5 +52,8 @@
 
         [Display(Name = "Trạng thái")]
         public bool Status { get; set; }
+
+        [StringLength(20)]
+        public string GroupID { get; set; }
     }
 }

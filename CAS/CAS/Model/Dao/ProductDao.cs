@@ -20,6 +20,19 @@ namespace Model.Dao
             return db.Products.Find(id);
         }
 
+        public List<string> ListName(string keyword)
+        {
+            return db.Products.Where(x => x.Name.Contains(keyword)).Select(x => x.Name).ToList();
+        }
+
+        public List<Product> Search(string keyword, ref int totalRecord, int pageIndex, int pageSize)
+        {
+            totalRecord = db.Products.Where(x => x.Status == true && x.Name.Contains(keyword)).Count();
+            var model = db.Products.Where(x => x.Status == true && x.Name.Contains(keyword)).OrderByDescending(x => x.CreateDate).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+            return model;
+        }
+
         public List<Product> ListByCategoryID(long categoryID, ref int totalRecord, int pageIndex, int pageSize)
         {
             totalRecord = db.Products.Where(x => x.Status == true && x.CategoryID == categoryID).Count();

@@ -181,3 +181,5 @@ D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\BotDetect.Web.Mvc.dll
 D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\System.Data.SQLite.dll
 D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\System.Data.SQLite.xml
 D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\System.Data.SQLite.dll.config
+D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\Common.dll
+D:\CAS-Computer Accessories Shop\CAS\CAS\CAS\bin\Common.pdb
