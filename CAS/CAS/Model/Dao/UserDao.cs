@@ -59,6 +59,7 @@ namespace Model.Dao
             {
                 var user = db.Users.Find(entity.ID);
                 user.Name = entity.Name;
+                user.GroupID = entity.GroupID;
                 if (!string.IsNullOrEmpty(entity.Password))
                 {
                     user.Password = entity.Password;

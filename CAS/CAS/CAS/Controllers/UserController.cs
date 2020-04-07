@@ -86,6 +86,7 @@ namespace CAS.Controllers
                 else
                 {
                     var user = new User();
+                    user.GroupID = "CLIENT";
                     user.UserName = entity.UserName;
                     user.Name = entity.Name;
                     user.Password = Encryptor.MD5Hash(user.Password);

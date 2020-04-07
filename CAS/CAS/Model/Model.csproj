@@ -62,6 +62,7 @@
     <Compile Include="Dao\CategoryDao.cs" />
     <Compile Include="Dao\ContactDao.cs" />
     <Compile Include="Dao\ContentDao.cs" />
+    <Compile Include="Dao\CredentialDao.cs" />
     <Compile Include="Dao\FeedBackDao.cs" />
     <Compile Include="Dao\MenuDao.cs" />
     <Compile Include="Dao\MenuTypeDao.cs" />
@@ -69,8 +70,10 @@
     <Compile Include="Dao\OrderDetailDao.cs" />
     <Compile Include="Dao\ProductCategoryDao.cs" />
     <Compile Include="Dao\ProductDao.cs" />
+    <Compile Include="Dao\RoleDao.cs" />
     <Compile Include="Dao\SlideDao.cs" />
     <Compile Include="Dao\UserDao.cs" />
+    <Compile Include="Dao\UserGroupDao.cs" />
     <Compile Include="EF\About.cs" />
     <Compile Include="EF\CASDbContext.cs" />
     <Compile Include="EF\Category.cs" />

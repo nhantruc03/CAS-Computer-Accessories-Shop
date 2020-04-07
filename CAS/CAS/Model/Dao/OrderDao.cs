@@ -16,9 +16,49 @@ namespace Model.Dao
 
         public long Insert(Order order)
         {
-            db.Orders.Add(order);
+            try
+            {
+                db.Orders.Add(order);
+                db.SaveChanges();
+                return order.ID;
+            }
+            catch(Exception)
+            {
+                return 0;
+            }   
+        }
+
+        public Order GetByID(long id)
+        {
+            return db.Orders.Find(id);
+        }
+
+        public IEnumerable<Order> ListAll()
+        {
+            return db.Orders.OrderByDescending(x => x.CreateDate).ToList();
+        }
+
+        public bool ChangeStatus(long id)
+        {
+            var content = db.Orders.Find(id);
+            content.Status = !content.Status;
             db.SaveChanges();
-            return order.ID;
+            return content.Status;
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                var content = db.Orders.Find(id);
+                db.Orders.Remove(content);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

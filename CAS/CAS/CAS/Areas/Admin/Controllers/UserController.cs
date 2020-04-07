@@ -7,6 +7,7 @@ using Model.EF;
 using Model.Dao;
 using Common;
 using PagedList;
+using CAS.Areas.Admin.Models;
 namespace CAS.Areas.Admin.Controllers
 {
     public class UserController : Controller
@@ -15,16 +16,15 @@ namespace CAS.Areas.Admin.Controllers
         [CheckCredential(RoleID ="VIEW_USER")]
         public ActionResult Index(int page = 1, int pagesize = 10)
         {
-            var dao = new UserDao();
-            //var model = dao.ListAll(page, pagesize);
-            var model = dao.ListAll();
-            return View(model);
+            var list = new MPC_User_UserGroup().ListAll();
+            return View(list);
         }
 
         [HttpGet]
         [CheckCredential(RoleID = "ADD_USER")]
         public ActionResult Create()
         {
+            SetViewBagUserGroup();
             return View();
         }
 
@@ -49,6 +49,7 @@ namespace CAS.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Thêm user thất bại");
                 }
             }
+            SetViewBagUserGroup();
             return View("Create");
         }
 
@@ -56,6 +57,7 @@ namespace CAS.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             var user = new UserDao().GetByID(id);
+            SetViewBagUserGroup();
             return View(user);
         }
 
@@ -81,6 +83,7 @@ namespace CAS.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Cập nhật thông tin người dùng thất bại");
                 }
             }
+            SetViewBagUserGroup();
             return View("Edit");
         }
 
@@ -92,6 +95,11 @@ namespace CAS.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        public void SetViewBagUserGroup(long? selectedID = null)
+        {
+            var dao = new UserGroupDao();
+            ViewBag.GroupID = new SelectList(dao.ListAll(), "ID", "Name", selectedID);
+        }
 
         [HttpPost]
         public JsonResult ChangeStatus(long id)

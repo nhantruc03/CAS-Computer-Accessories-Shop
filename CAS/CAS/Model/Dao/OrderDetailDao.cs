@@ -26,7 +26,11 @@ namespace Model.Dao
             {
                 return false;
             }
-            
+        }
+
+        public IEnumerable<OrderDetail> GetByID(long id)
+        {
+            return db.OrderDetails.Where(x => x.OrderID == id).OrderByDescending(x => x.Price).ToList();
         }
     }
 }

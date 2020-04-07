@@ -27,5 +27,39 @@ namespace Model.Dao
             }
             
         }
+
+        public FeedBack GetByID(long id)
+        {
+            return db.FeedBacks.Find(id);
+        }
+        
+        public IEnumerable<FeedBack> ListAll()
+        {
+            return db.FeedBacks.OrderByDescending(x => x.CreateDate).ToList();
+        }
+
+        public bool ChangeStatus(long id)
+        {
+            var content = db.FeedBacks.Find(id);
+            content.Status = !content.Status;
+            db.SaveChanges();
+            return content.Status;
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                var content = db.FeedBacks.Find(id);
+                db.FeedBacks.Remove(content);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
     }
 }
