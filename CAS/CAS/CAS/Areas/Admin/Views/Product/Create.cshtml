@@ -13,7 +13,19 @@
             e.preventDefault();
             var finder = new CKFinder();
             finder.selectActionFunction = function (url) {
-                $('#txtImage').val(url);
+                var txtimage = document.getElementById('txtImage');
+                if (txtimage.value == "") {
+                    document.getElementById('txtImage').value = url;
+                    $('#imageone').append('<div class="px-2"><img src="' + url + '" width="100"/><a href="#" class="btn-delImages2"><i class="fa fa-times"></i></a><input type="hidden" class="hidImage" value=' + url + '></div>');
+                    $('.btn-delImages2').off('click').on('click', function (e) {
+                        e.preventDefault();
+                        $(this).parent().remove();
+                        document.getElementById('txtImage').value = "";
+                    });
+                }
+                else {
+                    alert("Chỉ được chọn 1 ảnh");
+                }
             };
             finder.popup();
         })
@@ -21,15 +33,35 @@
         var editor = CKEDITOR.replace('txtContent', {
             customConfig: '/Assets/Admin/js/Plugins/ckeditor/config.js'
         })
-    </script>
 
+        $('#btnSelectListImage').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#imageList').append('<div class="px-2"><img src="' + url + '" width="100"/><a href="#" class="btn-delImages"><i class="fa fa-times"></i></a><input type="hidden" class="hidImage" value='+url+'></div>');
+                $('.btn-delImages').off('click').on('click', function (e) {
+                    e.preventDefault();
+                    $(this).parent().remove();
+                });
+            };
+            finder.popup();
+        })
+
+        $('#btncreate').off('click').on('click', function (e) {
+            var images = [];
+            $.each($('#imageList .hidImage'), function (i, item) {
+                images.push($(item).val());
+                document.getElementById('MoreImages').value = JSON.stringify(images);
+            })
+        });
+    </script>
 }
 
 @using (Html.BeginForm("Create", "Product", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal ">
         <div>
             <h4>Nhập thông tin sản phẩm</h4>
         </div>
@@ -62,12 +94,32 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" }, id = "txtImage" })
+                @Html.HiddenFor(model => model.Image, new { id = "txtImage" })
                 <a id="btnSelectImage" href="#">Chọn ảnh</a>
                 @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
             </div>
+            <div class="row col-md-10 mx-2">
+                <div id="imageone" class="row py-3">
+
+                </div>
+            </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.MoreImages, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.MoreImages, new {id = "MoreImages" })
+                <a id="btnSelectListImage" href="#">Chọn ảnh</a>
+                @Html.ValidationMessageFor(model => model.MoreImages, "", new { @class = "text-danger" })
+            </div>
+            <div class="row col-md-10 mx-2">
+                <div id="imageList" class="row py-3">
+
+                </div>
+            </div>
+          
+        </div>
+                
         <div class="form-group">
             @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -137,7 +189,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Tạo mới" class="btn btn-default" />
+                <input type="submit" value="Tạo mới" class="btn btn-default" id="btncreate"/>
             </div>
         </div>
     </div>

@@ -73,6 +73,7 @@ namespace Model.Dao
                 item.Metatitle = entity.Metatitle;
                 item.Descriptions = entity.Descriptions;
                 item.Image = entity.Image;
+                item.MoreImages = entity.MoreImages;
                 item.Price = entity.Price;
                 item.PromotionPrice = entity.PromotionPrice;
                 item.IncludeVAT = entity.IncludeVAT;

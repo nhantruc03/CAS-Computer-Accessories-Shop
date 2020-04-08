@@ -13,7 +13,19 @@
             e.preventDefault();
             var finder = new CKFinder();
             finder.selectActionFunction = function (url) {
-                $('#txtImage').val(url);
+                var txtimage = document.getElementById('txtImage');
+                if (txtimage.value == "") {
+                    document.getElementById('txtImage').value = url;
+                    $('#imageone').append('<div class="px-2"><img src="' + url + '" width="100"/><a href="#" class="btn-delImages2"><i class="fa fa-times"></i></a><input type="hidden" class="hidImage" value=' + url + '></div>');
+                    $('.btn-delImages2').off('click').on('click', function (e) {
+                        e.preventDefault();
+                        $(this).parent().remove();
+                        document.getElementById('txtImage').value = "";
+                    });
+                }
+                else {
+                    alert("Chỉ được chọn 1 ảnh");
+                }
             };
             finder.popup();
         })
@@ -21,6 +33,51 @@
         var editor = CKEDITOR.replace('txtContent', {
             customConfig: '/Assets/Admin/js/Plugins/ckeditor/config.js'
         })
+
+        $('#btnSelectListImage').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#imageList').append('<div class="px-2"><img src="' + url + '" width="100"/><a href="#" class="btn-delImages"><i class="fa fa-times"></i></a><input type="hidden" class="hidImage" value=' + url + '></div>');
+                $('.btn-delImages').off('click').on('click', function (e) {
+                    e.preventDefault();
+                    $(this).parent().remove();
+                });
+            };
+            finder.popup();
+        })
+
+        $('#btnupdate').off('click').on('click', function (e) {
+            var images = [];
+            $.each($('#imageList .hidImage'), function (i, item) {
+                images.push($(item).val());
+                document.getElementById('MoreImages').value = JSON.stringify(images);
+            })
+        });
+
+        window.onload = function () {
+            var data = @Html.Raw(Json.Encode(ViewBag.listimage));
+            var html = '';
+            $.each(data, function (i, item) {
+                html += '<div class="px-2"><img src="' + item + '" width="100"/><a href="#" class="btn-delImages"><i class="fa fa-times"></i></a><input type="hidden" class="hidImage" value=' + item + '></div>'
+
+            });
+            $('#imageList').html(html);
+            $('.btn-delImages').off('click').on('click', function (e) {
+                e.preventDefault();
+                $(this).parent().remove();
+            });
+            var data2 = @Html.Raw(Json.Encode(Model.Image));
+            var html2 = '<div class="px-2"><img src="' + data2 + '" width="100"/><a href="#" class="btn-delImages2"><i class="fa fa-times"></i></a><input type="hidden" class="hidImage" value=' + data2 + '></div>';
+           
+            document.getElementById('txtImage').value = data2;
+            $('#imageone').html(html2);
+            $('.btn-delImages2').off('click').on('click', function (e) {
+                e.preventDefault();
+                $(this).parent().remove();
+                document.getElementById('txtImage').value = "";
+            });
+        }
     </script>
 
 }
@@ -62,9 +119,27 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" }, id = "txtImage" })
+                @Html.HiddenFor(model => model.Image, new { id = "txtImage" })
                 <a id="btnSelectImage" href="#">Chọn ảnh</a>
                 @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+            <div class="row col-md-10 mx-2">
+                <div id="imageone" class="row py-3">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MoreImages, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.MoreImages, new { id = "MoreImages" })
+                <a id="btnSelectListImage" href="#">Chọn ảnh</a>
+                @Html.ValidationMessageFor(model => model.MoreImages, "", new { @class = "text-danger" })
+            </div>
+            <div class="row col-md-10 mx-2">
+                <div id="imageList" class="row py-3">
+                </div>
             </div>
         </div>
 
@@ -137,7 +212,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Cập nhật" class="btn btn-default" />
+                <input type="submit" value="Cập nhật" class="btn btn-default" id="btnupdate" />
             </div>
         </div>
     </div>

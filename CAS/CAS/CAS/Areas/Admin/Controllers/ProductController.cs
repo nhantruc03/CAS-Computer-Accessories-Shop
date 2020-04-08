@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using Model.Dao;
 using Model.EF;
 using CAS.Areas.Admin.Models;
+using System.Xml.Linq;
+using System.Web.Script.Serialization;
+
 namespace CAS.Areas.Admin.Controllers
 {
     public class ProductController : Controller
@@ -32,6 +35,19 @@ namespace CAS.Areas.Admin.Controllers
             var dao = new ProductDao();
             var item = dao.GetById(id);
 
+            //Xử lý moreimages
+            if (item.MoreImages != null)
+            {
+                var images = item.MoreImages;
+                XElement xImages = XElement.Parse(images);
+                List<string> listimage = new List<string>();
+                foreach (XElement element in xImages.Elements())
+                {
+                    listimage.Add(element.Value);
+                }
+                ViewBag.listimage = listimage;
+            }
+
             SetViewBag(item.CategoryID);
             return View(item);
         }
@@ -39,10 +55,24 @@ namespace CAS.Areas.Admin.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult Create(Product entity)
         {
+            //Xử lý moreimages
             if (ModelState.IsValid)
             {
                 var dao = new ProductDao();
                 entity.CreateDate = DateTime.Now;
+
+                if (entity.MoreImages != null)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    var listimages = serializer.Deserialize<List<string>>(entity.MoreImages);
+                    XElement xElement = new XElement("Images");
+                    foreach (var item in listimages)
+                    {
+                        xElement.Add(new XElement("Image", item));
+                    }
+                    entity.MoreImages = xElement.ToString();
+                }
+
                 long id = dao.Insert(entity);
                 if (id > 0)
                 {
@@ -60,10 +90,25 @@ namespace CAS.Areas.Admin.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult Edit(Product entity)
         {
+            //Xử lý moreimages
             if (ModelState.IsValid)
             {
                 var dao = new ProductDao();
                 entity.ModifiedDate = DateTime.Now;
+
+                if(entity.MoreImages!=null)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    var listimages = serializer.Deserialize<List<string>>(entity.MoreImages);
+                    XElement xElement = new XElement("Images");
+                    foreach (var item in listimages)
+                    {
+                        xElement.Add(new XElement("Image", item));
+                    }
+                    entity.MoreImages = xElement.ToString();
+                }
+               
+
                 bool result = dao.Update(entity);
                 if (result)
                 {

@@ -11,6 +11,19 @@
     <script src="/Assets/Client/js/jquery.flexslider.js"></script>
     <script>
         // Can also be used with $(document).ready()
+       
+        $(window).load( function () {
+            var data = @Html.Raw(Json.Encode(ViewBag.listimage));
+            var html = '';
+            $.each(data, function (i, item) {
+                html += '<li data-thumb="' + item + '">' +
+                    '<div class="thumb-image">' +
+                    '<img src="' + item + '" data-imagezoom="true" class="img-fluid" alt="">' +
+                    '</div>' +
+                    '</li>'
+            });
+            $('#imageList').html(html);
+        });
         $(window).load(function () {
             $('.flexslider').flexslider({
                 animation: "slide",
@@ -55,22 +68,12 @@
             <div class="col-lg-5 col-md-8 single-right-left ">
                 <div class="grid images_3_of_2">
                     <div class="flexslider">
-                        <ul class="slides">
-                            <li data-thumb="/Data/images/si1.jpg">
+                        <ul class="slides" id="imageList">
+                            @*<li data-thumb="/Data//Assets/Client/images/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg">
                                 <div class="thumb-image">
-                                    <img src="/Data/images/si1.jpg" data-imagezoom="true" class="img-fluid" alt="">
+                                    <img src="/Data//Assets/Client/images/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg" data-imagezoom="true" class="img-fluid" alt="">
                                 </div>
-                            </li>
-                            <li data-thumb="/Data/images/si2.jpg">
-                                <div class="thumb-image">
-                                    <img src="/Data/images/si2.jpg" data-imagezoom="true" class="img-fluid" alt="">
-                                </div>
-                            </li>
-                            <li data-thumb="/Data/images/si3.jpg">
-                                <div class="thumb-image">
-                                    <img src="/Data/images/si3.jpg" data-imagezoom="true" class="img-fluid" alt="">
-                                </div>
-                            </li>
+                            </li>*@
                         </ul>
                         <div class="clearfix"></div>
                     </div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using Model.Dao;
 using Model.EF;
 namespace CAS.Controllers
@@ -84,6 +85,18 @@ namespace CAS.Controllers
         public ActionResult Detail(long id)
         {
             var product = new ProductDao().GetById(id);
+
+            var images = product.MoreImages;
+            XElement xImages = XElement.Parse(images);
+            List<string> listimage = new List<string>();
+            listimage.Add(product.Image);
+            foreach (XElement element in xImages.Elements())
+            {
+                listimage.Add(element.Value);
+            }
+         
+            ViewBag.listimage = listimage;
+
             ViewBag.Category = new ProductCategoryDao().GetByID(product.CategoryID.Value);
             return View(product);
         }
