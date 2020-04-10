@@ -1,4 +1,5 @@
-﻿@model List<Model.EF.Product>
+﻿@model IEnumerable<CAS.Models.MPC_Product_ProductCategory>
+
 @{
     var listproductCat = ViewBag.listproductcategory;
     var productCat = (Model.EF.ProductCategory)ViewBag.ProductCategory;
@@ -39,11 +40,11 @@
                     <div class="row">
                         @foreach (var item in Model)
                         {
-                            var url = "/chi-tiet/" + item.Metatitle + "-" + item.ID;
+                            var url = "/chi-tiet/" + item.product.Metatitle + "-" + item.product.ID;
                             <div class="col-md-4 product-men mt-5">
                                 <div class="men-pro-item simpleCart_shelfItem">
                                     <div class="men-thumb-item text-center">
-                                        <img src="@item.Image" alt="@item.Name" style="width:194px; height: auto;">
+                                        <img src="@item.product.Image" alt="@item.product.Name" style="width:200px; height: 200px;">
                                         <div class="men-cart-pro">
                                             <div class="inner-men-cart-pro">
                                                 <a href="@url" class="link-product-add-cart">Chi tiết</a>
@@ -53,18 +54,18 @@
                                     </div>
                                     <div class="item-info-product text-center border-top mt-4">
                                         <h4 class="pt-1">
-                                            <a href="single.html">@item.Name</a>
+                                            <a href="@url">@item.product.Name</a>
                                         </h4>
                                         <div class="info-product-price my-2">
 
-                                            @if (item.PromotionPrice.HasValue)
+                                            @if (item.product.PromotionPrice.HasValue)
                                             {
-                                                <span class="item_price">@item.PromotionPrice.Value.ToString("N0")</span>
-                                                <del>@item.Price.Value.ToString("N0")</del>
+                                                <span class="item_price">@item.product.PromotionPrice.Value.ToString("N0")</span>
+                                                <del>@item.product.Price.Value.ToString("N0")</del>
                                             }
                                             else
                                             {
-                                                <span class="item_price">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "Liên hệ")</span>
+                                                <span class="item_price">@(item.product.Price.HasValue ? item.product.Price.Value.ToString("N0") : "Liên hệ")</span>
                                             }
                                         </div>
                                         <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
@@ -73,14 +74,14 @@
                                                     <input type="hidden" name="cmd" value="_cart" />
                                                     <input type="hidden" name="add" value="1" />
                                                     <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="@item.Name" />
-                                                    @if (item.PromotionPrice.HasValue)
+                                                    <input type="hidden" name="item_name" value="@item.product.Name" />
+                                                    @if (item.product.PromotionPrice.HasValue)
                                                     {
-                                                        <input type="hidden" name="amount" value=@item.PromotionPrice />
+                                                        <input type="hidden" name="amount" value=@item.product.PromotionPrice />
                                                     }
                                                     else
                                                     {
-                                                        <input type="hidden" name="amount" value=@item.Price />
+                                                        <input type="hidden" name="amount" value=@item.product.Price />
                                                     }
                                                     <input type="hidden" name="discount_amount" value="0.00" />
                                                     <input type="hidden" name="currency_code" value="VND" />
@@ -107,7 +108,7 @@
                         var startpageindex = Math.Max(1, currentpage - pageDisplay / 2);
                         var endpageindex = Math.Min(totalpage, currentpage + pageDisplay / 2);
 
-                        var link = "/san-pham/" + productCat.MetaTitle + "-" + productCat.ID;
+                        var link = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID;
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg pt-4">
                                 @if (currentpage > ViewBag.first)
@@ -159,7 +160,7 @@
                                 @foreach (var item in listproductCat)
                                 {
                                 <li class="nav-item">
-                                    <a class="nav-link" style="color:black" href="/san-pham/@item.MetaTitle-@item.ID"> @item.Name</a>
+                                    <a class="nav-link" style="color:black" href="/danh-muc-san-pham/@item.MetaTitle-@item.ID"> @item.Name</a>
                                     <span class="sr-only"></span>
                                 </li>
                                 }

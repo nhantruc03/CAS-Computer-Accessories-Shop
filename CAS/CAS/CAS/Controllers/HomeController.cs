@@ -33,7 +33,6 @@ namespace CAS.Controllers
             return PartialView();
         }
 
-
         [ChildActionOnly]
         public ActionResult HelpMenu()
         {

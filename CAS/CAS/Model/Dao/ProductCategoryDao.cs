@@ -32,6 +32,7 @@ namespace Model.Dao
             {
                 var item = db.ProductCategories.Find(entity.ID);
                 item.Name = entity.Name;
+                item.ParentID = entity.ParentID;
                 item.MetaTitle = entity.MetaTitle;
                 item.ModifiedDate = DateTime.Now;
                 db.SaveChanges();
@@ -44,9 +45,13 @@ namespace Model.Dao
 
         }
 
+        public IEnumerable<ProductCategory> ListAllParentID()
+        {
+            return db.ProductCategories.Where(x=>x.ParentID == null && x.Status==true).OrderByDescending(x =>x.DisplayOrder).ToList();
+        }
         public IEnumerable<ProductCategory> ListAll()
         {
-            return db.ProductCategories.Where(x=>x.ParentID == null).OrderByDescending(x =>x.DisplayOrder).ToList();
+            return db.ProductCategories.Where(x => x.Status == true).OrderByDescending(x => x.DisplayOrder).ToList();
         }
 
         public IEnumerable<ProductCategory> ListByID(long parentID)

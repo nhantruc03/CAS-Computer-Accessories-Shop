@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using Model.Dao;
 using Model.EF;
+using CAS.Models;
 namespace CAS.Controllers
 {
     public class ProductController : Controller
@@ -15,11 +16,11 @@ namespace CAS.Controllers
         {
             return View();
         }
-        
+
         [ChildActionOnly]
         public PartialViewResult ProductCategory()
         {
-            var model = new ProductCategoryDao().ListAll();
+            var model = new ProductCategoryDao().ListAllParentID();
             return PartialView(model);
         }
 
@@ -30,7 +31,7 @@ namespace CAS.Controllers
             {
                 data = data,
                 status = true
-            },JsonRequestBehavior.AllowGet);
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Search(string keyword, int page = 1, int pageSize = 9)
@@ -55,23 +56,30 @@ namespace CAS.Controllers
             return View(model);
         }
 
-        public ActionResult Category(long id,int page=1,int pageSize=9)
+        public ActionResult Category(long id, int page = 1, int pageSize = 9)
         {
-            var listproductcategory = new ProductCategoryDao().ListByID(id);
-            ViewBag.listproductcategory = listproductcategory;
-            var productcategory = new ProductCategoryDao().GetByID(id);
-            ViewBag.ProductCategory = productcategory;
-
+            var productcat = new ProductCategoryDao().GetByID(id);
             int totalRecord = 0;
-            var model = new ProductDao().ListByCategoryID(id,ref totalRecord, page, pageSize);
-
+            IEnumerable<MPC_Product_ProductCategory> model = null;
+            if (productcat.ParentID == null)
+            {
+                var listproductcategory = new ProductCategoryDao().ListByID(id);
+                ViewBag.listproductcategory = listproductcategory;
+                model = new MPC_Product_ProductCategory().ListAllByParentID(id, ref totalRecord, page, pageSize);
+            }
+            else
+            {
+                var listproductcategory = new ProductCategoryDao().ListByID(productcat.ParentID.Value);
+                ViewBag.listproductcategory = listproductcategory;
+                model = new MPC_Product_ProductCategory().ListByID(id, ref totalRecord, page, pageSize);
+            }
+            ViewBag.ProductCategory = productcat;
             ViewBag.total = totalRecord; // tong san pham
             ViewBag.page = page; // trang hien tai
-
             int maxPage = 5;
             int totalPage = 0;
 
-            totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize)+0.5); // tong so trang, lam tron len 1
+            totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize) + 0.5); // tong so trang, lam tron len 1
 
             ViewBag.totalpage = totalPage;
             ViewBag.maxpage = maxPage;
@@ -82,21 +90,23 @@ namespace CAS.Controllers
             return View(model);
         }
 
+       
         public ActionResult Detail(long id)
         {
             var product = new ProductDao().GetById(id);
-
-            var images = product.MoreImages;
-            XElement xImages = XElement.Parse(images);
             List<string> listimage = new List<string>();
             listimage.Add(product.Image);
-            foreach (XElement element in xImages.Elements())
+            if (product.MoreImages != null)
             {
-                listimage.Add(element.Value);
+                var images = product.MoreImages;
+                XElement xImages = XElement.Parse(images);
+               
+                foreach (XElement element in xImages.Elements())
+                {
+                    listimage.Add(element.Value);
+                }
             }
-         
             ViewBag.listimage = listimage;
-
             ViewBag.Category = new ProductCategoryDao().GetByID(product.CategoryID.Value);
             return View(product);
         }

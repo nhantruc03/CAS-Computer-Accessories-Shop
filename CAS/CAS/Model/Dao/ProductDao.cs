@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model.EF;
-
 namespace Model.Dao
 {
     public class ProductDao
@@ -32,6 +31,33 @@ namespace Model.Dao
 
             return model;
         }
+
+        //public List<MPC> ListByParentCategoryID(long categoryID, ref int totalRecord, int pageIndex, int pageSize)
+        //{
+        //    List<ProductCategory> ListproductCat= new List<ProductCategory>();
+        //    ListproductCat = db.ProductCategories.Where(x => x.ParentID == categoryID).OrderBy(x => x.CreateDate).ToList();
+        //    totalRecord = db.Products.Where(x => x.Status == true && x.CategoryID == categoryID).Count();
+        //    var model = db.Products.Where(x => x.Status == true && x.CategoryID == categoryID).OrderByDescending(x => x.CreateDate).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+        //    var categories = new ProductCategoryDao().ListAll();
+
+        //    var products = new ProductDao().ListAll();
+
+        //    var result = from pd in products
+        //                 join ct in categories on pd.CategoryID equals ct.ID
+        //                 where ct.ID == categoryID
+        //                 select new MPC
+        //                 {
+        //                     ID =pd.ID,
+        //                     CategoryID =pd.CategoryID,
+        //                     CreateDate =pd.CreateDate,
+        //                     Name =pd.Name,
+
+                            
+        //                 }
+
+        //    return model;
+        //}
 
         public List<Product> ListByCategoryID(long categoryID, ref int totalRecord, int pageIndex, int pageSize)
         {

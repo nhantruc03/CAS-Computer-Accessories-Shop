@@ -167,6 +167,7 @@
     <Compile Include="Areas\Admin\Models\MPC_Content_Category.cs" />
     <Compile Include="Areas\Admin\Models\MPC_Menu_MenuType.cs" />
     <Compile Include="Areas\Admin\Models\MPC_OrderDetail_Product.cs" />
+    <Compile Include="Areas\Admin\Models\MPC_ProductCat_ProductCat.cs" />
     <Compile Include="Areas\Admin\Models\MPC_Product_ProductCategory.cs" />
     <Compile Include="Areas\Admin\Models\MPC_UserGroup_Role_Credential.cs" />
     <Compile Include="Areas\Admin\Models\MPC_User_UserGroup.cs" />
@@ -182,6 +183,7 @@
     </Compile>
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MPC_Product_ProductCategory.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

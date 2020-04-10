@@ -8,6 +8,7 @@ using Model.EF;
 using CAS.Areas.Admin.Models;
 using System.Xml.Linq;
 using System.Web.Script.Serialization;
+using Common;
 
 namespace CAS.Areas.Admin.Controllers
 {
@@ -60,7 +61,10 @@ namespace CAS.Areas.Admin.Controllers
             {
                 var dao = new ProductDao();
                 entity.CreateDate = DateTime.Now;
-
+                if (string.IsNullOrEmpty(entity.Metatitle))
+                {
+                    entity.Metatitle = StringHelper.ToUnsignString(entity.Name);
+                }
                 if (entity.MoreImages != null)
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -95,8 +99,11 @@ namespace CAS.Areas.Admin.Controllers
             {
                 var dao = new ProductDao();
                 entity.ModifiedDate = DateTime.Now;
-
-                if(entity.MoreImages!=null)
+                if (string.IsNullOrEmpty(entity.Metatitle))
+                {
+                    entity.Metatitle = StringHelper.ToUnsignString(entity.Name);
+                }
+                if (entity.MoreImages!=null)
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     var listimages = serializer.Deserialize<List<string>>(entity.MoreImages);

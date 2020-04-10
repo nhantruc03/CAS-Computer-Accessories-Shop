@@ -93,7 +93,7 @@
                                 <div class="col-md-4 product-men mt-5">
                                     <div class="men-pro-item simpleCart_shelfItem">
                                         <div class="men-thumb-item text-center">
-                                            <img src="@item.Image" alt="@item.Name" style="width:194px; height: auto;">
+                                            <img src="@item.Image" alt="@item.Name" @*sizes="(max-width: 300px) 100vw, 300px"*@ style="width:200px; height: 200px;">
                                             <div class="men-cart-pro">
                                                 <div class="inner-men-cart-pro">
                                                     <a href="@url" class="link-product-add-cart">Chi tiết</a>
@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="item-info-product text-center border-top mt-4">
                                             <h4 class="pt-1">
-                                                <a href="single.html">@item.Name</a>
+                                                <a href="@url">@item.Name</a>
                                             </h4>
                                             <div class="info-product-price my-2">
 

@@ -18,10 +18,17 @@ namespace CAS
 
             routes.MapRoute(
                name: "Product Category",
-               url: "san-pham/{metatitle}-{id}",
+               url: "danh-muc-san-pham/{metatitle}-{id}",
                defaults: new { controller = "Product", action = "Category", id = UrlParameter.Optional },
                namespaces: new[] { "CAS.Controllers" }
            );
+
+            routes.MapRoute(
+              name: "Product Category Child",
+              url: "danh-muc-san-pham-con/{metatitle}-{id}",
+              defaults: new { controller = "Product", action = "ChildCategory", id = UrlParameter.Optional },
+              namespaces: new[] { "CAS.Controllers" }
+          );
 
             routes.MapRoute(
                name: "Product Detail",
@@ -57,6 +64,13 @@ namespace CAS
               defaults: new { controller = "User", action = "Register", id = UrlParameter.Optional },
               namespaces: new[] { "CAS.Controllers" }
           );
+
+            routes.MapRoute(
+            name: "Logout",
+            url: "dang-xuat",
+            defaults: new { controller = "User", action = "LogOut", id = UrlParameter.Optional },
+            namespaces: new[] { "CAS.Controllers" }
+        );
 
             routes.MapRoute(
             name: "Search",

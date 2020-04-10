@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Model.Dao;
 using Model.EF;
 using Common;
+using CAS.Areas.Admin.Models;
 namespace CAS.Areas.Admin.Controllers
 {
     public class ProductCategoryController : Controller
@@ -13,13 +14,14 @@ namespace CAS.Areas.Admin.Controllers
         // GET: Admin/ProductCategory
         public ActionResult Index()
         {
-            var list = new ProductCategoryDao().ListAll();
+            var list = new MPC_ProductCat_ProductCat().ListAll();
             return View(list);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
+            SetViewBag();
             return View();
         }
 
@@ -28,7 +30,7 @@ namespace CAS.Areas.Admin.Controllers
         {
             var dao = new ProductCategoryDao();
             var item = dao.GetByID(id);
-
+            SetViewBag(item.ParentID);
             return View(item);
         }
 
@@ -57,6 +59,7 @@ namespace CAS.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Thêm danh mục sản phẩm thất bại");
                 }
             }
+            SetViewBag();
             return View("Create");
         }
 
@@ -81,6 +84,7 @@ namespace CAS.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Cập nhật danh mục sản phẩm thất bại");
                 }
             }
+            SetViewBag();
             return View("Edit");
         }
 
@@ -100,6 +104,12 @@ namespace CAS.Areas.Admin.Controllers
             {
                 status = result
             });
+        }
+
+        public void SetViewBag(long? selectedID = null)
+        {
+            var dao = new ProductCategoryDao();
+            ViewBag.ParentID = new SelectList(dao.ListAllParentID(), "ID", "Name", selectedID);
         }
     }
 }
