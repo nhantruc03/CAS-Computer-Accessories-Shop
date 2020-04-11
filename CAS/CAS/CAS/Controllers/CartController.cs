@@ -24,6 +24,86 @@ namespace CAS.Controllers
             return View(list);
         }
 
+        public JsonResult AddToCart(long productID, int quantity)
+        {
+            bool alreadyhave = false;
+            int itemquantity = 0;
+            var product = new ProductDao().GetById(productID);
+            var cart = Session[CommonConstants.CartSession];
+            if (cart != null)
+            {
+                var list = (List<CartItem>)cart;
+                if (list.Exists(x => x.Product.ID == productID))
+                {
+                    alreadyhave = true;
+                }
+                else
+                {
+                    // Tạo mới item
+                    var item = new CartItem();
+                    item.Product = product;
+                    item.Quantity = quantity;
+                    itemquantity = item.Quantity;
+                    list.Add(item);
+                }
+                Session[CommonConstants.CartSession] = list;
+
+            }
+            else
+            {
+                // Tạo mới item
+                var item = new CartItem();
+                item.Product = product;
+                item.Quantity = quantity;
+                var list = new List<CartItem>();
+                list.Add(item);
+                itemquantity = item.Quantity;
+                // Gán session
+                Session[CommonConstants.CartSession] = list;
+            }
+            var itemcount = (List<CartItem>)Session[CommonConstants.CartSession];
+            var price = product.Price;
+            if(product.PromotionPrice.HasValue)
+            {
+                price = product.PromotionPrice;
+            }
+            return Json(new
+            {
+                count = itemcount.Count(),
+                status = true,
+                entity = product,
+                quantity = itemquantity,
+                promoPrice = product.PromotionPrice.GetValueOrDefault(0).ToString("N0"),
+                Price = price.GetValueOrDefault(0).ToString("N0"),
+                lastPrice = (price * itemquantity).GetValueOrDefault(0).ToString("N0"),
+                alrhave = alreadyhave
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public JsonResult UpdateFromCart(string cartModel)
+        {
+            var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
+            var sessionCart = (List<CartItem>)Session[CommonConstants.CartSession];
+            if (sessionCart != null)
+            {
+                foreach (var item in sessionCart)
+                {
+                    var jsonItem = jsonCart.SingleOrDefault(x => x.Product.ID == item.Product.ID);
+                    if (jsonItem != null)
+                    {
+                        item.Quantity = jsonItem.Quantity;
+                    }
+                }
+                Session[CommonConstants.CartSession] = sessionCart;
+            }
+            return Json(new
+            {
+                status = true
+            });
+        }
+
         public ActionResult Additem(long productID, int quantity)
         {
             var product = new ProductDao().GetById(productID);
@@ -66,6 +146,7 @@ namespace CAS.Controllers
             return RedirectToAction("Index");
         }
 
+
         public JsonResult Update(string cartModel)
         {
             var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
@@ -97,7 +178,7 @@ namespace CAS.Controllers
 
         public JsonResult Delete(long id)
         {
-            var sessionCart=(List<CartItem>)Session[CommonConstants.CartSession];
+            var sessionCart = (List<CartItem>)Session[CommonConstants.CartSession];
             sessionCart.RemoveAll(x => x.Product.ID == id);
             Session[CommonConstants.CartSession] = sessionCart;
             return Json(new
@@ -109,52 +190,76 @@ namespace CAS.Controllers
         [HttpGet]
         public ActionResult Payment()
         {
-            var cart = Session[CommonConstants.CartSession];
-            var list = new List<CartItem>();
-            if (cart != null)
+            if (Session[CommonConstants.USER_SESSION] == null)
             {
-                list = (List<CartItem>)cart;
+                //ViewBag.ErrorMessage = "Bạn cần phải đăng nhập";
+                //var cart = Session[CommonConstants.CartSession];
+                //var list = new List<CartItem>();
+                //if (cart != null)
+                //{
+                //    list = (List<CartItem>)cart;
+                //}
+                //return View(list);
+                return Content("<script language='javascript' type='text/javascript'>alert('Bạn cần phải đăng nhập!');  window.location.href = '/dang-nhap'</script>");
             }
-            return View(list);
+            else
+            {
+                var cart = Session[CommonConstants.CartSession];
+                var list = new List<CartItem>();
+                if (cart != null)
+                {
+                    list = (List<CartItem>)cart;
+                }
+                return View(list);
+            }
         }
 
         [HttpPost]
         public ActionResult Payment(string shipName, string mobile, string address, string email)
         {
-            var order = new Order();
-            order.CreateDate = DateTime.Now;
-            order.ShipName = shipName;
-            order.ShipMobile = mobile;
-            order.ShipAddress = address;
-            order.ShipEmail = email;
+            if(Session[CommonConstants.USER_SESSION] == null)
+            {
+                return Content("<script language='javascript' type='text/javascript'>alert('Bạn cần phải đăng nhập!');  window.location.href = '/dang-nhap'</script>");
+            }
+            else
+            {
+                var order = new Order();
+                var user = (UserLogin)Session[CommonConstants.USER_SESSION];
+                order.CustomerID = user.UserID;
+                order.CreateDate = DateTime.Now;
+                order.ShipName = shipName;
+                order.ShipMobile = mobile;
+                order.ShipAddress = address;
+                order.ShipEmail = email;
 
-            try
-            {
-                var id = new OrderDao().Insert(order);
-                var cart = (List<CartItem>)Session[CommonConstants.CartSession];
-                var detailDao = new OrderDetailDao();
-                foreach (var item in cart)
+                try
                 {
-                    var orderDetail = new OrderDetail();
-                    orderDetail.ProductID = item.Product.ID;
-                    orderDetail.OrderID = id;
-                    if (item.Product.PromotionPrice.HasValue)
+                    var id = new OrderDao().Insert(order);
+                    var cart = (List<CartItem>)Session[CommonConstants.CartSession];
+                    var detailDao = new OrderDetailDao();
+                    foreach (var item in cart)
                     {
-                        orderDetail.Price = item.Product.PromotionPrice;
+                        var orderDetail = new OrderDetail();
+                        orderDetail.ProductID = item.Product.ID;
+                        orderDetail.OrderID = id;
+                        if (item.Product.PromotionPrice.HasValue)
+                        {
+                            orderDetail.Price = item.Product.PromotionPrice;
+                        }
+                        else
+                        {
+                            orderDetail.Price = item.Product.Price;
+                        }
+                        orderDetail.Quantity = item.Quantity;
+                        detailDao.Insert(orderDetail);
                     }
-                    else
-                    {
-                        orderDetail.Price = item.Product.Price;
-                    }
-                    orderDetail.Quantity = item.Quantity;
-                    detailDao.Insert(orderDetail);
                 }
+                catch (Exception)
+                {
+                    return Redirect("/loi-thanh-toan");
+                }
+                return Redirect("/hoan-thanh");
             }
-            catch(Exception)
-            {
-                return Redirect("/loi-thanh-toan");
-            }
-            return Redirect("/hoan-thanh");
         }
 
         public ActionResult Success()

@@ -3,4 +3,3 @@ D:\CAS-Computer Accessories Shop\CAS\CAS\Common\bin\Debug\Common.pdb
 D:\CAS-Computer Accessories Shop\CAS\CAS\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 D:\CAS-Computer Accessories Shop\CAS\CAS\Common\obj\Debug\Common.dll
 D:\CAS-Computer Accessories Shop\CAS\CAS\Common\obj\Debug\Common.pdb
-D:\CAS-Computer Accessories Shop\CAS\CAS\Common\obj\Debug\Common.csprojAssemblyReference.cache

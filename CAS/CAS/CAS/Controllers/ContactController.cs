@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Common;
 using Model.Dao;
 using Model.EF;
 namespace CAS.Controllers
@@ -12,9 +13,15 @@ namespace CAS.Controllers
         // GET: Contact
         public ActionResult Index()
         {
-            var contact = new ContactDao().GetContact();
-
-            return View(contact);
+            if (Session[CommonConstants.USER_SESSION] == null)
+            {
+                return Content("<script language='javascript' type='text/javascript'>alert('Bạn cần phải đăng nhập!');  window.location.href = '/dang-nhap'</script>");
+            }
+            else
+            {
+                var contact = new ContactDao().GetContact();
+                return View(contact);
+            }
         }
 
 

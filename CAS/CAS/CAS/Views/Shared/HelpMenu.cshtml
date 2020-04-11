@@ -1,4 +1,7 @@
 ﻿@model List<CAS.Models.CartItem>
+
+
+
 <div class="container">
     <div class="row header-bot_inner_wthreeinfo_header_mid">
         <!-- logo -->
@@ -22,12 +25,21 @@
                 </div>
                 <!-- //search -->
                 <!-- cart details -->
-                <div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
-                    <p>
-                        <span>Giỏ hàng:</span>
-                        @Model.Count sản phẩm
-                    </p>
+                @*<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
+                        <p>
+                            <span>Giỏ hàng:</span>
+                            @Model.Count sản phẩm
+                        </p>
+                    </div>*@
+
+                <div class=" top_nav_right text-center mt-sm-0 mt-2">
+                    <div data-toggle="modal" data-target="#mycart">
+                        <button class="btn" type="submit" name="submit" value="" style="background-color:black;color:white">
+                            <i id="itemcount" class=" fas fa-cart-arrow-down">(@Model.Count)</i>
+                        </button>
+                    </div>
                 </div>
+
                 @*<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
                         <div class="wthreecartaits wthreecartaits2 cart cart box_1">
                             <form action="#" method="post" class="last">
@@ -42,5 +54,60 @@
                 <!-- //cart details -->
             </div>
         </div>
+    </div>
+</div>
+<div id="mycart" class="modal fade modal-lg" tabindex="-1" aria-hidden="true" role="dialog" style="margin:auto">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1> Giỏ Hàng</h1>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Tên SP</td>
+                            <td>Ảnh SP</td>
+                            <td>Số lượng</td>
+                            <td>Đơn giá</td>
+                            <td>Thành tiền</td>
+                        </tr>
+                    </thead>
+                    <tbody class="iteminminicart">
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="max-width:10px">@item.Product.Descriptions</td>
+                                <td><img src="@item.Product.Image" width="100" /></td>
+                                @*<td><input type="number" class="txtQuantityFromMiniCart text-wrap text-wrap" data-id="@item.Product.ID" value="@item.Quantity" readonly/></td>*@
+                                <td><a class="txtQuantityFromMiniCart" data-id="@item.Product.ID">@item.Quantity</a></td>
+                                @if (item.Product.PromotionPrice.HasValue)
+                                {
+                                    <td>@(item.Product.PromotionPrice.GetValueOrDefault(0).ToString("N0"))</td>
+                                    <td>@((item.Product.PromotionPrice.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
+                                }
+                                else
+                                {
+                                    <td>@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
+                                    <td>@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <a href="/gio-hang" style="color:black" id="btnUpdateFromMiniCart" class="btn btn-default">Chi tiết giỏ hàng</a>
+                <a id="btnDeleteAllFromMiniCart" class="btn btn-default">Xóa tất cả</a>
+                <a id="btnPaymentFromMiniCart" class="btn btn-default">Thanh toán</a>
+                <a class="btn btn-default" data-dismiss="modal">Đóng</a>
+            </div>
+        </div>
+
     </div>
 </div>

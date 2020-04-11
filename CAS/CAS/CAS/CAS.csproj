@@ -2871,6 +2871,7 @@
     <Content Include="Assets\Client\js\controller\baseController.js" />
     <Content Include="Assets\Client\js\controller\cartcontroller.js" />
     <Content Include="Assets\Client\js\controller\contactController.js" />
+    <Content Include="Assets\Client\js\controller\minicartController.js" />
     <Content Include="Assets\Client\js\creditly.js" />
     <Content Include="Assets\Client\js\creditly2.js" />
     <Content Include="Assets\Client\js\easing.js" />

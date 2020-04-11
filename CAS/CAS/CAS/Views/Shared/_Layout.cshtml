@@ -123,7 +123,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <h2 class="footer-top-head-w3l font-weight-bold mb-2">CAS :</h2>
                 <p class="footer-main mb-4">
                     Computer Accessories Shop - Nơi bạn có thể dễ dàng tìm kiếm những linh kiện máy tính chất nhất, mới nhất, xịn xò nhất và
-                    phù hợp với túi tiền của bạn nhất. Từ CPU, VGA, ... đến chuột, bàn phím. 
+                    phù hợp với túi tiền của bạn nhất. Từ CPU, VGA, ... đến chuột, bàn phím.
                     <br />
                     Từ kinh nghiệm nhiều năm, chúng tôi - CAS cam kết luôn uy tín và luôn giành những gì tốt nhất cho khách hàng của mình.
                 </p>
@@ -583,7 +583,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </script>
     <!-- //popup modal (for location)-->
     <!-- cart-js -->
-    <script src="/Assets/Client/js/minicart.js"></script>
+    @*<script src="/Assets/Client/js/controller/cartcontroller.js"></script>*@
+    @*<script src="/Assets/Client/js/minicart.js"></script>
     <script>
         paypals.minicarts.render(); //use only unique class names other than paypals.minicarts.Also Replace same class name in css and minicart.min.js
 
@@ -603,7 +604,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 evt.preventDefault();
             }
         });
-    </script>
+    </script>*@
     <!-- //cart-js -->
     <!-- password-script -->
     <script>
@@ -676,6 +677,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     @*<link href="/Assets/Client/css/fontawesome-all.css" rel="stylesheet" />*@
     <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="/Assets/Client/js/controller/baseController.js"></script>
+
+    <script src="/Assets/Client/js/controller/minicartController.js"></script>
+
 
     @RenderSection("jsFooter", required: false)
 </body>

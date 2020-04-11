@@ -7,7 +7,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="services-breadcrumb">
     <div class="agile_inner_breadcrumb">
         <div class="container">
@@ -54,7 +53,7 @@
                                     </div>
                                     <div class="item-info-product text-center border-top mt-4">
                                         <h4 class="pt-1">
-                                            <a href="@url">@item.product.Name</a>
+                                            <a href="@url" style="font-size: 2.5vh">@item.product.Name</a>
                                         </h4>
                                         <div class="info-product-price my-2">
 
@@ -68,29 +67,7 @@
                                                 <span class="item_price">@(item.product.Price.HasValue ? item.product.Price.Value.ToString("N0") : "Liên hệ")</span>
                                             }
                                         </div>
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="@item.product.Name" />
-                                                    @if (item.product.PromotionPrice.HasValue)
-                                                    {
-                                                        <input type="hidden" name="amount" value=@item.product.PromotionPrice />
-                                                    }
-                                                    else
-                                                    {
-                                                        <input type="hidden" name="amount" value=@item.product.Price />
-                                                    }
-                                                    <input type="hidden" name="discount_amount" value="0.00" />
-                                                    <input type="hidden" name="currency_code" value="VND" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Thêm vào giỏ" class="button btn" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
+                                        <button class="btnAddToCart btn button2" data-id="@item.product.ID">Thêm vào giỏ hàng</button>
                                     </div>
                                 </div>
                             </div>
@@ -155,14 +132,14 @@
                             <input type="search" placeholder="Search Brand..." name="search" required="">
                             <input type="submit" value=" ">
                         </form>
-                        <div class="left-side py-2" >
+                        <div class="left-side py-2">
                             <ul>
                                 @foreach (var item in listproductCat)
                                 {
-                                <li class="nav-item">
-                                    <a class="nav-link" style="color:black" href="/danh-muc-san-pham/@item.MetaTitle-@item.ID"> @item.Name</a>
-                                    <span class="sr-only"></span>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" style="color:black" href="/danh-muc-san-pham/@item.MetaTitle-@item.ID"> @item.Name</a>
+                                        <span class="sr-only"></span>
+                                    </li>
                                 }
                             </ul>
                         </div>

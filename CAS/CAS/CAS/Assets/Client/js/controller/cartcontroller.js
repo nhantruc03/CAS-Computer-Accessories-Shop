@@ -3,6 +3,8 @@
         cart.regEvents();
     },
     regEvents: function () {
+     
+        // from cart page
         $('#btnContinue').off('click').on('click', function () {
             window.location.href = "/";
         });
