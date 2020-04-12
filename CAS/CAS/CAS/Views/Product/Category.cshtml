@@ -6,7 +6,11 @@
     ViewBag.Title = productCat.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<style>
+    .filter {
+        font-weight: bold;
+    }
+</style>
 <div class="services-breadcrumb">
     <div class="agile_inner_breadcrumb">
         <div class="container">
@@ -37,43 +41,52 @@
                 <div class="wrapper">
                     <!-- first section -->
                     <div class="row">
-                        @foreach (var item in Model)
+                        @if (ViewBag.total > 0)
                         {
-                            var url = "/chi-tiet/" + item.product.Metatitle + "-" + item.product.ID;
-                            <div class="col-md-4 product-men mt-5">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item text-center">
-                                        <img src="@item.product.Image" alt="@item.product.Name" style="width:200px; height: 200px;">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="@url" class="link-product-add-cart">Chi tiết</a>
-                                            </div>
-                                        </div>
-                                        @*<span class="product-new-top">New</span>*@
-                                    </div>
-                                    <div class="item-info-product text-center border-top mt-4">
-                                        <h4 class="pt-1">
-                                            <a href="@url" style="font-size: 2.5vh">@item.product.Name</a>
-                                        </h4>
-                                        <div class="info-product-price my-2">
 
-                                            @if (item.product.PromotionPrice.HasValue)
-                                            {
-                                                <span class="item_price">@item.product.PromotionPrice.Value.ToString("N0")</span>
-                                                <del>@item.product.Price.Value.ToString("N0")</del>
-                                            }
-                                            else
-                                            {
-                                                <span class="item_price">@(item.product.Price.HasValue ? item.product.Price.Value.ToString("N0") : "Liên hệ")</span>
-                                            }
+                            foreach (var item in Model)
+                            {
+                                var url = "/chi-tiet/" + item.product.Metatitle + "-" + item.product.ID;
+                                <div class="col-md-4 product-men mt-5">
+                                    <div class="men-pro-item simpleCart_shelfItem">
+                                        <div class="men-thumb-item text-center">
+                                            <img src="@item.product.Image" alt="@item.product.Name" style="width:200px; height: 200px;">
+                                            <div class="men-cart-pro">
+                                                <div class="inner-men-cart-pro">
+                                                    <a href="@url" class="link-product-add-cart">Chi tiết</a>
+                                                </div>
+                                            </div>
+                                            @*<span class="product-new-top">New</span>*@
                                         </div>
-                                        <button class="btnAddToCart btn button2" data-id="@item.product.ID">Thêm vào giỏ hàng</button>
+                                        <div class="item-info-product text-center border-top mt-4">
+                                            <h4 class="pt-1">
+                                                <a href="@url">    @(item.product.Name.Length <= 45 ? item.product.Name : item.product.Name.Substring(0, 45) + "...")</a>
+                                            </h4>
+                                            <div class="info-product-price my-2">
+
+                                                @if (item.product.PromotionPrice.HasValue)
+                                                {
+                                                    <span class="item_price">@item.product.PromotionPrice.Value.ToString("N0")₫</span>
+                                                    <del>@item.product.Price.Value.ToString("N0")₫</del>
+                                                }
+                                                else
+                                                {
+                                                    <span class="item_price">@(item.product.Price.HasValue ? item.product.Price.Value.ToString("N0")+"₫" : "Liên hệ")</span>
+                                                }
+                                            </div>
+                                            <button class="btnAddToCart btn button2" data-id="@item.product.ID">Thêm vào giỏ hàng</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
+
+
+                        }
+                        else
+                        {
+                            <span class="alert alert-danger col-12 text-center">Không có sản phẩm phù hợp</span>
                         }
                     </div>
-
                     <!-- //first section -->
                     <!--Phân trang-->
                     @if (ViewBag.totalpage > 1)
@@ -84,14 +97,27 @@
 
                         var startpageindex = Math.Max(1, currentpage - pageDisplay / 2);
                         var endpageindex = Math.Min(totalpage, currentpage + pageDisplay / 2);
-
-                        var link = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID;
+                        string link = "";
+                        if (ViewBag.filter == true && ViewBag.onsale == false)
+                        {
+                            link = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID + "?filter=true&min=" + ViewBag.minprice + "&max=" + ViewBag.maxprice;
+                        }
+                        else if (ViewBag.filter == true && ViewBag.onsal == true)
+                        {
+                            link = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID + "?filter=true&onsale=" + ViewBag.onsale;
+                        }
+                        else
+                        {
+                            link = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID;
+                        }
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg pt-4">
                                 @if (currentpage > ViewBag.first)
                                 {
-                                    <li class="page-item"><a href="@link?page=@ViewBag.first" title="Trang đầu" class="page-link"><i class="fa fa-angle-double-left"></i></a></li>
-                                    <li class="page-item"> <a href="@link?page=@ViewBag.prev" title="Trang trước" class="page-link"><i class="fa fa-angle-left"></i></a></li>
+                                    <li class="page-item"><a href="@link&page=@ViewBag.first" title="Trang đầu" class="page-link"><i class="fa fa-angle-double-left"></i></a></li>
+                                    <li class="page-item"> <a href="@link&page=@ViewBag.prev" title="Trang trước" class="page-link"><i class="fa fa-angle-left"></i></a></li>
+
+
                                 }
                                 @for (int i = startpageindex; i <= endpageindex; i++)
                                 {
@@ -103,22 +129,23 @@
                                     }
                                     else
                                     {
-                                        <li class="page-item"><a href="@link?page=@i" class="page-link" title="Trang @i">@i</a></li>
+                                        <li class="page-item"><a href="@link&page=@i" class="page-link" title="Trang @i">@i</a></li>
+
+
                                     }
 
                                 }
                                 @if (currentpage < totalpage)
                                 {
-                                    <li class="page-item"><a href="@link?page=@ViewBag.next" class="page-link" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
-                                    <li class="page-item"> <a href="@link?page=@ViewBag.last" class="page-link" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
+                                    <li class="page-item"><a href="@link&page=@ViewBag.next" class="page-link" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
+                                    <li class="page-item"> <a href="@link&page=@ViewBag.last" class="page-link" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
+
+
                                 }
                             </ul>
                         </nav>
                     }
-                    else
-                    {
 
-                    }
                     <!--//Phân trang-->
                 </div>
             </div>
@@ -148,25 +175,34 @@
                     <div class="range border-bottom py-2">
                         <h3 class="agileits-sear-head mb-3">Price</h3>
                         <div class="w3l-range">
+
                             <ul>
-                                <li>
-                                    <a href="#">Under $1,000</a>
-                                </li>
-                                <li class="my-1">
-                                    <a href="#">$1,000 - $5,000</a>
-                                </li>
-                                <li>
-                                    <a href="#">$5,000 - $10,000</a>
-                                </li>
-                                <li class="my-1">
-                                    <a href="#">$10,000 - $20,000</a>
-                                </li>
-                                <li>
-                                    <a href="#">$20,000 $30,000</a>
-                                </li>
-                                <li class="mt-1">
-                                    <a href="#">Over $30,000</a>
-                                </li>
+                                @{
+                                    var filter_url = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID;
+
+                                    <li>
+                                        <a class="filter" href="@filter_url?filter=true&min=0&max=2000000">Dưới 2 triệu</a>
+                                    </li>
+                                    <li class="my-1">
+                                        <a class="filter" href="@filter_url?filter=true&min=2000000&max=5000000">Từ 2 - 5 triệu</a>
+                                    </li>
+                                    <li>
+                                        <a class="filter" href="@filter_url?filter=true&min=5000000&max=10000000">Từ 5 - 10 triệu</a>
+                                    </li>
+                                    <li class="my-1">
+                                        <a class="filter" href="@filter_url?filter=true&min=10000000&max=20000000">Từ 10 - 20 triệu</a>
+                                    </li>
+                                    <li>
+                                        <a class="filter" href="@filter_url?filter=true&min=20000000&max=30000000">Từ 20 - 30 triệu</a>
+                                    </li>
+                                    <li class="mt-1">
+                                        <a class="filter" href="@filter_url?filter=true&min=30000000&max=99999999999999999999999999999999999999">Trên 30 triệu</a>
+                                    </li>
+                                    <li>
+                                        <a class="filter" href="@filter_url?filter=true&onsale=true" style="color:red;">*Đang giảm giá*</a>
+                                    </li>
+                                }
+
                             </ul>
                         </div>
                     </div>

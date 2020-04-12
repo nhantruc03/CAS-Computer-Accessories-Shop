@@ -73,6 +73,13 @@ namespace CAS
         );
 
             routes.MapRoute(
+            name: "OnSale",
+            url: "giam-gia",
+            defaults: new { controller = "Product", action = "OnSale", id = UrlParameter.Optional },
+            namespaces: new[] { "CAS.Controllers" }
+        );
+
+            routes.MapRoute(
              name: "Cart",
              url: "gio-hang",
              defaults: new { controller = "Cart", action = "Index", id = UrlParameter.Optional },
@@ -92,13 +99,6 @@ namespace CAS
             defaults: new { controller = "Cart", action = "Success", id = UrlParameter.Optional },
             namespaces: new[] { "CAS.Controllers" }
         );
-
-            //    routes.MapRoute(
-            //    name: "Payment",
-            //    url: "loi-thanh-toan",
-            //    defaults: new { controller = "Cart", action = "Fail", id = UrlParameter.Optional },
-            //    namespaces: new[] { "CAS.Controllers" }
-            //);
 
             routes.MapRoute(
               name: "Add To Cart",

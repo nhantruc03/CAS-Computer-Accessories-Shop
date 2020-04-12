@@ -11,7 +11,7 @@
     <script src="/Assets/Client/js/jquery.flexslider.js"></script>
     <script>
         // Can also be used with $(document).ready()
-       
+
         $(window).load( function () {
             var data = @Html.Raw(Json.Encode(ViewBag.listimage));
             var html = '';
@@ -70,10 +70,10 @@
                     <div class="flexslider">
                         <ul class="slides" id="imageList">
                             @*<li data-thumb="/Data//Assets/Client/images/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg">
-                                <div class="thumb-image">
-                                    <img src="/Data//Assets/Client/images/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg" data-imagezoom="true" class="img-fluid" alt="">
-                                </div>
-                            </li>*@
+                                    <div class="thumb-image">
+                                        <img src="/Data//Assets/Client/images/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg" data-imagezoom="true" class="img-fluid" alt="">
+                                    </div>
+                                </li>*@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -85,12 +85,12 @@
                 <p class="mb-3">
                     @if (@Model.PromotionPrice.HasValue)
                     {
-                        <span class="item_price">@Model.PromotionPrice.Value.ToString("N0")</span>
-                        <del class="mx-2 font-weight-light">@Model.Price.Value.ToString("N0")</del>
+                        <span class="item_price">@Model.PromotionPrice.Value.ToString("N0")₫</span>
+                        <del class="mx-2 font-weight-light">@Model.Price.Value.ToString("N0")₫</del>
                     }
                     else
                     {
-                        <span class="item_price">@Model.Price.Value.ToString("N0")</span>
+                        <span class="item_price">@Model.Price.Value.ToString("N0")₫</span>
                     }
 
 

@@ -67,6 +67,14 @@ namespace Model.Dao
             return model;
         }
 
+        public List<Product> ListAllOnSale( ref int totalRecord, int pageIndex, int pageSize)
+        {
+            totalRecord = db.Products.Where(x => x.Status == true && x.PromotionPrice != null).Count();
+            var model = db.Products.Where(x => x.Status == true && x.PromotionPrice != null).OrderByDescending(x => x.CreateDate).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+            return model;
+        }
+
         public List<Product> ListNewProduct(int top)
         {
             return db.Products.Where(x => x.Status == true).OrderByDescending(x => x.CreateDate).Take(top).ToList();

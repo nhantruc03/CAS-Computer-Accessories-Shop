@@ -59,5 +59,12 @@ namespace CAS.Areas.Admin.Controllers
             }
             return View("Index");
         }
+
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            Session[CommonConstants.USER_SESSION] = null;
+            return RedirectToAction("Index");
+        }
     }
 }

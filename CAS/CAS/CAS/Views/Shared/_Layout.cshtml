@@ -535,8 +535,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="copy-right py-3">
         <div class="container">
             <p class="text-center text-white">
-                © 2018 Electro Store. All rights reserved | Design by
-                <a href="http://w3layouts.com"> W3layouts.</a>
+                <!--text-->
             </p>
         </div>
     </div>
@@ -583,28 +582,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </script>
     <!-- //popup modal (for location)-->
     <!-- cart-js -->
-    @*<script src="/Assets/Client/js/controller/cartcontroller.js"></script>*@
-    @*<script src="/Assets/Client/js/minicart.js"></script>
-    <script>
-        paypals.minicarts.render(); //use only unique class names other than paypals.minicarts.Also Replace same class name in css and minicart.min.js
-
-        paypals.minicarts.cart.on('checkout', function (evt) {
-            var items = this.items(),
-                len = items.length,
-                total = 0,
-                i;
-
-            // Count the number of each item in the cart
-            for (i = 0; i < len; i++) {
-                total += items[i].get('quantity');
-            }
-
-            if (total < 3) {
-                alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-                evt.preventDefault();
-            }
-        });
-    </script>*@
+    <script src="/Assets/Client/js/controller/minicartController.js"></script>
     <!-- //cart-js -->
     <!-- password-script -->
     <script>
@@ -678,7 +656,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="/Assets/Client/js/controller/baseController.js"></script>
 
-    <script src="/Assets/Client/js/controller/minicartController.js"></script>
+
 
 
     @RenderSection("jsFooter", required: false)

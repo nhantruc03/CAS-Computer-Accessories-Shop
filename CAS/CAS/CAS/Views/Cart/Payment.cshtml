@@ -45,15 +45,15 @@
                                 @if (item.Product.PromotionPrice.HasValue)
                                 {
 
-                                    <td>@(item.Product.PromotionPrice.GetValueOrDefault(0).ToString("N0"))</td>
-                                    <td>@((item.Product.PromotionPrice.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
+                                    <td>@(item.Product.PromotionPrice.GetValueOrDefault(0).ToString("N0"))₫</td>
+                                    <td>@((item.Product.PromotionPrice.GetValueOrDefault(0) * item.Quantity).ToString("N0"))₫</td>
                                     sum += item.Product.PromotionPrice.Value * item.Quantity;
                                 }
                                 else
                                 {
 
-                                    <td>@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
-                                    <td>@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
+                                    <td>@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))₫</td>
+                                    <td>@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))₫</td>
                                     sum += item.Product.Price.Value * item.Quantity;
                                 }
                             </tr>
@@ -63,7 +63,7 @@
 
                 <hr />
                 <div class="section group">
-                    <h2 style="float:right">Tổng tiền: @sum.ToString("N0")</h2>
+                    <h2 style="float:right">Tổng tiền: @sum.ToString("N0")₫</h2>
                     <div class="clearfix"></div>
                 </div>
                 <br />
