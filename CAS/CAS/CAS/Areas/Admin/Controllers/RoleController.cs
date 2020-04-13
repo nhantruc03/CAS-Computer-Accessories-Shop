@@ -7,7 +7,7 @@ using Model.Dao;
 using Model.EF;
 namespace CAS.Areas.Admin.Controllers
 {
-    public class RoleController : Controller
+    public class RoleController : BaseController
     {
         // GET: Admin/Role
         public ActionResult Index()

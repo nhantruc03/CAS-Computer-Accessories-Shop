@@ -64,29 +64,14 @@
                                             <span class="item_price">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "Liên hệ")</span>
                                         }
                                     </div>
-                                    <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                        <form action="#" method="post">
-                                            <fieldset>
-                                                <input type="hidden" name="cmd" value="_cart" />
-                                                <input type="hidden" name="add" value="1" />
-                                                <input type="hidden" name="business" value=" " />
-                                                <input type="hidden" name="item_name" value="@item.Name" />
-                                                @if (item.PromotionPrice.HasValue)
-                                                {
-                                                    <input type="hidden" name="amount" value=@item.PromotionPrice />
-                                                }
-                                                else
-                                                {
-                                                    <input type="hidden" name="amount" value=@item.Price />
-                                                }
-                                                <input type="hidden" name="discount_amount" value="0.00" />
-                                                <input type="hidden" name="currency_code" value="VND" />
-                                                <input type="hidden" name="return" value=" " />
-                                                <input type="hidden" name="cancel_return" value=" " />
-                                                <input type="submit" name="submit" value="Thêm vào giỏ" class="button btn" />
-                                            </fieldset>
-                                        </form>
-                                    </div>
+                                    @if (item.Quantity > 0)
+                                    {
+                                        <button class="btnAddToCart btn button2" data-id="@item.ID">Thêm vào giỏ hàng</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn button2" style="background-color:red">Hết hàng</button>
+                                    }
                                 </div>
                             </div>
                         </div>

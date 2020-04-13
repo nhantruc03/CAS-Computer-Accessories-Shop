@@ -115,10 +115,17 @@
                                                 }
                                                 else
                                                 {
-                                                    <span class="item_price">@(item.Price.HasValue ? item.Price.Value.ToString("N0")+"₫" : "Liên hệ")</span>
+                                                    <span class="item_price">@(item.Price.HasValue ? item.Price.Value.ToString("N0") + "₫" : "Liên hệ")</span>
                                                 }
                                             </div>
-                                            <button class="btnAddToCart btn button2" data-id="@item.ID">Thêm vào giỏ hàng</button>
+                                            @if (item.Quantity > 0)
+                                            {
+                                                <button class="btnAddToCart btn button2" data-id="@item.ID">Thêm vào giỏ hàng</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn button2" style="background-color:red" data-id="@item.ID">Hết hàng</button>
+                                            }
                                         </div>
                                     </div>
                                 </div>

@@ -18,13 +18,13 @@ namespace CAS.Controllers
         {
             return View();
         }
-
+        
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult Login(LoginModel entity)
         {
@@ -44,6 +44,7 @@ namespace CAS.Controllers
                 else if (result == 0)
                 {
                     ModelState.AddModelError("", "Tài khoản không tồn tại!");
+               
                 }
                 else if (result == -2)
                 {
@@ -58,7 +59,7 @@ namespace CAS.Controllers
                     ModelState.AddModelError("", "Đăng nhập thất bại!");
                 }
             }
-            return View("Index");
+            return View("Login");
         }
 
         [HttpGet]

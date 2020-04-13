@@ -8,7 +8,7 @@ using Model.EF;
 using CAS.Areas.Admin.Models;
 namespace CAS.Areas.Admin.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : BaseController
     {
         // GET: Admin/Order
         public ActionResult Index()

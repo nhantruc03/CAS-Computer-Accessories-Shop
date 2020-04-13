@@ -7,7 +7,7 @@ using Model.EF;
 using Model.Dao;
 namespace CAS.Areas.Admin.Controllers
 {
-    public class FeedBackController : Controller
+    public class FeedBackController : BaseController
     {
         // GET: Admin/FeedBack
         public ActionResult Index()

@@ -7,7 +7,7 @@ using Model.EF;
 using Model.Dao;
 namespace CAS.Areas.Admin.Controllers
 {
-    public class MenuTypeController : Controller
+    public class MenuTypeController : BaseController
     {
         // GET: Admin/MenuType
         public ActionResult Index(int page = 1, int pagesize = 10)

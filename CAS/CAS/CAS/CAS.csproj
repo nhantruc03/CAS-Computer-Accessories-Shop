@@ -193,6 +193,7 @@
     <Content Include="Assets\Admin\img\undraw_posting_photo.svg" />
     <Content Include="Assets\Admin\js\Controller\contentController.js" />
     <Content Include="Assets\Admin\js\Controller\feedbackController.js" />
+    <Content Include="Assets\Admin\js\Controller\ImageManage.js" />
     <Content Include="Assets\Admin\js\Controller\menuController.js" />
     <Content Include="Assets\Admin\js\Controller\menutypeController.js" />
     <Content Include="Assets\Admin\js\Controller\orderController.js" />

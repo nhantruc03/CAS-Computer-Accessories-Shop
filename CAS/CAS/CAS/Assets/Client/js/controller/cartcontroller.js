@@ -33,6 +33,9 @@
                     if (res.status == true) {
                         window.location.href = "/gio-hang"
                     }
+                    else {
+                        alert("Chỉ còn " + res.curquantity + " sản phẩm " + res.productname);
+                    }
                 }
             })
         });

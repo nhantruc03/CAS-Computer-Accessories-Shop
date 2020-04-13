@@ -7,7 +7,7 @@ using Model.Dao;
 using Model.EF;
 namespace CAS.Areas.Admin.Controllers
 {
-    public class SlideController : Controller
+    public class SlideController : BaseController
     {
         // GET: Admin/Slide
         public ActionResult Index()

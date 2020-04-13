@@ -9,7 +9,7 @@ using Common;
 using CAS.Areas.Admin.Models;
 namespace CAS.Areas.Admin.Controllers
 {
-    public class ProductCategoryController : Controller
+    public class ProductCategoryController : BaseController
     {
         // GET: Admin/ProductCategory
         public ActionResult Index()

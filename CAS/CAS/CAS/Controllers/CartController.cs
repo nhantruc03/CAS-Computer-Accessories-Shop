@@ -157,7 +157,20 @@ namespace CAS.Controllers
                 var jsonItem = jsonCart.SingleOrDefault(x => x.Product.ID == item.Product.ID);
                 if (jsonItem != null)
                 {
-                    item.Quantity = jsonItem.Quantity;
+                    var product = new ProductDao().GetById(jsonItem.Product.ID);
+                    if (product.Quantity >= jsonItem.Quantity)
+                    {
+                        item.Quantity = jsonItem.Quantity;
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            status = false,
+                            productname= product.Name,
+                            curquantity = product.Quantity
+                        });
+                    }
                 }
             }
             Session[CommonConstants.CartSession] = sessionCart;
@@ -192,14 +205,6 @@ namespace CAS.Controllers
         {
             if (Session[CommonConstants.USER_SESSION] == null)
             {
-                //ViewBag.ErrorMessage = "Bạn cần phải đăng nhập";
-                //var cart = Session[CommonConstants.CartSession];
-                //var list = new List<CartItem>();
-                //if (cart != null)
-                //{
-                //    list = (List<CartItem>)cart;
-                //}
-                //return View(list);
                 return Content("<script language='javascript' type='text/javascript'>alert('Bạn cần phải đăng nhập!');  window.location.href = '/dang-nhap'</script>");
             }
             else

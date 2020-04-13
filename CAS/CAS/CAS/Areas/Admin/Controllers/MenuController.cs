@@ -9,7 +9,7 @@ using CAS.Areas.Admin.Models;
 
 namespace CAS.Areas.Admin.Controllers
 {
-    public class MenuController : Controller
+    public class MenuController : BaseController
     {
         // GET: Admin/Menu
         public ActionResult Index()

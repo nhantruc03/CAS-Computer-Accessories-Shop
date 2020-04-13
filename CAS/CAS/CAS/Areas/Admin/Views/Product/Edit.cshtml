@@ -8,45 +8,8 @@
     Cập nhật sản phẩm
 }
 @section jsFooter{
+    <script src="/Assets/Admin/js/Controller/ImageManage.js"></script>
     <script>
-        $('#btnSelectImage').on('click', function (e) {
-            e.preventDefault();
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (url) {
-                var txtimage = document.getElementById('txtImage');
-                if (txtimage.value == "") {
-                    document.getElementById('txtImage').value = url;
-                    $('#imageone').append('<div class="px-2"><img src="' + url + '" width="100"/><a href="#" class="btn-delImages2"><i class="fa fa-times"></i></a><input type="hidden" class="hidImage" value=' + url + '></div>');
-                    $('.btn-delImages2').off('click').on('click', function (e) {
-                        e.preventDefault();
-                        $(this).parent().remove();
-                        document.getElementById('txtImage').value = "";
-                    });
-                }
-                else {
-                    alert("Chỉ được chọn 1 ảnh");
-                }
-            };
-            finder.popup();
-        })
-
-        var editor = CKEDITOR.replace('txtContent', {
-            customConfig: '/Assets/Admin/js/Plugins/ckeditor/config.js'
-        })
-
-        $('#btnSelectListImage').on('click', function (e) {
-            e.preventDefault();
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (url) {
-                $('#imageList').append('<div class="px-2"><img src="' + url + '" width="100"/><a href="#" class="btn-delImages"><i class="fa fa-times"></i></a><input type="hidden" class="hidImage" value=' + url + '></div>');
-                $('.btn-delImages').off('click').on('click', function (e) {
-                    e.preventDefault();
-                    $(this).parent().remove();
-                });
-            };
-            finder.popup();
-        })
-
         $('#btnupdate').off('click').on('click', function (e) {
             var images = [];
             $.each($('#imageList .hidImage'), function (i, item) {
@@ -69,7 +32,7 @@
             });
             var data2 = @Html.Raw(Json.Encode(Model.Image));
             var html2 = '<div class="px-2"><img src="' + data2 + '" width="100"/><a href="#" class="btn-delImages2"><i class="fa fa-times"></i></a><input type="hidden" class="hidImage" value=' + data2 + '></div>';
-           
+
             document.getElementById('txtImage').value = data2;
             $('#imageone').html(html2);
             $('.btn-delImages2').off('click').on('click', function (e) {
@@ -87,9 +50,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <div>
-            <h4>Nhập thông tin sản phẩm</h4>
-        </div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

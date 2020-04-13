@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<CAS.Models.MPC_Product_ProductCategory>
 
 @{
+    
     var listproductCat = ViewBag.listproductcategory;
     var productCat = (Model.EF.ProductCategory)ViewBag.ProductCategory;
     ViewBag.Title = productCat.Name;
@@ -19,9 +20,22 @@
                     <a href="/">Trang chủ</a>
                     <i>|</i>
                 </li>
-                <li>
-                    @productCat.Name
-                </li>
+                @if (ViewBag.filter != true)
+                {
+                    <li>
+                        @productCat.Name
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="/danh-muc-san-pham/@productCat.MetaTitle-@productCat.ID">@productCat.Name</a>
+                        <i>|</i>
+                    </li>
+                    <li>
+                        Bộ lọc
+                    </li>
+                }
             </ul>
         </div>
     </div>
@@ -71,10 +85,17 @@
                                                 }
                                                 else
                                                 {
-                                                    <span class="item_price">@(item.product.Price.HasValue ? item.product.Price.Value.ToString("N0")+"₫" : "Liên hệ")</span>
+                                                    <span class="item_price">@(item.product.Price.HasValue ? item.product.Price.Value.ToString("N0") + "₫" : "Liên hệ")</span>
                                                 }
                                             </div>
-                                            <button class="btnAddToCart btn button2" data-id="@item.product.ID">Thêm vào giỏ hàng</button>
+                                            @if (item.product.Quantity > 0)
+                                            {
+                                                <button class="btnAddToCart btn button2" data-id="@item.product.ID">Thêm vào giỏ hàng</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn button2" style="background-color:red">Hết hàng</button>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -154,11 +175,11 @@
             <div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
                 <div class="side-bar p-sm-4 p-3">
                     <div class="search-hotel border-bottom py-2">
-                        <h3 class="agileits-sear-head mb-3">Brand</h3>
-                        <form action="#" method="post">
+                        <h3 class="agileits-sear-head mb-3">Thương hiệu</h3>
+                        @*<form action="#" method="post">
                             <input type="search" placeholder="Search Brand..." name="search" required="">
                             <input type="submit" value=" ">
-                        </form>
+                        </form>*@
                         <div class="left-side py-2">
                             <ul>
                                 @foreach (var item in listproductCat)

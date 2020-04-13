@@ -10,7 +10,7 @@ using PagedList;
 using CAS.Areas.Admin.Models;
 namespace CAS.Areas.Admin.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         // GET: Admin/User
         [CheckCredential(RoleID ="VIEW_USER")]

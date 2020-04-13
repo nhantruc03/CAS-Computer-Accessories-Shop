@@ -7,7 +7,7 @@ using Model.EF;
 using Model.Dao;
 namespace CAS.Areas.Admin.Controllers
 {
-    public class UserGroupController : Controller
+    public class UserGroupController : BaseController
     {
         // GET: Admin/UserGroup
         public ActionResult Index()

@@ -8,7 +8,7 @@ using Model.Dao;
 using CAS.Areas.Admin.Models;
 namespace CAS.Areas.Admin.Controllers
 {
-    public class CredentialController : Controller
+    public class CredentialController : BaseController
     {
         // GET: Admin/Credential
         public ActionResult Index()

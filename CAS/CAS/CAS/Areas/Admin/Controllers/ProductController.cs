@@ -12,7 +12,7 @@ using Common;
 
 namespace CAS.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         // GET: Admin/Product
         public ActionResult Index()
@@ -119,6 +119,7 @@ namespace CAS.Areas.Admin.Controllers
                 bool result = dao.Update(entity);
                 if (result)
                 {
+                    //SetAlert("Cập nhật thành công", "success");
                     return RedirectToAction("Index", "Product");
                 }
                 else
