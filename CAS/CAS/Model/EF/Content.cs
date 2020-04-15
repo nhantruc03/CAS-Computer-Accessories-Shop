@@ -23,8 +23,6 @@ namespace Model.EF
         [StringLength(250)]
         public string Image { get; set; }
 
-        public long? CategoryID { get; set; }
-
         [Column(TypeName = "ntext")]
         public string Detail { get; set; }
 

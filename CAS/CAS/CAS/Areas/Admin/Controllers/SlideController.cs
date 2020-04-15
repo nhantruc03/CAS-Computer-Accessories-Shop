@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Common;
 using Model.Dao;
 using Model.EF;
 namespace CAS.Areas.Admin.Controllers
@@ -37,6 +38,8 @@ namespace CAS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new SlideDao();
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                entitiy.CreatedBy = session.UserName;
                 entitiy.CreateDate = DateTime.Now;
                 long id = dao.Insert(entitiy);
                 if (id > 0)
@@ -57,6 +60,8 @@ namespace CAS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new SlideDao();
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                entity.ModifiedBy = session.UserName;
                 entity.ModifiedDate = DateTime.Now;
                 bool result = dao.Update(entity);
                 if (result)

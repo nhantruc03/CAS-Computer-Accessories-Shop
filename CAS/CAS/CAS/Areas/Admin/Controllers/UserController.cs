@@ -34,7 +34,9 @@ namespace CAS.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dao = new UserDao();
+                var dao = new UserDao(); 
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                user.CreatedBy = session.UserName;
                 var encryptedmd5hash = Encryptor.MD5Hash(user.Password);
                 user.Password = encryptedmd5hash;
                 user.CreateDate = DateTime.Now;
@@ -67,7 +69,9 @@ namespace CAS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new UserDao();
-                if(!string.IsNullOrEmpty(user.Password))
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                user.ModifiedBy = session.UserName;
+                if (!string.IsNullOrEmpty(user.Password))
                 {
                     var encryptedmd5hash = Encryptor.MD5Hash(user.Password);
                     user.Password = encryptedmd5hash;

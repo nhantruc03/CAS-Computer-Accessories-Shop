@@ -9,7 +9,10 @@ namespace Model.EF
     [Table("Tag")]
     public partial class Tag
     {
-        public long ID { get; set; }
+        [Key]
+        [Column(Order = 1)]
+        [StringLength(50)]
+        public string ID { get; set; }
 
         [StringLength(50)]
         public string Name { get; set; }

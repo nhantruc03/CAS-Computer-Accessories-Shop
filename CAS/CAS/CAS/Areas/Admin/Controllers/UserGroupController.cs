@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Model.EF;
 using Model.Dao;
+using Common;
+
 namespace CAS.Areas.Admin.Controllers
 {
     public class UserGroupController : BaseController
@@ -34,9 +36,11 @@ namespace CAS.Areas.Admin.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult Create(UserGroup entity)
         {
+            
             if (ModelState.IsValid)
             {
                 var dao = new UserGroupDao();
+         
                 string id = dao.Insert(entity);
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -69,12 +73,14 @@ namespace CAS.Areas.Admin.Controllers
             return View("Edit");
         }
 
-        [HttpDelete]
-        public ActionResult Delete(string id)
+        [HttpPost]
+        public JsonResult Delete(string id)
         {
-            new UserGroupDao().Delete(id);
-
-            return RedirectToAction("Index");
+            var result = new UserGroupDao().Delete(id);
+            return Json(new
+            {
+                status = result
+            });
         }
     }
 }

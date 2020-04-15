@@ -60,6 +60,8 @@ namespace CAS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new ProductDao();
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                entity.CreatedBy = session.UserName;
                 entity.CreateDate = DateTime.Now;
                 if (string.IsNullOrEmpty(entity.Metatitle))
                 {
@@ -98,6 +100,8 @@ namespace CAS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new ProductDao();
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                entity.ModifiedBy = session.UserName;
                 entity.ModifiedDate = DateTime.Now;
                 if (string.IsNullOrEmpty(entity.Metatitle))
                 {

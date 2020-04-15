@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Model.EF;
 using Model.Dao;
+using Common;
+
 namespace CAS.Areas.Admin.Controllers
 {
     public class MenuTypeController : BaseController
@@ -70,12 +72,14 @@ namespace CAS.Areas.Admin.Controllers
             return View("Edit");
         }
 
-        [HttpDelete]
+        [HttpPost]
         public ActionResult Delete(long id)
         {
-            new MenuTypeDao().Delete(id);
-
-            return RedirectToAction("Index");
+            var result = new MenuTypeDao().Delete(id);
+            return Json(new
+            {
+                status = result
+            });
         }
     }
 }

@@ -51,7 +51,7 @@ namespace Model.Dao
         }
         public IEnumerable<ProductCategory> ListAll()
         {
-            return db.ProductCategories.Where(x => x.Status == true).OrderByDescending(x => x.DisplayOrder).ToList();
+            return db.ProductCategories.OrderByDescending(x => x.DisplayOrder).ToList();
         }
 
         public IEnumerable<ProductCategory> ListByID(long parentID)

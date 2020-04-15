@@ -37,6 +37,7 @@ namespace CAS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new RoleDao();
+               
                 string id = dao.Insert(entity);
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -69,12 +70,14 @@ namespace CAS.Areas.Admin.Controllers
             return View("Edit");
         }
 
-        [HttpDelete]
-        public ActionResult Delete(string id)
+        [HttpPost]
+        public JsonResult Delete(string id)
         {
-            new RoleDao().Delete(id);
-
-            return RedirectToAction("Index");
+            var result = new RoleDao().Delete(id);
+            return Json(new
+            {
+                status = result
+            });
         }
     }
 }

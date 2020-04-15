@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CAS.Areas.Admin.Models;
+using Common;
 using Model.Dao;
 using Model.EF;
 
@@ -14,8 +15,7 @@ namespace CAS.Areas.Admin.Controllers
         // GET: Admin/Content
         public ActionResult Index()
         {
-            MPC_Content_Category mpc = new MPC_Content_Category();
-            var list = mpc.ListAll();
+            var list = new ContentDao().ListAll();
 
             return View(list);
         }
@@ -23,7 +23,6 @@ namespace CAS.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            SetViewBag();
             return View();
         }
 
@@ -32,8 +31,7 @@ namespace CAS.Areas.Admin.Controllers
         {
             var dao = new ContentDao();
             var content = dao.GetByID(id);
-
-            SetViewBag(content.CategoryID);
+            
             return View(content);
         }
 
@@ -42,10 +40,10 @@ namespace CAS.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                var dao = new ContentDao();
-                content.CreateDate = DateTime.Now;
-                long id = dao.Insert(content);
-                if (id > 0)
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                content.CreatedBy = session.UserName;
+                var result =new ContentDao().Insert(content);
+                if (result > 0)
                 {
                     return RedirectToAction("Index", "Content");
                 }
@@ -54,7 +52,6 @@ namespace CAS.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Thêm tin tức thất bại");
                 }
             }
-            SetViewBag();
             return View("Create");
         }
 
@@ -64,6 +61,8 @@ namespace CAS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new ContentDao();
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                content.ModifiedBy = session.UserName;
                 content.ModifiedDate= DateTime.Now;
                 bool result = dao.Update(content);
                 if (result)
@@ -75,15 +74,9 @@ namespace CAS.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Cập nhật tin tức thất bại");
                 }
             }
-            SetViewBag(content.ID);
             return View("Edit");
         }
-
-        public void SetViewBag(long? selectedID = null)
-        {
-            var dao = new CategoryDao();
-            ViewBag.CategoryID = new SelectList(dao.ListAll(), "ID", "Name",selectedID);
-        }
+        
 
         [HttpDelete]
         public ActionResult Delete(int id)

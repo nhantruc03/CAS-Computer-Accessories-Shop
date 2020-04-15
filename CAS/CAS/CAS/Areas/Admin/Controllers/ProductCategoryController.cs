@@ -40,6 +40,8 @@ namespace CAS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new ProductCategoryDao();
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                entity.CreatedBy = session.UserName;
                 entity.CreateDate = DateTime.Now;
                 if(entity.DisplayOrder==null)
                 {
@@ -69,6 +71,8 @@ namespace CAS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new ProductCategoryDao();
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                entity.ModifiedBy = session.UserName;
                 entity.ModifiedDate = DateTime.Now;
                 if (string.IsNullOrEmpty(entity.MetaTitle))
                 {
@@ -88,12 +92,14 @@ namespace CAS.Areas.Admin.Controllers
             return View("Edit");
         }
 
-        [HttpDelete]
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public JsonResult Delete(int id)
         {
-            new ProductCategoryDao().Delete(id);
-
-            return RedirectToAction("Index");
+            var result = new ProductCategoryDao().Delete(id);
+            return Json(new
+            {
+                status = result
+            });
         }
 
         [HttpPost]

@@ -7,6 +7,12 @@
 @section header{
     Danh sách quyền hạn
 }
+
+@section jsFooter{
+
+    <script src="/Assets/Admin/js/Controller/roleController.js"></script>
+}
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Danh sách Quyền hạn</h6>
@@ -37,14 +43,7 @@
                             <td>
                                 <a href="/Admin/Role/Edit/@item.ID" class="btn btn-primary btn-default">Sửa</a>
                                 |
-                                @Ajax.ActionLink("Xóa","Delete", new {@id=item.ID },new AjaxOptions
-                           {
-                               HttpMethod = "Delete",
-                               Confirm ="Bạn có muốn xóa quyền này?",
-                               OnSuccess="RemoveRow",
-
-                           },new { @class ="btn btn-danger"})
-                                @*<a href="/Admin/User/Delete/@item.ID">Xóa</a>*@
+                                <a href="#" data-id="@item.ID" class="btn-delete btn btn-danger">Xóa</a>
                             </td>
                         </tr>
                     }
@@ -55,11 +54,5 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function RemoveRow() {
-        var $tr = $(this).closest('tr');
-        $tr.remove();
-    }
-</script>
 
 
