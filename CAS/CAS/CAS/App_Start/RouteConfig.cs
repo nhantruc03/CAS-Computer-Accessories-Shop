@@ -73,6 +73,41 @@ namespace CAS
          );
 
             routes.MapRoute(
+             name: "User Detail",
+             url: "thong-tin-ca-nhan",
+             defaults: new { controller = "User", action = "Detail", id = UrlParameter.Optional },
+             namespaces: new[] { "CAS.Controllers" }
+         );
+
+            routes.MapRoute(
+             name: "User's Order",
+             url: "thong-tin-dat-hang",
+             defaults: new { controller = "User", action = "Order", id = UrlParameter.Optional },
+             namespaces: new[] { "CAS.Controllers" }
+         );
+
+            routes.MapRoute(
+            name: "User's Order Detail",
+            url: "chi-tiet-dat-hang/{id}",
+            defaults: new { controller = "User", action = "OrderDetail", id = UrlParameter.Optional },
+            namespaces: new[] { "CAS.Controllers" }
+        );
+
+            routes.MapRoute(
+            name: "Edit User Detail",
+            url: "cap-nhat-thong-tin",
+            defaults: new { controller = "User", action = "Edit", id = UrlParameter.Optional },
+            namespaces: new[] { "CAS.Controllers" }
+        );
+
+            routes.MapRoute(
+           name: "Edit User Password",
+           url: "cap-nhat-mat-khau",
+           defaults: new { controller = "User", action = "EditPassword", id = UrlParameter.Optional },
+           namespaces: new[] { "CAS.Controllers" }
+       );
+
+            routes.MapRoute(
               name: "Register",
               url: "dang-ky",
               defaults: new { controller = "User", action = "Register", id = UrlParameter.Optional },

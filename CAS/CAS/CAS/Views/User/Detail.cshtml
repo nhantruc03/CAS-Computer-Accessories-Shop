@@ -1,0 +1,113 @@
+﻿@model Model.EF.User
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .filter {
+        font-weight: bold;
+        color: black
+    }
+    /*.content {
+        max-width: 700px;
+        margin: auto;
+    }*/
+
+    .product-sec1 {
+        max-width: 100%;
+        margin: auto;
+    }
+</style>
+
+<div class="product-sec1 my-4">
+    <div class="ads-grid py-sm-5 py-4">
+        <div class="container py-xl-4 py-lg-2">
+            <!-- tittle heading -->
+            <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+                <span>Thông tin cá nhân</span>
+            </h3>
+            <!-- //tittle heading -->
+            <div class="row">
+                <!-- product left -->
+                <div class="agileinfo-ads-display col-lg-9">
+                    <div>
+                        @if (ViewBag.Success != null)
+                        {
+                            <div class="alert alert-success">@ViewBag.Success</div>
+                        }
+                        <dl class="dl-horizontal">
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.UserName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.UserName)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Address)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Email)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Phone)
+                            </dd>
+                        </dl>
+                    </div>
+                    <p>
+                        <a class="btn btn-default" href="/cap-nhat-thong-tin" style="float:right">Cập nhật thông tin</a>
+                        <a class="btn btn-default" href="/cap-nhat-mat-khau" style="float:right">Cập nhật mật khẩu</a>
+                        <div class="clearfix"></div>
+                    </p>
+                </div>
+                <!-- product right -->
+                <div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
+                    <div class="side-bar p-sm-4 p-3">
+                        <div class="search-hotel border-bottom py-2">
+                            <h3 class="agileits-sear-head mb-3">Thông tin</h3>
+                            <div class="left-side py-2">
+                                <ul>
+                                    <li>
+                                        <a class="filter" href="/thong-tin-ca-nhan">Thông tin cá nhân</a>
+                                    </li>
+                                    <li>
+                                        <a class="filter" href="/thong-tin-dat-hang">Thông tin đơn đặt hàng</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- price -->
+                        <!-- //price -->
+                    </div>
+                    <!-- //product right -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,7 +13,7 @@ namespace CAS.Areas.Admin.Controllers
     public class UserController : BaseController
     {
         // GET: Admin/User
-        [CheckCredential(RoleID ="VIEW_USER")]
+        [CheckCredential(RoleID = "VIEW_USER")]
         public ActionResult Index(int page = 1, int pagesize = 10)
         {
             var list = new MPC_User_UserGroup().ListAll();
@@ -34,7 +34,7 @@ namespace CAS.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dao = new UserDao(); 
+                var dao = new UserDao();
                 var session = (UserLogin)Session[CommonConstants.USER_SESSION];
                 user.CreatedBy = session.UserName;
                 var encryptedmd5hash = Encryptor.MD5Hash(user.Password);
@@ -115,6 +115,110 @@ namespace CAS.Areas.Admin.Controllers
             });
         }
 
+        public ActionResult Detail()
+        {
+            var curuser = (UserLogin)Session[CommonConstants.USER_SESSION];
+            var user = new UserDao().GetByID(curuser.UserID);
+            if (TempData["Success"] != null)
+            {
+                ViewBag.Success = TempData["Success"].ToString();
+            }
+
+            return View(user);
+        }
+
+
+        [HttpGet]
+        public ActionResult EditInfo()
+        {
+            var curuser = (UserLogin)Session[CommonConstants.USER_SESSION];
+            var user = new UserDao().GetByID(curuser.UserID);
+            UserInformation usrinfo = new UserInformation();
+            usrinfo.Name = user.Name;
+            usrinfo.Email = user.Email;
+            usrinfo.Address = user.Address;
+            usrinfo.Phone = user.Phone;
+            return View(usrinfo);
+        }
+
+        [HttpPost]
+        public ActionResult EditInfo(UserInformation entity)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDao();
+                entity.Password = Encryptor.MD5Hash(entity.Password);
+                var curuser = (UserLogin)Session[CommonConstants.USER_SESSION];
+                var user = dao.GetByID(curuser.UserID);
+                if (entity.Password != user.Password)
+                {
+                    ModelState.AddModelError("", "Mật khẩu không đúng");
+                }
+                else
+                {
+                    if (dao.CheckEmail(entity.Email) && entity.Email != user.Email)
+                    {
+                        ModelState.AddModelError("", "Email đã tồn tại");
+                    }
+                    else
+                    {
+                        user.Name = entity.Name;
+                        user.Phone = entity.Phone;
+                        user.Address = entity.Address;
+                        user.Email = entity.Email;
+                        var result = dao.Update(user);
+                        if (result)
+                        {
+                            TempData["Success"] = "Cập nhật thông tin thành công";
+                            return RedirectToAction("Detail");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Cập nhật thông tin không thành công");
+                        }
+                    }
+                }
+
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult EditPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditPassword(UserPassword entity)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDao();
+                entity.Password = Encryptor.MD5Hash(entity.Password);
+                var curuser = (UserLogin)Session[CommonConstants.USER_SESSION];
+                var user = dao.GetByID(curuser.UserID);
+                if (entity.Password != user.Password)
+                {
+                    ModelState.AddModelError("", "Mật khẩu cũ không đúng");
+                }
+                else
+                {
+                    user.Password = Encryptor.MD5Hash(entity.NewPassword);
+                    var result = dao.Update(user);
+                    if (result)
+                    {
+                        TempData["Success"] = "Cập nhật mật khẩu thành công";
+                        return RedirectToAction("Detail");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Cập nhật mật khẩu không thành công");
+                    }
+                }
+            }
+            return View();
+        }
 
     }
 }

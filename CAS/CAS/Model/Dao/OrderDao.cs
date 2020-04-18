@@ -38,6 +38,11 @@ namespace Model.Dao
             return db.Orders.OrderByDescending(x => x.CreateDate).ToList();
         }
 
+        public IEnumerable<Order> ListAllByUserID(long id)
+        {
+            return db.Orders.Where(x=>x.CustomerID==id).OrderByDescending(x => x.CreateDate).ToList();
+        }
+
         public bool ChangeStatus(long id)
         {
             var content = db.Orders.Find(id);

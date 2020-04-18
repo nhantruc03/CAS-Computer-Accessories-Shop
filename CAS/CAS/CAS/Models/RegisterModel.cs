@@ -13,6 +13,7 @@ namespace CAS.Models
         public string UserName { set; get; }
 
         [Display(Name = "Mật khẩu")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Độ dài mật khẩu phải lớn hơn 6 ký tự")]
         [Required(ErrorMessage = "Yêu cầu nhập mật khẩu")]
         public string Password { set; get; }
 

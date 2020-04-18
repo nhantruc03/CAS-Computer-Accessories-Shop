@@ -172,6 +172,8 @@
     <Compile Include="Areas\Admin\Models\MPC_Product_ProductCategory.cs" />
     <Compile Include="Areas\Admin\Models\MPC_UserGroup_Role_Credential.cs" />
     <Compile Include="Areas\Admin\Models\MPC_User_UserGroup.cs" />
+    <Compile Include="Areas\Admin\Models\UserInformation.cs" />
+    <Compile Include="Areas\Admin\Models\UserPassword.cs" />
     <Compile Include="Common\CheckCredentialAttribute.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -185,8 +187,11 @@
     </Compile>
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MPC_OrderDetail_Product.cs" />
     <Compile Include="Models\MPC_Product_ProductCategory.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\UserInformation.cs" />
+    <Compile Include="Models\UserPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -3092,6 +3097,9 @@
     <Content Include="Areas\Admin\Views\ContentTag\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tag\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\User\EditInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\User\EditPassword.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -3133,6 +3141,11 @@
     <Content Include="Views\Content\Index.cshtml" />
     <Content Include="Views\Content\Detail.cshtml" />
     <Content Include="Views\Content\Tag.cshtml" />
+    <Content Include="Views\User\Detail.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\EditPassWord.cshtml" />
+    <Content Include="Views\User\Order.cshtml" />
+    <Content Include="Views\User\OrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
