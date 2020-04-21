@@ -15,7 +15,7 @@ namespace CAS.Controllers
             ViewBag.Slides = new SlideDao().ListAll();
             var productDao = new ProductDao();
             ViewBag.NewProducts = productDao.ListNewProduct(12);
-            ViewBag.FeatureProducts = productDao.ListFeatureProduct(3);
+            ViewBag.TopViewProducts = productDao.ListTopViewProduct(6);
             return View();
         }
 
@@ -46,6 +46,14 @@ namespace CAS.Controllers
             return PartialView(list);
         }
 
-      
+        [ChildActionOnly]
+        public ActionResult Footer()
+        {
+            //  var model = new MenuDao().ListByGroupId(2);
+            ViewBag.ProductCategories = new ProductCategoryDao().ListAllParentID();
+            var model = new FooterDao().GetFooter();
+            return PartialView(model);
+        }
+
     }
 }

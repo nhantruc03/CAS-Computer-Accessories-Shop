@@ -13,31 +13,31 @@
 
         [StringLength(50)]
         [Display(Name = "Tài khoản")]
-        [Required(ErrorMessage = "Mời nhập User Name!")]
+        //[Required(ErrorMessage = "Mời nhập User Name!")]
         public string UserName { get; set; }
 
         [StringLength(32)]
         [Display(Name = "Mật khẩu")]
-        [Required(ErrorMessage = "Mời nhập Mật khẩu!")]
+        //[Required(ErrorMessage = "Mời nhập Mật khẩu!")]
         public string Password { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Họ tên")]
-        [Required(ErrorMessage = "Mời nhập Họ tên!")]
+        //[Required(ErrorMessage = "Mời nhập Họ tên!")]
         public string Name { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Địa chỉ")]
-        [Required(ErrorMessage = "Mời nhập Địa chỉ!")]
+        //[Required(ErrorMessage = "Mời nhập Địa chỉ!")]
         public string Address { get; set; }
 
         [StringLength(50)]
-        [Required(ErrorMessage = "Mời nhập Email!")]
+        //[Required(ErrorMessage = "Mời nhập Email!")]
         public string Email { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Số điện thoại")]
-        [Required(ErrorMessage = "Mời nhập Số điện thoại!")]
+        //[Required(ErrorMessage = "Mời nhập Số điện thoại!")]
         public string Phone { get; set; }
 
         public DateTime? CreateDate { get; set; }

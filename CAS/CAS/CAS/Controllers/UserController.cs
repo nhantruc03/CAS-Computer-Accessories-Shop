@@ -8,10 +8,24 @@ using Common;
 using CAS.Models;
 using Model.Dao;
 using Model.EF;
+using Facebook;
+using System.Configuration;
+
 namespace CAS.Controllers
 {
     public class UserController : Controller
     {
+        private Uri RedirectUri
+        {
+            get
+            {
+                var uriBuilder = new UriBuilder(Request.Url);
+                uriBuilder.Query = null;
+                uriBuilder.Fragment = null;
+                uriBuilder.Path = Url.Action("FacebookCallback");
+                return uriBuilder.Uri;
+            }
+        }
         // GET: User
         [HttpGet]
         public ActionResult Register()
@@ -39,7 +53,7 @@ namespace CAS.Controllers
                     userSession.UserName = user.UserName;
                     userSession.UserID = user.ID;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index", "Home");
+                    return Redirect("/");
                 }
                 else if (result == 0)
                 {
@@ -60,6 +74,67 @@ namespace CAS.Controllers
                 }
             }
             return View("Login");
+        }
+
+        public ActionResult LoginFacebook()
+        {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                response_type = "code",
+                scope = "email",
+            });
+            return Redirect(loginUrl.AbsoluteUri);
+        }
+
+        public ActionResult FacebookCallback(string code)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                code = code
+            });
+            var accessToken = result.access_token;
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                fb.AccessToken = accessToken;
+                dynamic me = fb.Get("me?fields=first_name,middle_name,last_name,id,email,address");
+                string email = me.email;
+                string userName = me.email;
+                string firstname = me.first_name;
+                string middlename = me.middle_name;
+                string lastname = me.last_name;
+                string address = me.address;
+
+                var user = new User();
+                user.Address = address;
+                user.Email = email;
+                user.UserName = email;
+                user.Status = true;
+                user.Name = firstname + " " + middlename + " " + lastname;
+                user.CreateDate = DateTime.Now;
+                var resultInsert = new UserDao().InsertForFaceBook(user);
+                if (resultInsert > 0)
+                {
+                    var userSession = new UserLogin();
+                    userSession.UserName = user.UserName;
+                    userSession.UserID = resultInsert;
+                    Session.Add(CommonConstants.USER_SESSION, userSession);
+                }
+            }
+            var curuser = new UserDao().GetByID(((UserLogin)Session[CommonConstants.USER_SESSION]).UserID);
+            if(string.IsNullOrEmpty(curuser.Password))
+            {
+                return Redirect("/cap-nhat-mat-khau");
+            }
+            
+            return Redirect("/");
         }
 
         [HttpGet]
@@ -122,7 +197,10 @@ namespace CAS.Controllers
                 {
                     ViewBag.Success = TempData["Success"].ToString();
                 }
-
+                if (TempData["Error"] != null)
+                {
+                    ViewBag.Error = TempData["Error"].ToString();
+                }
                 return View(user);
             }
             return Redirect("/dang-nhap");
@@ -135,12 +213,21 @@ namespace CAS.Controllers
             {
                 var curuser = (UserLogin)Session[CommonConstants.USER_SESSION];
                 var user = new UserDao().GetByID(curuser.UserID);
-                UserInformation usrinfo = new UserInformation();
-                usrinfo.Name = user.Name;
-                usrinfo.Email = user.Email;
-                usrinfo.Address = user.Address;
-                usrinfo.Phone = user.Phone;
-                return View(usrinfo);
+                if (!string.IsNullOrEmpty(user.Password))
+                {
+                    UserInformation usrinfo = new UserInformation();
+                    usrinfo.Name = user.Name;
+                    usrinfo.Email = user.Email;
+                    usrinfo.Address = user.Address;
+                    usrinfo.Phone = user.Phone;
+                    return View(usrinfo);
+                }
+                else
+                {
+                    TempData["Error"] = "Bạn cần cập nhật mật khẩu trước";
+                    return Redirect("/thong-tin-ca-nhan");
+
+                }
             }
             return Redirect("/dang-nhap");
         }
@@ -196,6 +283,12 @@ namespace CAS.Controllers
         {
             if (Session[CommonConstants.USER_SESSION] != null)
             {
+                ViewBag.FacebookAccount = false;
+                var user = new UserDao().GetByID(((UserLogin)Session[CommonConstants.USER_SESSION]).UserID);
+                if(string.IsNullOrEmpty(user.Password))
+                {
+                    ViewBag.FacebookAccount = true;
+                }
                 return View();
             }
             return Redirect("/dang-nhap");
@@ -212,7 +305,7 @@ namespace CAS.Controllers
                     entity.Password = Encryptor.MD5Hash(entity.Password);
                     var curuser = (UserLogin)Session[CommonConstants.USER_SESSION];
                     var user = dao.GetByID(curuser.UserID);
-                    if (entity.Password != user.Password)
+                    if (entity.Password != user.Password && !string.IsNullOrEmpty(user.Password))
                     {
                         ModelState.AddModelError("", "Mật khẩu cũ không đúng");
                     }

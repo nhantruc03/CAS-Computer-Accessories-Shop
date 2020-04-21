@@ -41,7 +41,6 @@
     </div>
 </div>
 
-
 <div class="ads-grid py-sm-5 py-4">
     <div class="container py-xl-4 py-lg-2">
         <!-- tittle heading -->
@@ -57,7 +56,6 @@
                     <div class="row">
                         @if (ViewBag.total > 0)
                         {
-
                             foreach (var item in Model)
                             {
                                 var url = "/chi-tiet/" + item.product.Metatitle + "-" + item.product.ID;
@@ -100,8 +98,6 @@
                                     </div>
                                 </div>
                             }
-
-
                         }
                         else
                         {
@@ -137,8 +133,6 @@
                                 {
                                     <li class="page-item"><a href="@link&page=@ViewBag.first" title="Trang đầu" class="page-link"><i class="fa fa-angle-double-left"></i></a></li>
                                     <li class="page-item"> <a href="@link&page=@ViewBag.prev" title="Trang trước" class="page-link"><i class="fa fa-angle-left"></i></a></li>
-
-
                                 }
                                 @for (int i = startpageindex; i <= endpageindex; i++)
                                 {
@@ -151,22 +145,16 @@
                                     else
                                     {
                                         <li class="page-item"><a href="@link&page=@i" class="page-link" title="Trang @i">@i</a></li>
-
-
                                     }
-
                                 }
                                 @if (currentpage < totalpage)
                                 {
                                     <li class="page-item"><a href="@link&page=@ViewBag.next" class="page-link" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
                                     <li class="page-item"> <a href="@link&page=@ViewBag.last" class="page-link" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
-
-
                                 }
                             </ul>
                         </nav>
                     }
-
                     <!--//Phân trang-->
                 </div>
             </div>
@@ -196,7 +184,6 @@
                     <div class="range border-bottom py-2">
                         <h3 class="agileits-sear-head mb-3">Price</h3>
                         <div class="w3l-range">
-
                             <ul>
                                 @{
                                     var filter_url = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID;
@@ -222,8 +209,9 @@
                                     <li>
                                         <a class="filter" href="@filter_url?filter=true&onsale=true" style="color:red;">*Đang giảm giá*</a>
                                     </li>
-                                }
 
+
+                                }
                             </ul>
                         </div>
                     </div>

@@ -69,11 +69,7 @@
                 <div class="grid images_3_of_2">
                     <div class="flexslider">
                         <ul class="slides" id="imageList">
-                            @*<li data-thumb="/Data//Assets/Client/images/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg">
-                                    <div class="thumb-image">
-                                        <img src="/Data//Assets/Client/images/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg" data-imagezoom="true" class="img-fluid" alt="">
-                                    </div>
-                                </li>*@
+
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -122,31 +118,14 @@
                         <i class="fas fa-retweet mr-3"></i>Các cổng thanh toán: thẻ ATM / ngân lượng / ....
                     </p>
                 </div>
-                <div class="occasion-cart">
-                    <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                        <form action="#" method="post">
-                            <fieldset>
-                                <input type="hidden" name="cmd" value="_cart" />
-                                <input type="hidden" name="add" value="1" />
-                                <input type="hidden" name="business" value=" " />
-                                <input type="hidden" name="item_name" value="@Model.Name" />
-                                @if (Model.PromotionPrice.HasValue)
-                                {
-                                    <input type="hidden" name="amount" value=@Model.PromotionPrice />
-                                }
-                                else
-                                {
-                                    <input type="hidden" name="amount" value=@Model.Price />
-                                }
-                                <input type="hidden" name="discount_amount" value="0.00" />
-                                <input type="hidden" name="currency_code" value="VND" />
-                                <input type="hidden" name="return" value=" " />
-                                <input type="hidden" name="cancel_return" value=" " />
-                                <a class="button2" href="/them-gio-hang?productID=@Model.ID&quantity=1">Thêm vào giỏ</a>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
+                @if (Model.Quantity > 0)
+                {
+                    <button class="btnAddToCart btn button2" data-id="@Model.ID">Thêm vào giỏ hàng</button>
+                }
+                else
+                {
+                    <button class="btn button2" style="background-color:red">Hết hàng</button>
+                }
             </div>
         </div>
     </div>

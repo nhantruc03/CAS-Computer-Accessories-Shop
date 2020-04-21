@@ -8,7 +8,7 @@ namespace CAS.Models
     public class UserPassword
     {
         [Display(Name = "Mật khẩu cũ")]
-        [Required(ErrorMessage = "Yêu cầu nhập mật khẩu")]
+        //[Required(ErrorMessage = "Yêu cầu nhập mật khẩu")]
         public string Password { set; get; }
 
         [Display(Name = "Mật khẩu mới")]

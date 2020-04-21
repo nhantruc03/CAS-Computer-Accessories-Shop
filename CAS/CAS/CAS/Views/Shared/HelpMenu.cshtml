@@ -1,7 +1,5 @@
 ﻿@model List<CAS.Models.CartItem>
 
-
-
 <div class="container">
     <div class="row header-bot_inner_wthreeinfo_header_mid">
         <!-- logo -->
@@ -20,18 +18,10 @@
                 <div class="col-10 agileits_search">
                     <form class="form-inline" action="/tim-kiem" method="get">
                         <input class="form-control mr-sm-2" name="keyword" id="txtKeyword" type="search" placeholder="Tìm kiếm" aria-label="Search" required>
-                        <button class="btn my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                        <button class="btn  my-sm-0 fa fa-search"type="submit"></button>
                     </form>
                 </div>
                 <!-- //search -->
-                <!-- cart details -->
-                @*<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
-                        <p>
-                            <span>Giỏ hàng:</span>
-                            @Model.Count sản phẩm
-                        </p>
-                    </div>*@
-
                 <div class=" top_nav_right text-center mt-sm-0 mt-2">
                     <div data-toggle="modal" data-target="#mycart">
                         <button class="btn" type="submit" name="submit" value="" style="background-color:black;color:white">
@@ -46,7 +36,6 @@
 </div>
 <div id="mycart" class="modal fade modal-lg" tabindex="-1" aria-hidden="true" role="dialog" style="margin:auto">
     <div class="modal-dialog modal-lg">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -96,6 +85,5 @@
                 <a class="btn btn-default" data-dismiss="modal">Đóng</a>
             </div>
         </div>
-
     </div>
 </div>

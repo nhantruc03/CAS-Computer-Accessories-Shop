@@ -58,7 +58,6 @@ namespace CAS.Controllers
 
         public ActionResult Category(long id ,bool filter=false,bool onsale=false,decimal min=0, decimal max =0,int page = 1, int pageSize = 9)
         {
-            
             var productcat = new ProductCategoryDao().GetByID(id);
             int totalRecord = 0;
             IEnumerable<MPC_Product_ProductCategory> model = null;
@@ -128,13 +127,14 @@ namespace CAS.Controllers
             ViewBag.first = 1;
             ViewBag.last = totalPage;
             ViewBag.next = page + 1;
-            ViewBag.prev = page - 1;
+            ViewBag.prev = page - 1;    
             return View(model);
         }
 
 
         public ActionResult Detail(long id)
         {
+            new ProductDao().PlusViewCount(id);
             var product = new ProductDao().GetById(id);
             List<string> listimage = new List<string>();
             listimage.Add(product.Image);

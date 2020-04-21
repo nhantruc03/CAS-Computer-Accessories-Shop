@@ -23,6 +23,22 @@ namespace Model.Dao
             return entity.ID;
         }
 
+        public long InsertForFaceBook(User entity)
+        {
+            var user = db.Users.SingleOrDefault(x => x.UserName == entity.UserName);
+            if (user == null)
+            {
+                db.Users.Add(entity);
+                db.SaveChanges();
+                return entity.ID;
+            }
+            else
+            {
+                return user.ID;
+            }
+              
+        }
+
         public User GetById(string username)
         {
             return db.Users.SingleOrDefault(x => x.UserName == username);
@@ -33,23 +49,24 @@ namespace Model.Dao
             return db.Users.Find(id);
         }
 
-        public List<string>GetListCredential(string username)
+        public List<string> GetListCredential(string username)
         {
             var user = db.Users.SingleOrDefault(x => x.UserName == username);
             var data = (from a in db.Credentials
-                       join b in db.UserGroups
-                       on a.UserGroupID equals b.ID
-                       join c in db.Roles
-                       on a.RoleID equals c.ID
-                       where b.ID== user.GroupID
-                       select new
-                       {
-                           RoleID=a.RoleID,
-                           UserGroupID=a.UserGroupID
-                       }).AsEnumerable().Select(x => new Credential() {
-                           RoleID=x.RoleID,
-                           UserGroupID = x.UserGroupID
-                       });
+                        join b in db.UserGroups
+                        on a.UserGroupID equals b.ID
+                        join c in db.Roles
+                        on a.RoleID equals c.ID
+                        where b.ID == user.GroupID
+                        select new
+                        {
+                            RoleID = a.RoleID,
+                            UserGroupID = a.UserGroupID
+                        }).AsEnumerable().Select(x => new Credential()
+                        {
+                            RoleID = x.RoleID,
+                            UserGroupID = x.UserGroupID
+                        });
             return data.Select(x => x.RoleID).ToList();
         }
 
@@ -100,7 +117,7 @@ namespace Model.Dao
             {
                 if (isLoginAdmin == true)
                 {
-                    if(result.GroupID==CommonConstants.ADMIN_GROUP || result.GroupID == CommonConstants.ORDERCHECKER_GROUP || result.GroupID == CommonConstants.STROREKEEPER_GROUP)
+                    if (result.GroupID == CommonConstants.ADMIN_GROUP || result.GroupID == CommonConstants.ORDERCHECKER_GROUP || result.GroupID == CommonConstants.STROREKEEPER_GROUP)
                     {
                         if (result.Status == false)
                         {
@@ -141,7 +158,7 @@ namespace Model.Dao
                         }
                     }
                 }
-               
+
 
             }
         }

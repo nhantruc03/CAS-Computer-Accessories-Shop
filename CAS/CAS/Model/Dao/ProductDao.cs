@@ -54,9 +54,9 @@ namespace Model.Dao
             return db.Products.Where(x => x.Status == true).OrderByDescending(x => x.CreateDate).Take(top).ToList();
         }
 
-        public List<Product> ListFeatureProduct(int top)
+        public List<Product> ListTopViewProduct(int top)
         {
-            return db.Products.Where(x => x.Status == true && x.TopHot != null && x.TopHot > DateTime.Now).OrderByDescending(x => x.CreateDate).Take(top).ToList();
+            return db.Products.Where(x => x.Status == true).OrderByDescending(x => x.ViewCount).Take(top).ToList();
         }
 
         public List<Product> ListAll()
@@ -107,6 +107,28 @@ namespace Model.Dao
             item.Status = !item.Status;
             db.SaveChanges();
             return item.Status;
+        }
+
+        public bool PlusViewCount(long id)
+        {
+            try
+            {
+                var item = db.Products.Find(id);
+                if (item.ViewCount != null)
+                {
+                    item.ViewCount += 1;
+                }
+                else
+                {
+                    item.ViewCount = 1;
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool ChangeVATStatus(long id)

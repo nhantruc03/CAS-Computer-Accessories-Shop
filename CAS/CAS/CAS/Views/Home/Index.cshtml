@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var slides = (List<Model.EF.Slide>)ViewBag.Slides;
     var NewProducts = (List<Model.EF.Product>)ViewBag.NewProducts;
-    var FeatureProducts = (List<Model.EF.Product>)ViewBag.FeatureProducts;
+    var TopViewProducts = (List<Model.EF.Product>)ViewBag.TopViewProducts;
 }
 
 
@@ -132,18 +132,65 @@
                             }
                         </div>
                     </div>
-
                     <!-- //first section -->
                     <!-- second section -->
-                    @*<div class="product-sec1 product-sec2 px-sm-5 px-3">
-                            <div class="row">
-                                <h3 class="col-md-4 effect-bg">Summer Carnival</h3>
-                                <p class="w3l-nut-middle">Get Extra 10% Off</p>
-                                <div class="col-md-8 bg-right-nut">
-                                    <img src="/Assets/Client/images/image1.png" alt="">
+                    <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+                        <span>S</span>ản
+                        <span>P</span>hẩm
+                        <span>Đ</span>ược
+                        <span>X</span>em
+                        <span>N</span>hiều
+                        <span>N</span>hất
+                    </h3>
+                    <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">
+                        @*<h3 class="heading-tittle text-center font-italic">CPU</h3>*@
+                        <div class="row">
+                            @foreach (var item in TopViewProducts)
+                            {
+                                var url = "/chi-tiet/" + item.Metatitle + "-" + item.ID;
+                                <div class="col-md-4 product-men mt-5 ">
+                                    <div class="men-pro-item simpleCart_shelfItem">
+                                        <div class="men-thumb-item text-center">
+                                            <img src="@item.Image" alt="@item.Name" @*sizes="(max-width: 300px) 100vw, 300px"*@ style="width:200px; height: 200px;">
+                                            <div class="men-cart-pro">
+                                                <div class="inner-men-cart-pro">
+                                                    <a href="@url" class="link-product-add-cart">Chi tiết</a>
+                                                </div>
+                                            </div>
+                                            @*<span class="product-new-top">New</span>*@
+                                        </div>
+                                        <div class="item-info-product text-center border-top mt-4">
+                                            <h4 class="pt-1">
+                                                <a href="@url">
+                                                    @(item.Name.Length <= 50 ? item.Name : item.Name.Substring(0, 50) + "...")
+                                                </a>
+                                            </h4>
+                                            <div class="info-product-price my-2">
+
+                                                @if (item.PromotionPrice.HasValue)
+                                                {
+                                                    <span class="item_price">@item.PromotionPrice.Value.ToString("N0")₫</span>
+                                                    <del>@item.Price.Value.ToString("N0")₫</del>
+                                                }
+                                                else
+                                                {
+                                                    <span class="item_price">@(item.Price.HasValue ? item.Price.Value.ToString("N0") + "₫" : "Liên hệ")</span>
+                                                }
+                                            </div>
+                                            @if (item.Quantity > 0)
+                                            {
+                                                <button class="btnAddToCart btn button2" data-id="@item.ID">Thêm vào giỏ hàng</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn button2" style="background-color:red" data-id="@item.ID">Hết hàng</button>
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>*@
+                            }
+                        </div>
+                    </div>
                     <!-- //second section -->
                 </div>
             </div>

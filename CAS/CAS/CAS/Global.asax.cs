@@ -17,5 +17,10 @@ namespace CAS
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        void Session_start(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -28,6 +28,7 @@
                     @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-4" })
                     <div class="col-md-10">
                         @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                        <small id="usernamehelper" class="form-text text-muted">(*)Nếu bạn đã từng đăng nhập bằng Facebook, có thể dùng email của tài khoản Facebook đó để đăng nhập</small>  
                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -43,6 +44,10 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Đăng nhập" class="btn btn-default" />
+                        <a class="btn btn-facebook" href="/User/LoginFacebook">
+                            <i class="fab fa-facebook"></i>
+                            Đăng nhập với FaceBook
+                        </a>
                     </div>
                 </div>
             </div>
