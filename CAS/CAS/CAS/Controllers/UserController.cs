@@ -118,6 +118,7 @@ namespace CAS.Controllers
                 user.UserName = email;
                 user.Status = true;
                 user.Name = firstname + " " + middlename + " " + lastname;
+                user.GroupID = "CLIENT";
                 user.CreateDate = DateTime.Now;
                 var resultInsert = new UserDao().InsertForFaceBook(user);
                 if (resultInsert > 0)

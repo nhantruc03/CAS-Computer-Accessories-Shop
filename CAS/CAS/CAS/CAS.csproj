@@ -154,6 +154,7 @@
     <Compile Include="Areas\Admin\Controllers\ContentController.cs" />
     <Compile Include="Areas\Admin\Controllers\ContentTagController.cs" />
     <Compile Include="Areas\Admin\Controllers\CredentialController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DocumentController.cs" />
     <Compile Include="Areas\Admin\Controllers\FeedBackController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
@@ -2846,6 +2847,7 @@
     <Content Include="Assets\Client\js\move-top.js" />
     <Content Include="Assets\Client\js\scroll.js" />
     <Content Include="Assets\Client\js\SmoothScroll.min.js" />
+    <Content Include="Assets\Client\template\neworder.html" />
     <Content Include="Assets\Client\webfonts\fa-brands-400.svg" />
     <Content Include="Assets\Client\webfonts\fa-regular-400.svg" />
     <Content Include="Assets\Client\webfonts\fa-solid-900.svg" />
@@ -3105,6 +3107,10 @@
     <Content Include="Areas\Admin\Views\User\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\User\EditInfo.cshtml" />
     <Content Include="Areas\Admin\Views\User\EditPassword.cshtml" />
+    <Content Include="Assets\Client\template\WebPage1.cshtml" />
+    <Content Include="Areas\Admin\Views\Document\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Document\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Document\Edit.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -3152,6 +3158,7 @@
     <Content Include="Views\User\Order.cshtml" />
     <Content Include="Views\User\OrderDetail.cshtml" />
     <Content Include="Views\Home\Footer.cshtml" />
+    <Content Include="Views\Cart\Fail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

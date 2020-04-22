@@ -1,4 +1,4 @@
-﻿@model Model.EF.Contact
+﻿@model Model.EF.Document
 @{
     ViewBag.Title = "Liên hệ";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,7 +26,7 @@
                 center: uluru
             });
 
-            var contentString = '@(Html.Raw(Model.Content))'
+            var contentString = '@(Html.Raw(Model.Detail))'
 
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
@@ -52,7 +52,7 @@
     <div class="row" id="contactrow">
         <div class="col-6">
             <h2>Thông tin liên hệ</h2>
-            @(Html.Raw(Model.Content))
+            @(Html.Raw(Model.Detail))
 
             <h2>Gửi thông tin</h2>
             <form id="formContact">

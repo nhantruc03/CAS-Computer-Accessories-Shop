@@ -28,16 +28,16 @@ namespace Model.EF
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }
-        public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<About>()
-                .Property(e => e.Metatitle)
-                .IsUnicode(false);
+                 .Property(e => e.Metatitle)
+                 .IsUnicode(false);
 
             modelBuilder.Entity<About>()
                 .Property(e => e.CreatedBy)
@@ -46,10 +46,6 @@ namespace Model.EF
             modelBuilder.Entity<About>()
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<About>()
-                .Property(e => e.MetaDescriptions)
-                .IsFixedLength();
 
             modelBuilder.Entity<Category>()
                 .Property(e => e.MetaTitle)
@@ -63,10 +59,6 @@ namespace Model.EF
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Category>()
-                .Property(e => e.MetaDescriptions)
-                .IsFixedLength();
-
             modelBuilder.Entity<Content>()
                 .Property(e => e.Metatitle)
                 .IsUnicode(false);
@@ -78,10 +70,6 @@ namespace Model.EF
             modelBuilder.Entity<Content>()
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Content>()
-                .Property(e => e.MetaDescriptions)
-                .IsFixedLength();
 
             modelBuilder.Entity<ContentTag>()
                 .Property(e => e.TagID)
@@ -127,10 +115,6 @@ namespace Model.EF
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.MetaDescriptions)
-                .IsFixedLength();
-
             modelBuilder.Entity<ProductCategory>()
                 .Property(e => e.MetaTitle)
                 .IsUnicode(false);
@@ -143,10 +127,6 @@ namespace Model.EF
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<ProductCategory>()
-                .Property(e => e.MetaDescriptions)
-                .IsFixedLength();
-
             modelBuilder.Entity<Role>()
                 .Property(e => e.ID)
                 .IsUnicode(false);
@@ -157,18 +137,6 @@ namespace Model.EF
 
             modelBuilder.Entity<Slide>()
                 .Property(e => e.ModifiedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Slide>()
-                .Property(e => e.MetaDescriptions)
-                .IsFixedLength();
-
-            modelBuilder.Entity<SystemConfig>()
-                .Property(e => e.ID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SystemConfig>()
-                .Property(e => e.Type)
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
@@ -193,6 +161,18 @@ namespace Model.EF
 
             modelBuilder.Entity<UserGroup>()
                 .Property(e => e.ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Document>()
+                .Property(e => e.ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Document>()
+                .Property(e => e.CreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Document>()
+                .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
         }
     }

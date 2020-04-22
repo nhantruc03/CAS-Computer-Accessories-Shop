@@ -8,6 +8,8 @@ using Model.EF;
 using Model.Dao;
 using Common;
 using System.Web.Script.Serialization;
+using System.Configuration;
+
 namespace CAS.Controllers
 {
     public class CartController : Controller
@@ -63,7 +65,7 @@ namespace CAS.Controllers
             }
             var itemcount = (List<CartItem>)Session[CommonConstants.CartSession];
             var price = product.Price;
-            if(product.PromotionPrice.HasValue)
+            if (product.PromotionPrice.HasValue)
             {
                 price = product.PromotionPrice;
             }
@@ -82,27 +84,27 @@ namespace CAS.Controllers
 
 
 
-        public JsonResult UpdateFromCart(string cartModel)
-        {
-            var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
-            var sessionCart = (List<CartItem>)Session[CommonConstants.CartSession];
-            if (sessionCart != null)
-            {
-                foreach (var item in sessionCart)
-                {
-                    var jsonItem = jsonCart.SingleOrDefault(x => x.Product.ID == item.Product.ID);
-                    if (jsonItem != null)
-                    {
-                        item.Quantity = jsonItem.Quantity;
-                    }
-                }
-                Session[CommonConstants.CartSession] = sessionCart;
-            }
-            return Json(new
-            {
-                status = true
-            });
-        }
+        //public JsonResult UpdateFromCart(string cartModel)
+        //{
+        //    var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
+        //    var sessionCart = (List<CartItem>)Session[CommonConstants.CartSession];
+        //    if (sessionCart != null)
+        //    {
+        //        foreach (var item in sessionCart)
+        //        {
+        //            var jsonItem = jsonCart.SingleOrDefault(x => x.Product.ID == item.Product.ID);
+        //            if (jsonItem != null)
+        //            {
+        //                item.Quantity = jsonItem.Quantity;
+        //            }
+        //        }
+        //        Session[CommonConstants.CartSession] = sessionCart;
+        //    }
+        //    return Json(new
+        //    {
+        //        status = true
+        //    });
+        //}
 
         public ActionResult Additem(long productID, int quantity)
         {
@@ -167,7 +169,7 @@ namespace CAS.Controllers
                         return Json(new
                         {
                             status = false,
-                            productname= product.Name,
+                            productname = product.Name,
                             curquantity = product.Quantity
                         });
                     }
@@ -222,7 +224,7 @@ namespace CAS.Controllers
         [HttpPost]
         public ActionResult Payment(string shipName, string mobile, string address, string email)
         {
-            if(Session[CommonConstants.USER_SESSION] == null)
+            if (Session[CommonConstants.USER_SESSION] == null)
             {
                 return Content("<script language='javascript' type='text/javascript'>alert('Bạn cần phải đăng nhập!');  window.location.href = '/dang-nhap'</script>");
             }
@@ -242,6 +244,8 @@ namespace CAS.Controllers
                     var id = new OrderDao().Insert(order);
                     var cart = (List<CartItem>)Session[CommonConstants.CartSession];
                     var detailDao = new OrderDetailDao();
+                    decimal total = 0;
+
                     foreach (var item in cart)
                     {
                         var orderDetail = new OrderDetail();
@@ -257,10 +261,58 @@ namespace CAS.Controllers
                         }
                         orderDetail.Quantity = item.Quantity;
                         detailDao.Insert(orderDetail);
+
+                        total += (orderDetail.Price.GetValueOrDefault(0) * item.Quantity);
                     }
+                    string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Client/template/WebPage1.cshtml"));
+                    content = content.Replace("{{CustomerName}}", shipName);
+                    content = content.Replace("{{Phone}}", mobile);
+                    content = content.Replace("{{Email}}", email);
+                    content = content.Replace("{{Address}}", address);
+                    content += "<table border=\"1\" frame=\"hsides\" rules=\"columns\" style=\"text-align:center;\">" +
+                        "<tr>" +
+                            "<td>Mã_SP</td>" +
+                            "<td>Tên SP</td>" +
+                            "<td>Số lượng</td>" +
+                            "<td>Đơn giá</td>" +
+                            "<td>Thành tiền</td>" +
+                        "</tr>";
+
+
+                    foreach (var item in cart)
+                    {
+                        string realprice = "";
+                        string totalprice = "";
+                        if (item.Product.PromotionPrice.HasValue)
+                        {
+                            realprice = item.Product.PromotionPrice.GetValueOrDefault(0).ToString("N0");
+                            totalprice = (item.Product.PromotionPrice.GetValueOrDefault(0) * item.Quantity).ToString("N0");
+                        }
+                        else
+                        {
+                            realprice = item.Product.Price.GetValueOrDefault(0).ToString("N0");
+                            totalprice = (item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0");
+                        }
+
+                        content += "<tr>" +
+                            "<td>" + item.Product.ID + "</td>" +
+                            "<td>" + item.Product.Name + "</td>" +
+                            "<td>" + item.Quantity + "</td>" +
+                            "<td>" + realprice + "₫</td>" +
+                            "<td>" + totalprice + "₫</td>" +
+                            "</tr>";
+                    }
+                    content += "</table>";
+
+                    content = content.Replace("{{Total}}", total.ToString("N0"));
+
+                    var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+                    new MailHelper().SendMail(email, "Đơn hàng mới từ CAS", content);
+                    new MailHelper().SendMail(toEmail, "Đơn hàng mới từ CAS", content);
                 }
                 catch (Exception)
                 {
+
                     return Redirect("/loi-thanh-toan");
                 }
                 return Redirect("/hoan-thanh");
@@ -268,6 +320,11 @@ namespace CAS.Controllers
         }
 
         public ActionResult Success()
+        {
+            return View();
+        }
+
+        public ActionResult Fail()
         {
             return View();
         }

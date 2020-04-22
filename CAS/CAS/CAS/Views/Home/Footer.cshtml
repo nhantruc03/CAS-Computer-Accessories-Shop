@@ -1,9 +1,9 @@
-﻿@model Model.EF.Footer
+﻿
 @{ 
     var productcategories = ViewBag.ProductCategories;
-
+    var quicklinks = ViewBag.QuickLinks;
 }
-@*@Html.Raw(Model.Content)*@
+
 <footer>
     <div class="footer-top-first">
         <div class="container py-md-5 py-sm-4 py-3">
@@ -76,21 +76,12 @@
                 <div class="col-md-4 col-sm-6 footer-grids mt-sm-0 mt-4">
                     <h3 class="text-white font-weight-bold mb-3">Liên kết nhanh</h3>
                     <ul>
-                        <li class="mb-3">
-                            <a href="/gioi-thieu">Giới thiệu</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="/lien-he">Liên hệ</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="/faqs">Faqs</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="/dieu-khoan-su-dung">Điều khoản sử dụng</a>
-                        </li>
-                        <li>
-                            <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
-                        </li>
+                        @foreach (var item in quicklinks)
+                        {
+                            <li class="mb-3">
+                                <a href="@item.Link">@item.Name</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <div class="col-md-4 col-sm-6 footer-grids mt-md-0 mt-4">

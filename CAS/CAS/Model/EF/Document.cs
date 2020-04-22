@@ -6,23 +6,22 @@ namespace Model.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ProductCategory")]
-    public partial class ProductCategory
+    [Table("Document")]
+    public partial class Document
     {
-        public long ID { get; set; }
+        [Key]
+        [Column(Order = 0)]
+        [StringLength(20)]
+        public string ID { get; set; }
 
         [StringLength(250)]
         public string Name { get; set; }
 
-        [StringLength(250)]
-        public string MetaTitle { get; set; }
+        [StringLength(500)]
+        public string Link { get; set; }
 
-        public long? ParentID { get; set; }
-
-        public int? DisplayOrder { get; set; }
-
-        [StringLength(250)]
-        public string SeoTiTle { get; set; }
+        [Column(TypeName = "ntext")]
+        public string Detail { get; set; }
 
         public DateTime? CreateDate { get; set; }
 
@@ -33,7 +32,5 @@ namespace Model.EF
 
         [StringLength(50)]
         public string ModifiedBy { get; set; }
-
-        public bool Status { get; set; }
     }
 }

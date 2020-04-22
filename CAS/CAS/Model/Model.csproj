@@ -64,6 +64,7 @@
     <Compile Include="Dao\ContentDao.cs" />
     <Compile Include="Dao\ContentTagDao.cs" />
     <Compile Include="Dao\CredentialDao.cs" />
+    <Compile Include="Dao\DocumentDao.cs" />
     <Compile Include="Dao\FeedBackDao.cs" />
     <Compile Include="Dao\FooterDao.cs" />
     <Compile Include="Dao\MenuDao.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="EF\Content.cs" />
     <Compile Include="EF\ContentTag.cs" />
     <Compile Include="EF\Credential.cs" />
+    <Compile Include="EF\Document.cs" />
     <Compile Include="EF\FeedBack.cs" />
     <Compile Include="EF\Footer.cs" />
     <Compile Include="EF\Menu.cs" />
@@ -94,7 +96,6 @@
     <Compile Include="EF\ProductCategory.cs" />
     <Compile Include="EF\Role.cs" />
     <Compile Include="EF\Slide.cs" />
-    <Compile Include="EF\SystemConfig.cs" />
     <Compile Include="EF\Tag.cs" />
     <Compile Include="EF\User.cs" />
     <Compile Include="EF\UserGroup.cs" />

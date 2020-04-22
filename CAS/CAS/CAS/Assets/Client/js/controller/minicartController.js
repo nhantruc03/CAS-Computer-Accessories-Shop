@@ -40,29 +40,29 @@
             });
         });
 
-        $('#btnUpdateFromMiniCart').off('click').on('click', function () {
-            var listProduct = $('.txtQuantityFromMiniCart');
-            var cartList = [];
-            $.each(listProduct, function (i, item) {
-                cartList.push({
-                    Quantity: $(item).val(),
-                    Product: {
-                        ID: $(item).data('id')
-                    }
-                });
-            });
-            $.ajax({
-                url: '/Cart/UpdateFromCart',
-                data: { cartModel: JSON.stringify(cartList) },
-                dataType: 'json',
-                type: 'POST',
-                success: function (res) {
-                    if (res.status == true) {
+        //$('#btnUpdateFromMiniCart').off('click').on('click', function () {
+        //    var listProduct = $('.txtQuantityFromMiniCart');
+        //    var cartList = [];
+        //    $.each(listProduct, function (i, item) {
+        //        cartList.push({
+        //            Quantity: $(item).val(),
+        //            Product: {
+        //                ID: $(item).data('id')
+        //            }
+        //        });
+        //    });
+        //    $.ajax({
+        //        url: '/Cart/UpdateFromCart',
+        //        data: { cartModel: JSON.stringify(cartList) },
+        //        dataType: 'json',
+        //        type: 'POST',
+        //        success: function (res) {
+        //            if (res.status == true) {
 
-                    }
-                }
-            })
-        });
+        //            }
+        //        }
+        //    })
+        //});
 
         $('#btnDeleteAllFromMiniCart').off('click').on('click', function () {
 

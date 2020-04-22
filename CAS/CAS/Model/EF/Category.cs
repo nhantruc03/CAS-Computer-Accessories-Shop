@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -33,12 +33,6 @@ namespace Model.EF
 
         [StringLength(50)]
         public string ModifiedBy { get; set; }
-
-        [StringLength(250)]
-        public string MetaKeywords { get; set; }
-
-        [StringLength(250)]
-        public string MetaDescriptions { get; set; }
 
         public bool Status { get; set; }
 

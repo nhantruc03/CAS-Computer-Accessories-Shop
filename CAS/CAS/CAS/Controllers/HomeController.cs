@@ -51,8 +51,8 @@ namespace CAS.Controllers
         {
             //  var model = new MenuDao().ListByGroupId(2);
             ViewBag.ProductCategories = new ProductCategoryDao().ListAllParentID();
-            var model = new FooterDao().GetFooter();
-            return PartialView(model);
+            ViewBag.QuickLinks = new DocumentDao().ListAll();
+            return PartialView();
         }
 
     }

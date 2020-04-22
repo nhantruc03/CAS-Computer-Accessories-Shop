@@ -30,12 +30,7 @@ namespace CAS
                namespaces: new[] { "CAS.Controllers" }
            );
 
-            routes.MapRoute(
-               name: "About",
-               url: "gioi-thieu",
-               defaults: new { controller = "About", action = "Index", id = UrlParameter.Optional },
-               namespaces: new[] { "CAS.Controllers" }
-           );
+
 
             routes.MapRoute(
                name: "Contact",
@@ -157,12 +152,44 @@ namespace CAS
         );
 
             routes.MapRoute(
+           name: "Payment Fail",
+           url: "loi-thanh-toan",
+           defaults: new { controller = "Cart", action = "Fail", id = UrlParameter.Optional },
+           namespaces: new[] { "CAS.Controllers" }
+       );
+
+            routes.MapRoute(
               name: "Add To Cart",
               url: "them-gio-hang",
               defaults: new { controller = "Cart", action = "AddItem", id = UrlParameter.Optional },
               namespaces: new[] { "CAS.Controllers" }
           );
+            
 
+            routes.MapRoute(
+          name: "About",
+          url: "gioi-thieu",
+          defaults: new { controller = "About", action = "Index", id = UrlParameter.Optional },
+          namespaces: new[] { "CAS.Controllers" }
+      );
+            routes.MapRoute(
+         name: "FAQ",
+         url: "cau-hoi-thuong-gap",
+         defaults: new { controller = "FAQ", action = "Index", id = UrlParameter.Optional },
+         namespaces: new[] { "CAS.Controllers" }
+     );
+            routes.MapRoute(
+         name: "Privacy Policy",
+         url: "chinh-sach-bao-mat",
+         defaults: new { controller = "PrivacyPolicy", action = "Index", id = UrlParameter.Optional },
+         namespaces: new[] { "CAS.Controllers" }
+     );
+            routes.MapRoute(
+        name: "Term Of Use",
+        url: "dieu-khoan-su-dung",
+        defaults: new { controller = "TermOfUse", action = "Index", id = UrlParameter.Optional },
+        namespaces: new[] { "CAS.Controllers" }
+    );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

@@ -19,7 +19,7 @@ namespace CAS.Controllers
             }
             else
             {
-                var contact = new ContactDao().GetContact();
+                var contact = new DocumentDao().GetByID("Contact");
                 return View(contact);
             }
         }

@@ -9,7 +9,7 @@ namespace Model.EF
     [Table("Footer")]
     public partial class Footer
     {
-        [StringLength(50)]
+        [StringLength(20)]
         public string ID { get; set; }
 
         [Column(TypeName = "ntext")]
