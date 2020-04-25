@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Model.EF;
 using Model.Dao;
 namespace CAS.Controllers
 {
-    public class AboutController : Controller
+    public class FAQController : Controller
     {
-        // GET: About
+        // GET: FAQ
         public ActionResult Index()
         {
-            var model = new DocumentDao().GetByID("About");
+            var model = new DocumentDao().GetByID("FAQ");
             return View(model);
         }
     }

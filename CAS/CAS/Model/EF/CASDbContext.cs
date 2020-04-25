@@ -11,8 +11,7 @@ namespace Model.EF
             : base("name=CASDbContext")
         {
         }
-
-        public virtual DbSet<About> Abouts { get; set; }
+        
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Content> Contents { get; set; }
@@ -35,17 +34,6 @@ namespace Model.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<About>()
-                 .Property(e => e.Metatitle)
-                 .IsUnicode(false);
-
-            modelBuilder.Entity<About>()
-                .Property(e => e.CreatedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<About>()
-                .Property(e => e.ModifiedBy)
-                .IsUnicode(false);
 
             modelBuilder.Entity<Category>()
                 .Property(e => e.MetaTitle)

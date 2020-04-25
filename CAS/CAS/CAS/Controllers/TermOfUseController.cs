@@ -6,12 +6,12 @@ using System.Web.Mvc;
 using Model.Dao;
 namespace CAS.Controllers
 {
-    public class AboutController : Controller
+    public class TermOfUseController : Controller
     {
-        // GET: About
+        // GET: TermOfUse
         public ActionResult Index()
         {
-            var model = new DocumentDao().GetByID("About");
+            var model = new DocumentDao().GetByID("TermOfUse");
             return View(model);
         }
     }
