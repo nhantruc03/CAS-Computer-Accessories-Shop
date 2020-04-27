@@ -110,6 +110,13 @@ namespace CAS
           );
 
             routes.MapRoute(
+             name: "ForgotPassword",
+             url: "quen-mat-khau",
+             defaults: new { controller = "User", action = "ForgotPassword", id = UrlParameter.Optional },
+             namespaces: new[] { "CAS.Controllers" }
+         );
+
+            routes.MapRoute(
             name: "Logout",
             url: "dang-xuat",
             defaults: new { controller = "User", action = "LogOut", id = UrlParameter.Optional },

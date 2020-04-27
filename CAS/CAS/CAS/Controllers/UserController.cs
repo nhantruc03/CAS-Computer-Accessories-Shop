@@ -36,7 +36,55 @@ namespace CAS.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if(TempData["Success"]!= null)
+            {
+                ViewBag.Success = TempData["Success"].ToString();
+            }
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(string USERNAME, string EMAIL)
+        {
+            var user = new UserDao().CheckForgotPassword(USERNAME, EMAIL);
+            if(user== null)
+            {
+                ViewBag.Error = "Tài khoản không tồn tại!";
+                return View();
+            }
+            else
+            {
+                Random a = new Random();
+                var random = a.Next(1000, 999999);
+                var newpassword = "newpass";
+                newpassword += random.ToString();
+                user.Password = Encryptor.MD5Hash(newpassword);
+                var result = new UserDao().Update(user);
+                if(result)
+                {
+                    string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Client/template/ForgotPassword.html"));
+                    content = content.Replace("{{CustomerName}}", user.Name);
+                    content = content.Replace("{{UserName}}", user.UserName);
+                    content = content.Replace("{{Email}}", user.Email);
+                    content = content.Replace("{{Password}}", newpassword);
+                    new MailHelper().SendMail(user.Email, "Thông tin mật khẩu mới từ CAS", content);
+                    TempData["Success"] = "Mật khẩu mới của bạn đã được cập nhật và gửi tới email!";
+                    return Redirect("/dang-nhap");
+                }
+                else
+                {
+                    ViewBag.Error = "Không thể cập nhật mật khẩu!";
+                    return View();
+                }
+        
+            }
+        
         }
 
         [HttpPost]
@@ -124,8 +172,9 @@ namespace CAS.Controllers
                 if (resultInsert > 0)
                 {
                     var userSession = new UserLogin();
-                    userSession.UserName = user.UserName;
-                    userSession.UserID = resultInsert;
+                    var userafterinsert = new UserDao().GetByID(resultInsert);
+                    userSession.UserName = userafterinsert.UserName;
+                    userSession.UserID = userafterinsert.ID;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                 }
             }
@@ -298,6 +347,11 @@ namespace CAS.Controllers
         [HttpPost]
         public ActionResult EditPassword(UserPassword entity)
         {
+            var tempuser = new UserDao().GetByID(((UserLogin)Session[CommonConstants.USER_SESSION]).UserID);
+            if (string.IsNullOrEmpty(tempuser.Password))
+            {
+                ViewBag.FacebookAccount = true;
+            }
             if (Session[CommonConstants.USER_SESSION] != null)
             {
                 if (ModelState.IsValid)

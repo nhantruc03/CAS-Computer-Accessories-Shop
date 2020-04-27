@@ -28,9 +28,17 @@ namespace Model.Dao
             var user = db.Users.SingleOrDefault(x => x.UserName == entity.UserName);
             if (user == null)
             {
-                db.Users.Add(entity);
-                db.SaveChanges();
-                return entity.ID;
+                user = db.Users.SingleOrDefault(x => x.Email == entity.Email);
+                if(user==null)
+                {
+                    db.Users.Add(entity);
+                    db.SaveChanges();
+                    return entity.ID;
+                }
+                else
+                {
+                    return user.ID;
+                }
             }
             else
             {
@@ -195,6 +203,11 @@ namespace Model.Dao
         public bool CheckEmail(string email)
         {
             return db.Users.Count(x => x.Email == email) > 0;
+        }
+
+        public User CheckForgotPassword(string username, string email)
+        {
+            return db.Users.SingleOrDefault(x => x.UserName == username && x.Email == email);
         }
     }
 }

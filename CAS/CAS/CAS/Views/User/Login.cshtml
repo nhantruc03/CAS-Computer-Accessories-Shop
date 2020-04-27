@@ -5,13 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-    .content{
-       max-width:700px;
-       margin:auto;
+    .content {
+        max-width: 700px;
+        margin: auto;
     }
-    .product-sec1{
-        max-width:800px;
-        margin:auto;
+
+    .product-sec1 {
+        max-width: 800px;
+        margin: auto;
     }
 </style>
 <div class="product-sec1 my-4">
@@ -23,12 +24,16 @@
             <div class="form-horizontal">
                 <h4>Đăng nhập</h4>
                 <hr />
+                @if (ViewBag.Success != null)
+                {
+                    <div class="alert alert-success">@ViewBag.Success</div>
+                }
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-4" })
                     <div class="col-md-10">
                         @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
-                        <small id="usernamehelper" class="form-text text-muted">(*)Nếu bạn đã từng đăng nhập bằng Facebook, có thể dùng email của tài khoản Facebook đó để đăng nhập</small>  
+                        <small id="usernamehelper" class="form-text text-muted">(*)Nếu bạn đã từng đăng nhập bằng Facebook, có thể dùng email của tài khoản Facebook đó để đăng nhập</small>
                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -43,16 +48,21 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Đăng nhập" class="btn btn-default" />
-                        <a class="btn btn-facebook" href="/User/LoginFacebook">
+                        <a href="/quen-mat-khau">Quên mật khẩu ?</a>
+                        <input style="float:right" type="submit" value="Đăng nhập" class="btn btn-success" />
+                        <a style="float:right" class="btn btn-facebook mr-1" href="/User/LoginFacebook">
                             <i class="fab fa-facebook"></i>
-                            Đăng nhập với FaceBook
+                            Đăng nhập
                         </a>
+
+                        <div class="clearfix"></div>
+
                     </div>
                 </div>
             </div>
         }
+
     </div>
 </div>
 
-   
+

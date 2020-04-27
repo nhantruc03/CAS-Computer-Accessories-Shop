@@ -35,20 +35,30 @@ namespace CAS.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new UserDao();
-                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
-                user.CreatedBy = session.UserName;
-                var encryptedmd5hash = Encryptor.MD5Hash(user.Password);
-                user.Password = encryptedmd5hash;
-                user.CreateDate = DateTime.Now;
-                long id = dao.Insert(user);
-                if (id > 0)
+                if (dao.CheckUserName(user.UserName))
                 {
-                    //SetAlert("Thêm user thành công","success");
-                    return RedirectToAction("Index", "User");
+                    ModelState.AddModelError("", "Tên đăng nhập đã tồn tại");
+                }
+                else if (dao.CheckEmail(user.Email))
+                {
+                    ModelState.AddModelError("", "Email đã tồn tại");
                 }
                 else
-                {
-                    ModelState.AddModelError("", "Thêm user thất bại");
+                { var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                    user.CreatedBy = session.UserName;
+                    var encryptedmd5hash = Encryptor.MD5Hash(user.Password);
+                    user.Password = encryptedmd5hash;
+                    user.CreateDate = DateTime.Now;
+                    long id = dao.Insert(user);
+                    if (id > 0)
+                    {
+                        //SetAlert("Thêm user thành công","success");
+                        return RedirectToAction("Index", "User");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Thêm user thất bại");
+                    }
                 }
             }
             SetViewBagUserGroup();

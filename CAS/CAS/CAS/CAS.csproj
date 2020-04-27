@@ -2850,6 +2850,7 @@
     <Content Include="Assets\Client\js\move-top.js" />
     <Content Include="Assets\Client\js\scroll.js" />
     <Content Include="Assets\Client\js\SmoothScroll.min.js" />
+    <Content Include="Assets\Client\template\ForgotPassword.html" />
     <Content Include="Assets\Client\template\neworder.html" />
     <Content Include="Assets\Client\webfonts\fa-brands-400.svg" />
     <Content Include="Assets\Client\webfonts\fa-regular-400.svg" />
@@ -3165,6 +3166,7 @@
     <Content Include="Views\PrivacyPolicy\Index.cshtml" />
     <Content Include="Views\TermOfUse\Index.cshtml" />
     <Content Include="Views\FAQ\Index.cshtml" />
+    <Content Include="Views\User\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
