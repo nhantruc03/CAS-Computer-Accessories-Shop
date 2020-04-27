@@ -176,6 +176,7 @@
     <Compile Include="Areas\Admin\Models\MPC_Product_ProductCategory.cs" />
     <Compile Include="Areas\Admin\Models\MPC_UserGroup_Role_Credential.cs" />
     <Compile Include="Areas\Admin\Models\MPC_User_UserGroup.cs" />
+    <Compile Include="Areas\Admin\Models\Report.cs" />
     <Compile Include="Areas\Admin\Models\UserInformation.cs" />
     <Compile Include="Areas\Admin\Models\UserPassword.cs" />
     <Compile Include="Common\CheckCredentialAttribute.cs" />
@@ -3115,6 +3116,7 @@
     <Content Include="Areas\Admin\Views\Document\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Document\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Document\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Report.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

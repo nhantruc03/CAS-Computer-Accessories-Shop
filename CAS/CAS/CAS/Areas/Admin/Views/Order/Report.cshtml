@@ -1,0 +1,88 @@
+﻿@model IEnumerable<CAS.Areas.Admin.Models.Report>
+
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@section header{
+    Lập báo cáo
+}
+
+
+@using (Html.BeginForm("Report", "Order", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal ">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10">
+                <label>Ngày: </label>
+                <input type="number" name="day" min="1" max="31" />
+                <label>Tháng: </label>
+                <input type="number" name="month" min="1" max="12" />
+                <label>Năm: </label>
+                <input type="number" name="year" min="1" />
+                <input type="submit" value="Tạo báo cáo" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+@if (Model != null)
+{
+
+    using (Html.BeginForm("Export", "Order", FormMethod.Post))
+    {
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Báo cáo Ngày: @(ViewBag.day != 0 ? ViewBag.day : "" ) Tháng: @(ViewBag.month != 0 ? ViewBag.month : "" ) Năm: @(ViewBag.year != 0 ? ViewBag.year : "" )</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Mã Sản Phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Đơn giá</th>
+                                <th>Số lượng</th>
+                                <th>Tổng giá trị</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Mã Sản Phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Đơn giá</th>
+                                <th>Số lượng</th>
+                                <th>Tổng giá trị</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.id">
+                                    <td>@item.id</td>
+                                    <td>@item.name</td>
+                                    <td>@item.price đ</td>
+                                    <td>@item.quantity</td>
+                                    <td>@item.total đ</td>
+                                    <td>@item.status</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <input type="hidden" name="day" value="@ViewBag.day" />
+                    <input type="hidden" name="month" value="@ViewBag.month" />
+                    <input type="hidden" name="year" value="@ViewBag.year" />
+                    <input type="submit" value="Xuất file excel" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+}
+
+

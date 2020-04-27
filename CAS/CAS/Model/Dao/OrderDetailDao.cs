@@ -32,5 +32,10 @@ namespace Model.Dao
         {
             return db.OrderDetails.Where(x => x.OrderID == id).OrderByDescending(x => x.Price).ToList();
         }
+
+        public IEnumerable<OrderDetail> ListAll()
+        {
+            return db.OrderDetails.OrderByDescending(x => x.Price).ToList();
+        }
     }
 }
