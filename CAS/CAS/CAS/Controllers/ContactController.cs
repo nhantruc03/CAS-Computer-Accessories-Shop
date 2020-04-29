@@ -34,7 +34,7 @@ namespace CAS.Controllers
             feedback.Address = address;
             feedback.Email = email;
             feedback.Content = content;
-            feedback.Status = true;
+            feedback.Status = false;
             feedback.CreateDate = DateTime.Now;
 
             var id = new FeedBackDao().Insert(feedback);

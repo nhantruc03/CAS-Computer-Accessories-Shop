@@ -1,0 +1,77 @@
+﻿@model Model.EF.FeedBack
+@{
+    ViewBag.Title = "Reply";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@section header{
+    Trả lời phản hồi của khách hàng
+}
+
+@using (Html.BeginForm("Reply", "FeedBack", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tên khách hàng</label>
+            <div class="col-md-10">
+                <input class="form-control" value="@Model.Name" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Số điện thoại khách hàng</label>
+            <div class="col-md-10">
+                <input class="form-control" value="@Model.Phone" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Email khách hàng</label>
+            <div class="col-md-10">
+                <input class="form-control" value="@Model.Email" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Địa chỉ khách hàng</label>
+            <div class="col-md-10">
+                <input class="form-control" value="@Model.Address" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nội dung khách hàng gửi</label>
+            <div class="col-md-10">
+                <textarea class="form-control" readonly>@Model.Content</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Trả lời cho khách hàng</label>
+            <div class="col-md-10">
+                <textarea class="form-control" name="reply"></textarea>
+            </div>
+        </div>
+
+        <input type="hidden" value="@Model.ID" />
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="/Admin/Feedback/Index" class="btn btn-primary btn-default">Trở về danh sách</a>
+                <input type="submit" value="Trả lời qua email và cập nhật trạng thái" class="btn btn-success" style="float:right" />
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

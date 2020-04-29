@@ -1220,6 +1220,7 @@
     <Content Include="Assets\Admin\js\Plugins\ckfinder\translations.txt" />
     <Content Include="Assets\Admin\js\sb-admin-2.js" />
     <Content Include="Assets\Admin\js\sb-admin-2.min.js" />
+    <Content Include="Assets\Admin\template\ReplyFeedBack.html" />
     <Content Include="Assets\Admin\vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="Assets\Admin\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Assets\Admin\vendor\bootstrap\js\bootstrap.js" />
@@ -3117,6 +3118,7 @@
     <Content Include="Areas\Admin\Views\Document\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Document\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Report.cshtml" />
+    <Content Include="Areas\Admin\Views\FeedBack\Reply.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

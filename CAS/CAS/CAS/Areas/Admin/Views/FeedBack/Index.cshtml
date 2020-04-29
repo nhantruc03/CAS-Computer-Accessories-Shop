@@ -49,8 +49,10 @@
                             <td>@item.Email</td>
                             <td>@item.Address</td>
                             <td>@item.Content</td>
-                            <td><a href="#" class="btn-active" data-id="@item.ID">@(item.Status ? "Kích hoạt" : "Khóa")</a></td>
+                            <td><a href="#" class="btn-active" data-id="@item.ID">@(item.Status ? "Đã trả lời" : "Chưa trả lời")</a></td>
                             <td>
+                                <a href="/Admin/FeedBack/Reply/@item.ID" class="btn btn-primary btn-default">Trả lời</a>
+                                |
                                 @Ajax.ActionLink("Xóa","Delete", new {@id=item.ID },new AjaxOptions
                            {
                                HttpMethod = "Delete",

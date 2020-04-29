@@ -15,10 +15,10 @@
                 success: function (response) {
                     console.log(response);
                     if (response.status == true) {
-                        btn.text('Kích hoạt');
+                        btn.text('Đã trả lời');
                     }
                     else {
-                        btn.text('Khóa');
+                        btn.text('Chưa trả lời');
                     }
                 }
             });
