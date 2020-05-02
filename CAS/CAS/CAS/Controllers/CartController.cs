@@ -26,6 +26,24 @@ namespace CAS.Controllers
             return View(list);
         }
 
+        public ActionResult ApplyDiscount(string discountcode)
+        {
+            var dc = new DiscountCodeDao().GetByID(discountcode);
+            if (dc != null)
+            {
+                if(dc.StartDate <= DateTime.Now && dc.EndDate>= DateTime.Now)
+                {
+                   Session.Add(CommonConstants.DISCOUNT_SESSION, dc);
+                }
+                else
+                {
+                    TempData["errorcode"] = "Mã giảm giá đã hết hạn";
+               
+                }
+            }
+            return Redirect("Payment");
+        }
+
         public JsonResult AddToCart(long productID, int quantity)
         {
             bool alreadyhave = false;
@@ -217,12 +235,16 @@ namespace CAS.Controllers
                 {
                     list = (List<CartItem>)cart;
                 }
+                if(TempData["errorcode"]!=null)
+                {
+                    ViewBag.errorcode = TempData["errorcode"].ToString();
+                }
                 return View(list);
             }
         }
 
         [HttpPost]
-        public ActionResult Payment(string shipName, string mobile, string address, string email)
+        public ActionResult Payment(string shipName, string mobile, string address, string email, decimal total_order, string discountcode = "")
         {
             if (Session[CommonConstants.USER_SESSION] == null)
             {
@@ -238,13 +260,15 @@ namespace CAS.Controllers
                 order.ShipMobile = mobile;
                 order.ShipAddress = address;
                 order.ShipEmail = email;
+                order.DiscountCodeID = discountcode;
+                order.Total = total_order;
 
                 try
                 {
                     var id = new OrderDao().Insert(order);
                     var cart = (List<CartItem>)Session[CommonConstants.CartSession];
                     var detailDao = new OrderDetailDao();
-                    decimal total = 0;
+                    //decimal total = 0;
 
                     foreach (var item in cart)
                     {
@@ -262,7 +286,7 @@ namespace CAS.Controllers
                         orderDetail.Quantity = item.Quantity;
                         detailDao.Insert(orderDetail);
 
-                        total += (orderDetail.Price.GetValueOrDefault(0) * item.Quantity);
+                        //total += (orderDetail.Price.GetValueOrDefault(0) * item.Quantity);
                     }
                     string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Client/template/WebPage1.cshtml"));
                     content = content.Replace("{{CustomerName}}", shipName);
@@ -303,8 +327,8 @@ namespace CAS.Controllers
                             "</tr>";
                     }
                     content += "</table>";
-
-                    content = content.Replace("{{Total}}", total.ToString("N0"));
+                    content = content.Replace("{{DiscountCode}}", discountcode);
+                    content = content.Replace("{{Total}}", total_order.ToString("N0"));
 
                     var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
                     new MailHelper().SendMail(email, "Đơn hàng mới từ CAS", content);

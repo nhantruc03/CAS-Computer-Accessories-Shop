@@ -11,12 +11,14 @@ namespace Model.EF
             : base("name=CASDbContext")
         {
         }
-        
+
+        //public virtual DbSet<Contact> Contacts { get; set; }
+
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Content> Contents { get; set; }
         public virtual DbSet<ContentTag> ContentTags { get; set; }
         public virtual DbSet<Credential> Credentials { get; set; }
+        public virtual DbSet<DiscountCode> DiscountCodes { get; set; }
         public virtual DbSet<FeedBack> FeedBacks { get; set; }
         public virtual DbSet<Footer> Footers { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
@@ -31,6 +33,8 @@ namespace Model.EF
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
+
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -71,13 +75,29 @@ namespace Model.EF
                 .Property(e => e.RoleID)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Footer>()
-                .Property(e => e.ID)
+            modelBuilder.Entity<DiscountCode>()
+                        .Property(e => e.ID)
+                        .IsUnicode(false);
+
+            modelBuilder.Entity<DiscountCode>()
+                .Property(e => e.CreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DiscountCode>()
+                .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Order>()
                 .Property(e => e.ShipMobile)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Order>()
+               .Property(e => e.Total)
+               .HasPrecision(18, 0);
+
+            modelBuilder.Entity<Order>()
+             .Property(e => e.DiscountCodeID)
+             .IsUnicode(false);
 
             modelBuilder.Entity<OrderDetail>()
                 .Property(e => e.Price)

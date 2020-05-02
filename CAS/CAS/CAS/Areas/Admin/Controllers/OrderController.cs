@@ -75,6 +75,7 @@ namespace CAS.Areas.Admin.Controllers
         [HttpDelete]
         public ActionResult Delete(int id)
         {
+            new OrderDetailDao().DeleteAllByID(id);
             new OrderDao().Delete(id);
 
             return RedirectToAction("Index");

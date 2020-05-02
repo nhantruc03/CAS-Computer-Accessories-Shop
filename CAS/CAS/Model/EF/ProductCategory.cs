@@ -21,9 +21,6 @@ namespace Model.EF
 
         public int? DisplayOrder { get; set; }
 
-        [StringLength(250)]
-        public string SeoTiTle { get; set; }
-
         public DateTime? CreateDate { get; set; }
 
         [StringLength(50)]

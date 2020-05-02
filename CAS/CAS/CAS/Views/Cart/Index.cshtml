@@ -3,6 +3,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     decimal sum = 0;
+    decimal normal = 0;
+    var dc = (Model.EF.DiscountCode)Session[Common.CommonConstants.DISCOUNT_SESSION];
 }
 @section jsFooter{
     <script src="/Assets/Client/js/controller/cartcontroller.js"></script>
@@ -74,11 +76,38 @@
                                 <td><a href="#" data-id="@item.Product.ID" class="btn-delete">Xóa</a></td>
                             </tr>
                         }
-
+                        @if(dc != null)
+                        {
+                            var temp = sum;
+                            normal = sum;
+                            temp = sum * dc.Percent.Value / 100;
+                            if (dc.MaxValue.HasValue)
+                            {
+                                if (temp > dc.MaxValue.Value)
+                                {
+                                    sum = sum - dc.MaxValue.Value;
+                                }
+                                else
+                                {
+                                    sum = sum - temp;
+                                }
+                            }
+                            else
+                            {
+                                sum = sum - temp;
+                            }
+                        }
                     </tbody>
                 </table>
                 <hr />
                 <div class="section group">
+                    @if (dc != null)
+                    {
+                        <p style="float:right">Mã giảm giá đã áp dụng: @dc.ID</p>
+                        <div class="clearfix"></div>
+                        <p style="float:right">Số tiền gốc: @normal.ToString("N0")₫</p>
+                        <div class="clearfix"></div>
+                    }
                     <h2 style="float:right">Tổng tiền: @sum.ToString("N0")₫</h2>
                     <div class="clearfix"></div>
                 </div>

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Model.EF.DiscountCode>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+@section header{
+    Danh sách mã giảm gái
+}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách mã giảm giá</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã giảm giá</th>
+                        <th>Tên</th>
+                        <th>Mô tả</th>
+                        <th>Ngày bắt đầu</th>
+                        <th>Ngày kết thúc</th>
+                        <th>Giá trị</th>
+                        <th>Giảm tối đa</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Mã giảm giá</th>
+                        <th>Tên</th>
+                        <th>Mô tả</th>
+                        <th>Ngày bắt đầu</th>
+                        <th>Ngày kết thúc</th>
+                        <th>Giá trị</th>
+                        <th>Giảm tối đa</th>
+                        <th>#</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row_@item.ID">
+                            <td>@item.ID</td>
+                            <td>@item.Name</td>
+                            <td>@item.Descriptions</td>
+                            <td>@item.StartDate</td>
+                            <td>@item.EndDate</td>
+                            <td>@item.Percent</td>
+                            <td>@item.MaxValue</td>
+                            <td>
+                                <a href="/Admin/DiscountCode/Edit/@item.ID" class="btn btn-primary btn-default">Sửa</a>
+                                |
+                                @Ajax.ActionLink("Xóa","Delete", new { @id = item.ID },new AjaxOptions
+                           {
+                               HttpMethod = "Delete",
+                               Confirm ="Bạn có muốn xóa mã giảm giá này?",
+                               OnSuccess="RemoveRow",
+
+                           },new { @class ="btn btn-danger"})
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+            @Html.ActionLink("Tạo mã giảm giá mới", "Create", "DiscountCode", new { @class = "btn btn-success btn-default" })
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function RemoveRow() {
+        var $tr = $(this).closest('tr');
+        $tr.remove();
+    }
+</script>

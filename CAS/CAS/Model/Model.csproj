@@ -64,6 +64,7 @@
     <Compile Include="Dao\ContentDao.cs" />
     <Compile Include="Dao\ContentTagDao.cs" />
     <Compile Include="Dao\CredentialDao.cs" />
+    <Compile Include="Dao\DiscountCodeDao.cs" />
     <Compile Include="Dao\DocumentDao.cs" />
     <Compile Include="Dao\FeedBackDao.cs" />
     <Compile Include="Dao\FooterDao.cs" />
@@ -80,10 +81,10 @@
     <Compile Include="Dao\UserGroupDao.cs" />
     <Compile Include="EF\CASDbContext.cs" />
     <Compile Include="EF\Category.cs" />
-    <Compile Include="EF\Contact.cs" />
     <Compile Include="EF\Content.cs" />
     <Compile Include="EF\ContentTag.cs" />
     <Compile Include="EF\Credential.cs" />
+    <Compile Include="EF\DiscountCode.cs" />
     <Compile Include="EF\Document.cs" />
     <Compile Include="EF\FeedBack.cs" />
     <Compile Include="EF\Footer.cs" />

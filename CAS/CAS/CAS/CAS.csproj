@@ -154,6 +154,7 @@
     <Compile Include="Areas\Admin\Controllers\ContentController.cs" />
     <Compile Include="Areas\Admin\Controllers\ContentTagController.cs" />
     <Compile Include="Areas\Admin\Controllers\CredentialController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DiscountCodeController.cs" />
     <Compile Include="Areas\Admin\Controllers\DocumentController.cs" />
     <Compile Include="Areas\Admin\Controllers\FeedBackController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
@@ -3119,6 +3120,9 @@
     <Content Include="Areas\Admin\Views\Document\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Report.cshtml" />
     <Content Include="Areas\Admin\Views\FeedBack\Reply.cshtml" />
+    <Content Include="Areas\Admin\Views\DiscountCode\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DiscountCode\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DiscountCode\Edit.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

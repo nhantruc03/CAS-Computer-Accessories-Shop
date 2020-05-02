@@ -1,4 +1,4 @@
-﻿namespace Model.EF
+namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -6,23 +6,27 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Category")]
-    public partial class Category
+    [Table("DiscountCode")]
+    public partial class DiscountCode
     {
-        public long ID { get; set; }
+        [StringLength(50)]
+        public string ID { get; set; }
 
-        [StringLength(250)]
+        [StringLength(50)]
         public string Name { get; set; }
 
-        [StringLength(250)]
-        public string MetaTitle { get; set; }
+        [StringLength(200)]
+        public string Descriptions { get; set; }
 
-        public long? ParentID { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? StartDate { get; set; }
 
-        public int? DisplayOrder { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? EndDate { get; set; }
 
-        [StringLength(250)]
-        public string SeoTiTle { get; set; }
+        public int? Percent { get; set; }
+
+        public long? MaxValue { get; set; }
 
         public DateTime? CreateDate { get; set; }
 
@@ -33,9 +37,5 @@
 
         [StringLength(50)]
         public string ModifiedBy { get; set; }
-
-        public bool Status { get; set; }
-
-        public bool? ShowOnHome { get; set; }
     }
 }

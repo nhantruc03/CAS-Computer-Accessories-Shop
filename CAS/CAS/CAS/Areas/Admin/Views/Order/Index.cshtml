@@ -29,6 +29,8 @@
                         <th>Số điện thoại</th>
                         <th>Email</th>
                         <th>Địa chỉ</th>
+                        <th>Mã giảm giá</th>
+                        <th>Tổng giá trị</th>
                         <th>Chi tiết</th>
                         <th>Trạng thái</th>
                         <th>#</th>
@@ -40,6 +42,8 @@
                         <th>Số điện thoại</th>
                         <th>Email</th>
                         <th>Địa chỉ</th>
+                        <th>Mã giảm giá</th>
+                        <th>Tổng giá trị</th>
                         <th>Chi tiết</th>
                         <th>Trạng thái</th>
                         <th>#</th>
@@ -53,6 +57,8 @@
                         <td>@item.ShipMobile</td>
                         <td>@item.ShipEmail</td>
                         <td>@item.ShipAddress</td>
+                        <td>@item.DiscountCodeID</td>
+                        <td>@item.Total.GetValueOrDefault(0).ToString("N0")</td>
                         <td><a href="/Admin/Order/ViewDetail/@item.ID" class="btn btn-primary btn-default">Xem chi tiết</a></td>
                         <td><a href="#" class="btn-active" data-id="@item.ID">@(item.Status ? "Kích hoạt" : "Khóa")</a></td>
                         <td>

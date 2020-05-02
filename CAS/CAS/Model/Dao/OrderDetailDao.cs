@@ -37,5 +37,19 @@ namespace Model.Dao
         {
             return db.OrderDetails.OrderByDescending(x => x.Price).ToList();
         }
+
+        public bool DeleteAllByID(long id)
+        {
+            try
+            {
+                db.OrderDetails.RemoveRange(GetByID(id));
+                db.SaveChanges();
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -28,5 +28,10 @@ namespace Model.EF
         public string ShipEmail { get; set; }
 
         public bool Status { get; set; }
+
+        [StringLength(50)]
+        public string DiscountCodeID { get; set; }
+
+        public decimal? Total { get; set; }
     }
 }
