@@ -1,17 +1,42 @@
 ﻿@model IEnumerable<CAS.Models.MPC_Product_ProductCategory>
 
 @{
-    
+
     var listproductCat = ViewBag.listproductcategory;
     var productCat = (Model.EF.ProductCategory)ViewBag.ProductCategory;
     ViewBag.Title = productCat.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var list = Model;
+    switch ((string)Session[Common.CommonConstants.ORDER])
+    {
+        case "asc":
+            list = Model.OrderBy(item => item.product.Price);
+            break;
+        case "desc":
+            list = Model.OrderByDescending(item => item.product.Price);
+            break;
+        case "name-asc":
+            list = Model.OrderBy(item => item.product.Name);
+            break;
+        case "name-desc":
+            list = Model.OrderByDescending(item => item.product.Name);
+            break;
+        default: break;
+    }
+    var link = "";
 }
 <style>
     .filter {
         font-weight: bold;
     }
+    #sortitem {
+        background: transparent;
+        padding: 15px 10px;
+        cursor: pointer;
+    }
 </style>
+
+
 <div class="services-breadcrumb">
     <div class="agile_inner_breadcrumb">
         <div class="container">
@@ -36,7 +61,19 @@
                         Bộ lọc
                     </li>
                 }
+
+                <li style="float: right">
+                    <select id="sortitem" name="agileinfo_search" class="border my-2" required="" onchange="javascript: handleSelected2(this)">
+                        <option value="">Lọc sản phẩm</option>
+                        <option value="asc">Giá: Tăng dần</option>
+                        <option value="desc">Giá: Giảm dần</option>
+                        <option value="name-asc">Tên: A-Z</option>
+                        <option value="name-desc">Tên: Z-A</option>
+                    </select>
+                </li>
+
             </ul>
+            <div class="clearfix"></div>
         </div>
     </div>
 </div>
@@ -56,7 +93,7 @@
                     <div class="row">
                         @if (ViewBag.total > 0)
                         {
-                            foreach (var item in Model)
+                            foreach (var item in list)
                             {
                                 var url = "/chi-tiet/" + item.product.Metatitle + "-" + item.product.ID;
                                 <div class="col-md-4 product-men mt-5">
@@ -114,19 +151,19 @@
 
                         var startpageindex = Math.Max(1, currentpage - pageDisplay / 2);
                         var endpageindex = Math.Min(totalpage, currentpage + pageDisplay / 2);
-                        string link = "";
                         if (ViewBag.filter == true && ViewBag.onsale == false)
                         {
                             link = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID + "?filter=true&min=" + ViewBag.minprice + "&max=" + ViewBag.maxprice;
                         }
-                        else if (ViewBag.filter == true && ViewBag.onsal == true)
+                        else if (ViewBag.filter == true && ViewBag.onsale == true)
                         {
                             link = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID + "?filter=true&onsale=" + ViewBag.onsale;
                         }
                         else
                         {
-                            link = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID;
+                            link = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID + "?filter=false";
                         }
+
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg pt-4">
                                 @if (currentpage > ViewBag.first)
@@ -149,8 +186,11 @@
                                 }
                                 @if (currentpage < totalpage)
                                 {
+
                                     <li class="page-item"><a href="@link&page=@ViewBag.next" class="page-link" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
                                     <li class="page-item"> <a href="@link&page=@ViewBag.last" class="page-link" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
+
+
                                 }
                             </ul>
                         </nav>
@@ -163,11 +203,11 @@
             <div class="col-lg-3 mt-lg-0 mt-4 p-lg-0">
                 <div class="side-bar p-sm-4 p-3">
                     <div class="search-hotel border-bottom py-2">
-                        <h3 class="agileits-sear-head mb-3">Thương hiệu</h3>
+                        <h3 class="agileits-sear-head mb-3">Loại</h3>
                         @*<form action="#" method="post">
-                            <input type="search" placeholder="Search Brand..." name="search" required="">
-                            <input type="submit" value=" ">
-                        </form>*@
+                                <input type="search" placeholder="Search Brand..." name="search" required="">
+                                <input type="submit" value=" ">
+                            </form>*@
                         <div class="left-side py-2">
                             <ul>
                                 @foreach (var item in listproductCat)
@@ -182,10 +222,11 @@
                     </div>
                     <!-- price -->
                     <div class="range border-bottom py-2">
-                        <h3 class="agileits-sear-head mb-3">Price</h3>
+                        <h3 class="agileits-sear-head mb-3">Giá</h3>
                         <div class="w3l-range">
                             <ul>
                                 @{
+
                                     var filter_url = "/danh-muc-san-pham/" + productCat.MetaTitle + "-" + productCat.ID;
 
                                     <li>
@@ -209,8 +250,6 @@
                                     <li>
                                         <a class="filter" href="@filter_url?filter=true&onsale=true" style="color:red;">*Đang giảm giá*</a>
                                     </li>
-
-
                                 }
                             </ul>
                         </div>

@@ -107,7 +107,6 @@
     <!--auto complete search-->
     <script src="/Assets/Client/js/jquery-ui.js"></script>
     <!--//auto complete search-->
-    
     <!-- //jquery -->
     <!-- cart-js -->
     <script src="/Assets/Client/js/controller/minicartController.js"></script>
@@ -126,7 +125,35 @@
         function handleSelect(elm) {
             window.location = elm.value;
         }
+
+
     </script>
+
+    <script>
+        window.onload = function () {
+            var selItem = sessionStorage.getItem("SelItem");
+            $('#sortitem').val(selItem);
+        }
+
+        function handleSelected2(elm) {
+
+            var name = elm.value;
+            sessionStorage.setItem("SelItem", name);
+            $.ajax({
+                url: "/Product/SetSession",
+                data: { name: name },
+                dataType: "json",
+                type: "POST",
+                success: function (response) {
+                    console.log(response);
+                    if (response.status == true) {
+                        location.reload();
+                    }
+                }
+            });
+        }
+    </script>
+
 
     <script>
         jQuery(document).ready(function ($) {

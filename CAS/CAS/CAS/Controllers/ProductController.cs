@@ -53,15 +53,26 @@ namespace CAS.Controllers
             ViewBag.last = totalPage;
             ViewBag.next = page + 1;
             ViewBag.prev = page - 1;
+            
             return View(model);
         }
 
-        public ActionResult Category(long id ,bool filter=false,bool onsale=false,decimal min=0, decimal max =0,int page = 1, int pageSize = 9)
+        [HttpPost]
+        public JsonResult SetSession(string name)
+        {
+            Session[Common.CommonConstants.ORDER] = name;
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public ActionResult Category(long id , bool filter=false,bool onsale=false,decimal min=0, decimal max =0,int page = 1, int pageSize = 9, string order="")
         {
             var productcat = new ProductCategoryDao().GetByID(id);
             int totalRecord = 0;
             IEnumerable<MPC_Product_ProductCategory> model = null;
-            // check co su dung thanh filter khong
+            // khong su dung filter
             if(!filter && !onsale)
             {
                 if (productcat.ParentID == null)
@@ -94,7 +105,7 @@ namespace CAS.Controllers
                     model = new MPC_Product_ProductCategory().ListByIDOnSale(id, ref totalRecord, page, pageSize);
                 }
             }
-            // khong su dung filter
+            // loc san pham theo gia
             else
             {
                 ViewBag.filter = true;
@@ -120,14 +131,14 @@ namespace CAS.Controllers
             int maxPage = 5;
             int totalPage = 0;
 
-            totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize) + 0.5); // tong so trang, lam tron len 1
+            totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize)); // tong so trang, lam tron len 1
 
             ViewBag.totalpage = totalPage;
             ViewBag.maxpage = maxPage;
             ViewBag.first = 1;
             ViewBag.last = totalPage;
             ViewBag.next = page + 1;
-            ViewBag.prev = page - 1;    
+            ViewBag.prev = page - 1;
             return View(model);
         }
 

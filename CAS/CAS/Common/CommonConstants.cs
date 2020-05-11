@@ -8,6 +8,7 @@ namespace Common
 {
     public static class CommonConstants
     {
+        public static string ORDER = "ORDER";
         public static string DISCOUNT_SESSION = "DISCOUNT_SESSION";
         public static string USER_SESSION = "USER_SESSION";
         public static string SESSION_CREDENTIALS = "SESSION_CREDENTIALS";

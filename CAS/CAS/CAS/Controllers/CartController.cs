@@ -285,8 +285,7 @@ namespace CAS.Controllers
                         }
                         orderDetail.Quantity = item.Quantity;
                         detailDao.Insert(orderDetail);
-
-                        //total += (orderDetail.Price.GetValueOrDefault(0) * item.Quantity);
+                        
                     }
                     string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Client/template/WebPage1.cshtml"));
                     content = content.Replace("{{CustomerName}}", shipName);

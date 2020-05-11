@@ -3,8 +3,31 @@
 @{
     ViewBag.Title = "Kết quả tìm kiếm";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var list = Model;
+    switch ((string)Session[Common.CommonConstants.ORDER])
+    {
+        case "asc":
+            list = Model.OrderBy(item => item.Price);
+            break;
+        case "desc":
+            list = Model.OrderByDescending(item => item.Price);
+            break;
+        case "name-asc":
+            list = Model.OrderBy(item => item.Name);
+            break;
+        case "name-desc":
+            list = Model.OrderByDescending(item => item.Name);
+            break;
+        default: break;
+    }
 }
-
+<style>
+    #sortitem {
+        background: transparent;
+        padding: 15px 10px;
+        cursor: pointer;
+    }
+</style>
 <div class="services-breadcrumb">
     <div class="agile_inner_breadcrumb">
         <div class="container">
@@ -16,7 +39,18 @@
                 <li>
                     Tìm kiếm: @ViewBag.keyword
                 </li>
+                <li style="float: right">
+                    <select id="sortitem" name="agileinfo_search" class="border my-2" required="" onchange="javascript: handleSelected2(this)">
+                        <option value="">Lọc sản phẩm</option>
+                        <option value="asc">Giá: Tăng dần</option>
+                        <option value="desc">Giá: Giảm dần</option>
+                        <option value="name-asc">Tên: A-Z</option>
+                        <option value="name-desc">Tên: Z-A</option>
+                    </select>
+                </li>
+
             </ul>
+            <div class="clearfix"></div>
         </div>
     </div>
 </div>
@@ -30,11 +64,11 @@
         </h3>
         <!-- //tittle heading -->
         <!-- product left -->
-        <div class="agileinfo-ads-display col-lg-9">
+        <div class="agileinfo-ads-display col-lg-12">
             <div class="wrapper">
                 <!-- first section -->
                 <div class="row">
-                    @foreach (var item in Model)
+                    @foreach (var item in list)
                     {
                         var url = "/chi-tiet/" + item.Metatitle + "-" + item.ID;
                         <div class="col-md-4 product-men mt-5">

@@ -42,6 +42,7 @@ namespace CAS.Models
                          where ((ct.ParentID == categoryID) && (((pd.Price>=minprice)&& (pd.Price<=maxprice)) || ((pd.PromotionPrice>0)&&(pd.PromotionPrice.GetValueOrDefault(0) >= minprice) && (pd.PromotionPrice.GetValueOrDefault(0) <= maxprice))))
                          select new MPC_Product_ProductCategory() { product = pd, category = ct };
             totalRecord = result.Count();
+            //result = result.OrderBy(sort+ " " + sortdir)
             return result.Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
 
@@ -90,7 +91,7 @@ namespace CAS.Models
 
             var result = from pd in products
                          join ct in categories on pd.CategoryID equals ct.ID
-                         where ct.ID == categoryID && (((product.Price >= minprice) && (product.Price <= maxprice)) || ((product.PromotionPrice.GetValueOrDefault(0) >= minprice) && product.PromotionPrice.GetValueOrDefault(0) <= maxprice))
+                         where ct.ID == categoryID && (((pd.Price >= minprice) && (pd.Price <= maxprice)) || ((pd.PromotionPrice>0)&&(pd.PromotionPrice.GetValueOrDefault(0) >= minprice) && pd.PromotionPrice.GetValueOrDefault(0) <= maxprice))
                          select new MPC_Product_ProductCategory() { product = pd, category = ct };
             totalRecord = result.Count();
             return result.Skip((pageIndex - 1) * pageSize).Take(pageSize);
