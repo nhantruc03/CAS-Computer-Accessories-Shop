@@ -199,6 +199,7 @@ namespace Model.Dao
             {
                 var content = db.Contents.Find(id);
                 db.Contents.Remove(content);
+                RemoveAllContentTag(id);
                 db.SaveChanges();
                 return true;
             }

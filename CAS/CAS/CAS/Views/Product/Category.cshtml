@@ -21,6 +21,12 @@
         case "name-desc":
             list = Model.OrderByDescending(item => item.product.Name);
             break;
+        case "date-asc":
+            list = Model.OrderBy(item => item.product.CreateDate);
+            break;
+        case "date-desc":
+            list = Model.OrderByDescending(item => item.product.CreateDate);
+            break;
         default: break;
     }
     var link = "";
@@ -69,6 +75,8 @@
                         <option value="desc">Giá: Giảm dần</option>
                         <option value="name-asc">Tên: A-Z</option>
                         <option value="name-desc">Tên: Z-A</option>
+                        <option value="date-asc">Sản phẩm mới nhất</option>
+                        <option value="date-desc">Sản phẩm cũ nhất</option>
                     </select>
                 </li>
 

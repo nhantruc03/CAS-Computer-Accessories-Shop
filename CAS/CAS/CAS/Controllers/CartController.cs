@@ -344,6 +344,8 @@ namespace CAS.Controllers
 
         public ActionResult Success()
         {
+            Session[CommonConstants.CartSession] = null;
+            Session[CommonConstants.DISCOUNT_SESSION] = null;
             return View();
         }
 

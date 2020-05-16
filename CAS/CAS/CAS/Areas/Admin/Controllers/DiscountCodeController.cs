@@ -77,5 +77,14 @@ namespace CAS.Areas.Admin.Controllers
             return View("Edit");
         }
 
+        [HttpPost]
+        public JsonResult Delete(string id)
+        {
+            var result = new DiscountCodeDao().Delete(id);
+            return Json(new
+            {
+                status = result
+            });
+        }
     }
 }
