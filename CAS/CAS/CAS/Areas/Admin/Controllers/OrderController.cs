@@ -43,6 +43,7 @@ namespace CAS.Areas.Admin.Controllers
             ViewBag.month = month;
             ViewBag.year = year;
             var list = new Report().CreateReport(day,month,year);
+            list = list.OrderBy(x => x.discount);
             return View(list);
         }
 
@@ -54,7 +55,7 @@ namespace CAS.Areas.Admin.Controllers
             gv.DataBind();
             Response.ClearContent();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment; filename=BaoCao.xls");
+            Response.AddHeader("content-disposition", "attachment; filename=BaoCao-"+day.ToString()+"-"+month.ToString()+"-"+year.ToString()+".xls");
             Response.Charset = "";
             StringWriter objStringWriter = new StringWriter();
             HtmlTextWriter objHtmlTextWriter = new HtmlTextWriter(objStringWriter);

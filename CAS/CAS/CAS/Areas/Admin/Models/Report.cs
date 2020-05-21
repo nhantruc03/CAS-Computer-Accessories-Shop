@@ -14,6 +14,7 @@ namespace CAS.Areas.Admin.Models
         public string price { set; get; }
         public int quantity { set; get; } 
         public string total { get; set; }
+        public string discount { get; set; }
         public string status { get; set; }
       
 
@@ -40,16 +41,16 @@ namespace CAS.Areas.Admin.Models
             var result = from od in listorder
                          join dt in listorderdetail on od.ID equals dt.OrderID
                          join pd in listproduct on dt.ProductID equals pd.ID
-                         group new { pd, dt, od } by new { pd.ID, pd.Name, dt.Price, od.Status } into grp
+                         group new { pd, dt, od } by new { pd.ID, pd.Name, dt.Price, od.DiscountCodeID, od.Status } into grp
                          select new Report {
                              id = grp.Key.ID,
                              name = grp.Key.Name,
                              price = grp.Key.Price.Value.ToString("N0"),
                              quantity = grp.Sum(x => x.dt.Quantity.Value),
                              total = (grp.Key.Price.Value * grp.Sum(x => x.dt.Quantity.Value)).ToString("N0"),
+                             discount = grp.Key.DiscountCodeID,
                              status = (grp.Key.Status == true ? "Hoàn thành" : "Chưa hoàn thành")    
                          };
-                         
 
             return result;
         }

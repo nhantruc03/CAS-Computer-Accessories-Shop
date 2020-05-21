@@ -260,7 +260,15 @@ namespace CAS.Controllers
                 order.ShipMobile = mobile;
                 order.ShipAddress = address;
                 order.ShipEmail = email;
-                order.DiscountCodeID = discountcode;
+                if(discountcode=="")
+                {
+
+                    order.DiscountCodeID = null;
+                }
+                else
+                {
+                    order.DiscountCodeID = discountcode;
+                }
                 order.Total = total_order;
 
                 try
@@ -330,8 +338,8 @@ namespace CAS.Controllers
                     content = content.Replace("{{Total}}", total_order.ToString("N0"));
 
                     var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
-                    new MailHelper().SendMail(email, "Đơn hàng mới từ CAS", content);
-                    new MailHelper().SendMail(toEmail, "Đơn hàng mới từ CAS", content);
+                    //new MailHelper().SendMail(email, "Đơn hàng mới từ CAS", content);
+                    //new MailHelper().SendMail(toEmail, "Đơn hàng mới từ CAS", content);
                 }
                 catch (Exception)
                 {

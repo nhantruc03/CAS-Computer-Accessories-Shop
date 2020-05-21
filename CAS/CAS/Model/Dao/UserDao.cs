@@ -209,5 +209,7 @@ namespace Model.Dao
         {
             return db.Users.SingleOrDefault(x => x.UserName == username && x.Email == email);
         }
+
+        
     }
 }

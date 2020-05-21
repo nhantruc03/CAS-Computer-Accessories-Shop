@@ -22,9 +22,17 @@ namespace Model.Dao
 
         public string Insert(Credential entity)
         {
-            db.Credentials.Add(entity);
-            db.SaveChanges();
-            return entity.UserGroupID;
+            try
+            {
+                db.Credentials.Add(entity);
+                db.SaveChanges();
+                return entity.UserGroupID;
+            }
+            catch(Exception)
+            {
+                return null;
+            }
+        
         }
 
         public IEnumerable<Credential> ListAll()
