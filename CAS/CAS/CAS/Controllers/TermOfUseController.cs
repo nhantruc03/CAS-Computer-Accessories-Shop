@@ -9,6 +9,7 @@ namespace CAS.Controllers
     public class TermOfUseController : Controller
     {
         // GET: TermOfUse
+        [OutputCache(CacheProfile ="Cache1day")]
         public ActionResult Index()
         {
             var model = new DocumentDao().GetByID("TermOfUse");

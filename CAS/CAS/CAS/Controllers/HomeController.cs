@@ -9,6 +9,7 @@ namespace CAS.Controllers
 {
     public class HomeController : Controller
     {
+        [OutputCache(CacheProfile = "Cache1day")]
         public ActionResult Index()
         {
             ViewBag.Slides = new SlideDao().ListAll();
@@ -19,6 +20,7 @@ namespace CAS.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration = 86400)]
         public ActionResult MainMenu()
         {
             var model = new MenuDao().ListByGroupId(1);
@@ -26,6 +28,7 @@ namespace CAS.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration = 86400)]
         public ActionResult TopMenu()
         {
             //var model = new MenuDao().ListByGroupId(2);
@@ -33,6 +36,7 @@ namespace CAS.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration = 86400)]
         public ActionResult HelpMenu()
         {
             //  var model = new MenuDao().ListByGroupId(2);
@@ -46,6 +50,7 @@ namespace CAS.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration = 86400)]
         public ActionResult Footer()
         {
             //  var model = new MenuDao().ListByGroupId(2);

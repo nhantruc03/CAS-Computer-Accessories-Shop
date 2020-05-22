@@ -10,6 +10,7 @@ namespace CAS.Controllers
     public class PrivacyPolicyController : Controller
     {
         // GET: PrivacyPolicy
+        [OutputCache(CacheProfile ="Cache1day")]
         public ActionResult Index()
         {
             var model = new DocumentDao().GetByID("PrivacyPolicy");

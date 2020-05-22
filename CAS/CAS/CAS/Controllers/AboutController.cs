@@ -9,6 +9,7 @@ namespace CAS.Controllers
     public class AboutController : Controller
     {
         // GET: About
+        [OutputCache(CacheProfile ="Cache1day")]
         public ActionResult Index()
         {
             var model = new DocumentDao().GetByID("About");

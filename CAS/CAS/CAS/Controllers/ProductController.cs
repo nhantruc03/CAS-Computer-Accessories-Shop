@@ -18,6 +18,7 @@ namespace CAS.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration =86400)]
         public PartialViewResult ProductCategory()
         {
             var model = new ProductCategoryDao().ListAllParentID();
@@ -43,9 +44,17 @@ namespace CAS.Controllers
             ViewBag.page = page; // trang hien tai
             ViewBag.keyword = keyword;
             int maxPage = 5;
-            int totalPage = 0;
+            double totalPage = 0;
 
-            totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize) + 0.5); // tong so trang, lam tron len 1
+            totalPage = ((double)totalRecord / (double)pageSize) + 0.5; // tong so trang, lam tron len 1
+            if (totalPage - (int)totalPage > 0.5)
+            {
+                totalPage = (int)totalPage + 1;
+            }
+            else
+            {
+                totalPage = (int)totalPage;
+            }
 
             ViewBag.totalpage = totalPage;
             ViewBag.maxpage = maxPage;
@@ -66,7 +75,7 @@ namespace CAS.Controllers
                 status = true
             });
         }
-
+        
         public ActionResult Category(long id , bool filter=false,bool onsale=false,decimal min=0, decimal max =0,int page = 1, int pageSize = 9, string order="")
         {
             var productcat = new ProductCategoryDao().GetByID(id);
@@ -129,9 +138,17 @@ namespace CAS.Controllers
             ViewBag.total = totalRecord; // tong san pham
             ViewBag.page = page; // trang hien tai
             int maxPage = 5;
-            int totalPage = 0;
+            double totalPage = 0;
 
-            totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize)); // tong so trang, lam tron len 1
+            totalPage = ((double)totalRecord / (double)pageSize)+0.5; // tong so trang, lam tron len 1
+            if(totalPage - (int)totalPage > 0.5)
+            {
+                totalPage = (int)totalPage + 1;
+            }
+            else
+            {
+                totalPage = (int)totalPage;
+            }
 
             ViewBag.totalpage = totalPage;
             ViewBag.maxpage = maxPage;
@@ -142,7 +159,7 @@ namespace CAS.Controllers
             return View(model);
         }
 
-
+        [OutputCache(CacheProfile ="Cache1dayproduct")]
         public ActionResult Detail(long id)
         {
             new ProductDao().PlusViewCount(id);
@@ -164,6 +181,7 @@ namespace CAS.Controllers
             return View(product);
         }
 
+        [OutputCache(CacheProfile ="Cache1hour")]
         public ActionResult OnSale(int page = 1, int pageSize = 9)
         {
             int totalRecord = 0;
