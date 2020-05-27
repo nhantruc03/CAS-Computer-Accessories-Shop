@@ -15,6 +15,7 @@ namespace CAS.Areas.Admin.Controllers
     public class ProductController : BaseController
     {
         // GET: Admin/Product
+        [CheckCredential(RoleID = "VIEW_PRODUCT")]
         public ActionResult Index()
         {
             MPC_Product_ProductCategory mpc = new MPC_Product_ProductCategory();
@@ -24,6 +25,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_PRODUCT")]
         public ActionResult Create()
         {
             SetViewBag();
@@ -31,6 +33,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_PRODUCT")]
         public ActionResult Edit(long id)
         {
             var dao = new ProductDao();
@@ -54,6 +57,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "CREATE_PRODUCT")]
         public ActionResult Create(Product entity)
         {
             //Xử lý moreimages
@@ -94,6 +98,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "EDIT_PRODUCT")]
         public ActionResult Edit(Product entity)
         {
             //Xử lý moreimages
@@ -142,6 +147,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpDelete]
+        [CheckCredential(RoleID = "DELETE_PRODUCT")]
         public ActionResult Delete(int id)
         {
             new ProductDao().Delete(id);
@@ -150,6 +156,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "CHANGE_STATUS_PRODUCT")]
         public JsonResult ChangeStatus(long id)
         {
             var result = new ProductDao().ChangeStatus(id);
@@ -160,6 +167,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "CHANGE_VAT_PRODUCT")]
         public JsonResult ChangeVATStatus(long id)
         {
             var result = new ProductDao().ChangeVATStatus(id);

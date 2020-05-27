@@ -12,6 +12,7 @@ namespace CAS.Areas.Admin.Controllers
     public class FeedBackController : BaseController
     {
         // GET: Admin/FeedBack
+        [CheckCredential(RoleID = "VIEW_FEEDBACK")]
         public ActionResult Index()
         {
             var list = new FeedBackDao().ListAll();
@@ -19,6 +20,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpDelete]
+        [CheckCredential(RoleID = "DELETE_FEEDBACK")]
         public ActionResult Delete(int id)
         {
             new FeedBackDao().Delete(id);
@@ -27,6 +29,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "REPLY_FEEDBACK")]
         public ActionResult Reply(long id)
         {
             var entity = new FeedBackDao().GetByID(id);
@@ -35,6 +38,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "REPLY_FEEDBACK")]
         public ActionResult Reply(long id, string reply)
         {
             var entity = new FeedBackDao().GetByID(id);
@@ -68,6 +72,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "CHANGE_STATUS_FEEDBACK")]
         public JsonResult ChangeStatus(long id)
         {
             var result = new FeedBackDao().ChangeStatus(id);

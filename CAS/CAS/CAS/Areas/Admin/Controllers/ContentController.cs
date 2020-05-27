@@ -13,6 +13,7 @@ namespace CAS.Areas.Admin.Controllers
     public class ContentController : BaseController
     {
         // GET: Admin/Content
+        [CheckCredential(RoleID = "VIEW_CONTENT")]
         public ActionResult Index()
         {
             var list = new ContentDao().ListAll();
@@ -21,12 +22,14 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_CONTENT")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_CONTENT")]
         public ActionResult Edit(long id)
         {
             var dao = new ContentDao();
@@ -36,6 +39,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost,ValidateInput(false)]
+        [CheckCredential(RoleID = "CREATE_CONTENT")]
         public ActionResult Create(Content content)
         {
             if(ModelState.IsValid)
@@ -56,6 +60,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "EDIT_CONTENT")]
         public ActionResult Edit(Content content)
         {
             if (ModelState.IsValid)
@@ -79,6 +84,7 @@ namespace CAS.Areas.Admin.Controllers
         
 
         [HttpDelete]
+        [CheckCredential(RoleID = "DELETE_CONTENT")]
         public ActionResult Delete(int id)
         {
             new ContentDao().Delete(id);
@@ -87,6 +93,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "CHANGE_STATUS_CONTENT")]
         public JsonResult ChangeStatus(long id)
         {
             var result = new ContentDao().ChangeStatus(id);

@@ -12,6 +12,7 @@ namespace CAS.Areas.Admin.Controllers
     public class ProductCategoryController : BaseController
     {
         // GET: Admin/ProductCategory
+        [CheckCredential(RoleID = "VIEW_PRODUCTCATEGORY")]
         public ActionResult Index()
         {
             var list = new MPC_ProductCat_ProductCat().ListAll();
@@ -19,6 +20,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_PRODUCTCATEGORY")]
         public ActionResult Create()
         {
             SetViewBag();
@@ -26,6 +28,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_PRODUCTCATEGORY")]
         public ActionResult Edit(long id)
         {
             var dao = new ProductCategoryDao();
@@ -35,6 +38,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "CREATE_PRODUCTCATEGORY")]
         public ActionResult Create(ProductCategory entity)
         {
             if (ModelState.IsValid)
@@ -66,6 +70,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "CREATE_PRODUCTCATEGORY")]
         public ActionResult Edit(ProductCategory entity)
         {
             if (ModelState.IsValid)
@@ -93,6 +98,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "DELETE_PRODUCTCATEGORY")]
         public JsonResult Delete(int id)
         {
             var result = new ProductCategoryDao().Delete(id);
@@ -103,6 +109,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "CHANGE_STATUS_PRODUCTCATEGORY")]
         public JsonResult ChangeStatus(long id)
         {
             var result = new ProductCategoryDao().ChangeStatus(id);

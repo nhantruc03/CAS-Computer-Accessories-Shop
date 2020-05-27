@@ -12,6 +12,7 @@ namespace CAS.Areas.Admin.Controllers
     public class ContentTagController : BaseController
     {
         // GET: Admin/ContentTag
+        [CheckCredential(RoleID = "VIEW_CONTENTTAG")]
         public ActionResult Index()
         {
             var list = new MPC_Content_ContentTag_Tag().ListAll();

@@ -12,6 +12,7 @@ namespace CAS.Areas.Admin.Controllers
     public class MenuTypeController : BaseController
     {
         // GET: Admin/MenuType
+        [CheckCredential(RoleID = "VIEW_MENUTYPE")]
         public ActionResult Index(int page = 1, int pagesize = 10)
         {
             var dao = new MenuTypeDao();
@@ -20,6 +21,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_MENUTYPE")]
         public ActionResult Create()
         {
             return View();
@@ -27,6 +29,7 @@ namespace CAS.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [CheckCredential(RoleID = "CREATE_MENUTYPE")]
         public ActionResult Create(MenuType entity)
         {
             if (ModelState.IsValid)
@@ -47,6 +50,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_MENUTYPE")]
         public ActionResult Edit(int id)
         {
             var entity = new MenuTypeDao().GetByID(id);
@@ -54,6 +58,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "EDIT_MENUTYPE")]
         public ActionResult Edit(MenuType entity)
         {
             if (ModelState.IsValid)
@@ -73,6 +78,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "DELETE_MENUTYPE")]
         public ActionResult Delete(long id)
         {
             var result = new MenuTypeDao().Delete(id);

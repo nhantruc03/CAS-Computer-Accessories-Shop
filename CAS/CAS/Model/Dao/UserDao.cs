@@ -124,35 +124,43 @@ namespace Model.Dao
             else
             {
                 if (isLoginAdmin == true)
+                    // login from adminpage
                 {
-                    if (result.GroupID == CommonConstants.ADMIN_GROUP || result.GroupID == CommonConstants.ORDERCHECKER_GROUP || result.GroupID == CommonConstants.STROREKEEPER_GROUP)
+                    if (result.GroupID != CommonConstants.CLIENT_GROUP)
+                        // have perssion
                     {
                         if (result.Status == false)
                         {
                             return -2;
+                            // status is false
                         }
                         else
                         {
                             if (result.Password == passWord)
                             {
                                 return 1;
+                                // correct password
                             }
                             else
                             {
                                 return -1;
+                                // incorrect password
                             }
                         }
                     }
                     else
+                        // no permission
                     {
                         return -3;
                     }
                 }
                 else
+                    // login from client page
                 {
                     if (result.Status == false)
                     {
                         return -2;
+                        // status is false
                     }
                     else
                     {

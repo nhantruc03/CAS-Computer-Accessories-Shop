@@ -10,6 +10,7 @@ namespace CAS.Areas.Admin.Controllers
     public class RoleController : BaseController
     {
         // GET: Admin/Role
+        [CheckCredential(RoleID = "VIEW_ROLE")]
         public ActionResult Index()
         {
             var list = new RoleDao().ListAll();
@@ -17,12 +18,14 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_ROLE")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_ROLE")]
         public ActionResult Edit(string id)
         {
             var dao = new RoleDao();
@@ -32,6 +35,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "CREATE_ROLE")]
         public ActionResult Create(Role entity)
         {
             if (ModelState.IsValid)
@@ -52,6 +56,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "EDIT_ROLE")]
         public ActionResult Edit(Role entity)
         {
             if (ModelState.IsValid)
@@ -71,6 +76,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "DELETE_ROLE")]
         public JsonResult Delete(string id)
         {
             var result = new RoleDao().Delete(id);

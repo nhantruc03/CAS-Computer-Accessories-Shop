@@ -11,6 +11,7 @@ namespace CAS.Areas.Admin.Controllers
     public class SlideController : BaseController
     {
         // GET: Admin/Slide
+        [CheckCredential(RoleID = "VIEW_SLIDE")]
         public ActionResult Index()
         {
             var list = new SlideDao().ListAll();
@@ -18,12 +19,14 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_SLIDE")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_SLIDE")]
         public ActionResult Edit(long id)
         {
             var dao = new SlideDao();
@@ -33,6 +36,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "CREATE_SLIDE")]
         public ActionResult Create(Slide entitiy)
         {
             if (ModelState.IsValid)
@@ -55,6 +59,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "EDIT_SLIDE")]
         public ActionResult Edit(Slide entity)
         {
             if (ModelState.IsValid)
@@ -77,6 +82,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpDelete]
+        [CheckCredential(RoleID = "DELETE_SLIDE")]
         public ActionResult Delete(int id)
         {
             new SlideDao().Delete(id);
@@ -85,6 +91,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "CHANGE_STATUS_SLIDE")]
         public JsonResult ChangeStatus(long id)
         {
             var result = new SlideDao().ChangeStatus(id);

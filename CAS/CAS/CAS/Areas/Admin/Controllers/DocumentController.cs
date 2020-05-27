@@ -11,6 +11,7 @@ namespace CAS.Areas.Admin.Controllers
     public class DocumentController : BaseController
     {
         // GET: Admin/Document
+        [CheckCredential(RoleID = "VIEW_DOCUMENT")]
         public ActionResult Index()
         {
             var list = new DocumentDao().ListAll();
@@ -19,12 +20,14 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_DOCUMENT")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_DOCUMENT")]
         public ActionResult Edit(string id)
         {
             var dao = new DocumentDao();
@@ -34,6 +37,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "CREATE_DOCUMENT")]
         public ActionResult Create(Document document)
         {
             if (ModelState.IsValid)
@@ -55,6 +59,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "EDIT_DOCUMENT")]
         public ActionResult Edit(Document document)
         {
             if (ModelState.IsValid)
@@ -78,6 +83,7 @@ namespace CAS.Areas.Admin.Controllers
 
 
         [HttpDelete]
+        [CheckCredential(RoleID = "DELETE_DOCUMENT")]
         public ActionResult Delete(string id)
         {
             new DocumentDao().Delete(id);

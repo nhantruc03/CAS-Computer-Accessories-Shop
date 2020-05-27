@@ -11,6 +11,7 @@ namespace CAS.Areas.Admin.Controllers
     public class CredentialController : BaseController
     {
         // GET: Admin/Credential
+        [CheckCredential(RoleID = "VIEW_CREDENTIAL")]
         public ActionResult Index()
         {
             MPC_UserGroup_Role_Credential mpc = new MPC_UserGroup_Role_Credential();
@@ -19,6 +20,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_CREDENTIAL")]
         public ActionResult Create()
         {
             SetViewBagUserGroup();
@@ -27,6 +29,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "CREATE_CREDENTIAL")]
         public ActionResult Create(Credential entity)
         {
             if (ModelState.IsValid)
@@ -48,6 +51,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpDelete]
+        [CheckCredential(RoleID = "DELETE_CREDENTIAL")]
         public ActionResult Delete(string usergroupID, string roleID )
         {
             new CredentialDao().Delete(usergroupID,roleID);

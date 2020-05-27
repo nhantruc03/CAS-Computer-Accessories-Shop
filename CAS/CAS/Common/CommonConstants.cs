@@ -17,5 +17,8 @@ namespace Common
         public static string CLIENT_GROUP = "CLIENT";
         public static string ORDERCHECKER_GROUP = "ORDERCHECKER";
         public static string STROREKEEPER_GROUP = "STOREKEEPER";
+        public static string NEWSPOSTER_GROUP = "NEWSPOSTER";
+        public static string WEBMANAGER_GROUP = "WEBMANAGER";
+        public static string CUSTOMERSERVICE_GROUP = "CUSTOMERSERVICE";
     }
 }

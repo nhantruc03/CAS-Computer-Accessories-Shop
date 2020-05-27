@@ -30,6 +30,7 @@ namespace CAS.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [CheckCredential(RoleID = "ADD_USER")]
         public ActionResult Create(User user)
         {
             if (ModelState.IsValid)
@@ -66,6 +67,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_USER")]
         public ActionResult Edit(int id)
         {
             var user = new UserDao().GetByID(id);
@@ -74,6 +76,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "EDIT_USER")]
         public ActionResult Edit(User user)
         {
             if (ModelState.IsValid)
@@ -102,6 +105,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpDelete]
+        [CheckCredential(RoleID = "DELETE_USER")]
         public ActionResult Delete(long id)
         {
             new UserDao().Delete(id);
@@ -116,6 +120,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "CHANGE_STATUS_USER")]
         public JsonResult ChangeStatus(long id)
         {
             var result = new UserDao().ChangeStatus(id);

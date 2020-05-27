@@ -12,6 +12,7 @@ namespace CAS.Areas.Admin.Controllers
     public class MenuController : BaseController
     {
         // GET: Admin/Menu
+        [CheckCredential(RoleID = "VIEW_MENU")]
         public ActionResult Index()
         {
             //var dao = new ContentDao();
@@ -29,6 +30,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_MENU")]
         public ActionResult Create()
         {
             SetViewBag();
@@ -36,6 +38,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_MENU")]
         public ActionResult Edit(long id)
         {
             var dao = new MenuDao();
@@ -46,6 +49,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "CREATE_MENU")]
         public ActionResult Create(Menu menu)
         {
             if (ModelState.IsValid)
@@ -66,6 +70,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "EDIT_MENU")]
         public ActionResult Edit(Menu menu)
         {
             if (ModelState.IsValid)
@@ -92,6 +97,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpDelete]
+        [CheckCredential(RoleID = "DELETE_MENU")]
         public ActionResult Delete(int id)
         {
             new MenuDao().Delete(id);
@@ -100,6 +106,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "CHANGE_STATUS_MENU")]
         public JsonResult ChangeStatus(long id)
         {
             var result = new MenuDao().ChangeStatus(id);

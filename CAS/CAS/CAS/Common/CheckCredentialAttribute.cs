@@ -14,7 +14,7 @@ namespace CAS
             var session = (UserLogin)HttpContext.Current.Session[CommonConstants.USER_SESSION];
             if(session==null)
             {
-                return false;
+                return true;
             }
             List<string> privilegeLevels = this.GetCredentialByLoggedInUser(session.UserName);
 

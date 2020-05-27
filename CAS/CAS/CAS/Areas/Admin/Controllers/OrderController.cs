@@ -15,6 +15,7 @@ namespace CAS.Areas.Admin.Controllers
     public class OrderController : BaseController
     {
         // GET: Admin/Order
+        [CheckCredential(RoleID = "VIEW_ORDER")]
         public ActionResult Index()
         {
             var list = new OrderDao().ListAll();
@@ -22,6 +23,7 @@ namespace CAS.Areas.Admin.Controllers
         }
         
         [HttpGet]
+        [CheckCredential(RoleID = "VIEW_ORDERDETAIL")]
         public ActionResult ViewDetail(long id)
         {
 
@@ -31,12 +33,14 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "VIEW_REPORT")]
         public ActionResult Report()
         {
             return View();
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "VIEW_REPORT")]
         public ActionResult Report(int day = 0, int month = 0, int year = 0)
         {
             ViewBag.day = day;
@@ -47,6 +51,7 @@ namespace CAS.Areas.Admin.Controllers
             return View(list);
         }
 
+        [CheckCredential(RoleID = "EXPORT_REPORT")]
         public ActionResult Export(int day, int month, int year)
         {
             var list = new Report().CreateReport(day, month, year);
@@ -66,6 +71,7 @@ namespace CAS.Areas.Admin.Controllers
             return View(list);
         }
 
+        [CheckCredential(RoleID = "CHANGE_STATUS_ORDER")]
         public ActionResult ChangeStatusAndBack(long id)
         {
 
@@ -74,6 +80,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpDelete]
+        [CheckCredential(RoleID = "DELETE_ORDER")]
         public ActionResult Delete(int id)
         {
             new OrderDetailDao().DeleteAllByID(id);
@@ -83,6 +90,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "CHANGE_STATUS_ORDER")]
         public JsonResult ChangeStatus(long id)
         {
             var result = new OrderDao().ChangeStatus(id);

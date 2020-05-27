@@ -10,6 +10,7 @@ namespace CAS.Areas.Admin.Controllers
     public class TagController : BaseController
     {
         // GET: Admin/Tag
+        [CheckCredential(RoleID = "VIEW_TAG")]
         public ActionResult Index()
         {
             var list = new TagDao().ListAll();
@@ -17,6 +18,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_TAG")]
         public ActionResult Edit(string id)
         {
             var dao = new TagDao();
@@ -26,6 +28,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "EDIT_TAG")]
         public ActionResult Edit(Tag entity)
         {
             if (ModelState.IsValid)

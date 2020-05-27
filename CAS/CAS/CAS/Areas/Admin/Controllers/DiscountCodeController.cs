@@ -12,6 +12,7 @@ namespace CAS.Areas.Admin.Controllers
     public class DiscountCodeController : BaseController
     {
         // GET: Admin/DiscountCode
+        [CheckCredential(RoleID = "VIEW_DISCOUNTCODE")]
         public ActionResult Index()
         {
             var list = new DiscountCodeDao().ListAll();
@@ -19,12 +20,14 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_DISCOUNTCODE")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_DISCOUNTCODE")]
         public ActionResult Edit(string id)
         {
             var dao = new DiscountCodeDao();
@@ -34,6 +37,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "CREATE_DISCOUNTCODE")]
         public ActionResult Create(DiscountCode entity)
         {
             if (ModelState.IsValid)
@@ -56,6 +60,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "EDIT_DISCOUNTCODE")]
         public ActionResult Edit(DiscountCode entity)
         {
             if (ModelState.IsValid)
@@ -78,6 +83,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "DELETE_DISCOUNTCODE")]
         public JsonResult Delete(string id)
         {
             var result = new DiscountCodeDao().Delete(id);

@@ -12,6 +12,7 @@ namespace CAS.Areas.Admin.Controllers
     public class UserGroupController : BaseController
     {
         // GET: Admin/UserGroup
+        [CheckCredential(RoleID = "VIEW_USERGROUP")]
         public ActionResult Index()
         {
             var list = new UserGroupDao().ListAll();
@@ -19,12 +20,14 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "CREATE_USERGROUP")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpGet]
+        [CheckCredential(RoleID = "EDIT_USERGROUP")]
         public ActionResult Edit(string id)
         {
             var dao = new UserGroupDao();
@@ -34,6 +37,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "CREATE_USERGROUP")]
         public ActionResult Create(UserGroup entity)
         {
             
@@ -55,6 +59,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
+        [CheckCredential(RoleID = "EDIT_USERGROUP")]
         public ActionResult Edit(UserGroup entity)
         {
             if (ModelState.IsValid)
@@ -74,6 +79,7 @@ namespace CAS.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(RoleID = "DELETE_USERGROUP")]
         public JsonResult Delete(string id)
         {
             var result = new UserGroupDao().Delete(id);
