@@ -11,7 +11,7 @@ namespace CAS.Controllers
     public class ContentController : Controller
     {
         // GET: Content
-        [OutputCache(CacheProfile = "Cache1hour")]
+        //[OutputCache(CacheProfile = "Cache1hour")]
         public ActionResult Index(int page = 1, int pageSize = 6)
         {
             int totalRecord = 0;

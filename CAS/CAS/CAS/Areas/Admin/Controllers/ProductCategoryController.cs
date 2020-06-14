@@ -122,7 +122,8 @@ namespace CAS.Areas.Admin.Controllers
         public void SetViewBag(long? selectedID = null)
         {
             var dao = new ProductCategoryDao();
-            ViewBag.ParentID = new SelectList(dao.ListAllParentID(), "ID", "Name", selectedID);
+            var list = new SelectList(dao.ListAllParentID(), "ID", "Name", selectedID);
+            ViewBag.ParentID = list;
         }
     }
 }

@@ -58,9 +58,8 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td style="max-width:10px">@item.Product.Descriptions</td>
+                                <td style="max-width:10px">@item.Product.Name</td>
                                 <td><img src="@item.Product.Image" width="100" /></td>
-                                @*<td><input type="number" class="txtQuantityFromMiniCart text-wrap text-wrap" data-id="@item.Product.ID" value="@item.Quantity" readonly/></td>*@
                                 <td><a class="txtQuantityFromMiniCart" data-id="@item.Product.ID">@item.Quantity</a></td>
                                 @if (item.Product.PromotionPrice.HasValue)
                                 {

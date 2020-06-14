@@ -68,9 +68,7 @@
             <div class="col-lg-5 col-md-8 single-right-left ">
                 <div class="grid images_3_of_2">
                     <div class="flexslider">
-                        <ul class="slides" id="imageList">
-
-                        </ul>
+                        <ul class="slides" id="imageList"></ul>
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -111,8 +109,7 @@
                         <label>@Model.Warranty</label>&nbsp; tháng bảo hành
                     </p>
                     <ul>
-                        @Model.Descriptions
-                        @Html.Raw(Model.Detail)
+                        @Html.Raw(Model.Descriptions)
                     </ul>
                     <p class="my-sm-4 my-3">
                         <i class="fas fa-retweet mr-3"></i>Các cổng thanh toán: thẻ ATM / ngân lượng / ....
@@ -128,6 +125,15 @@
                 }
             </div>
         </div>
+        @if (Model.Detail != null)
+        {
+            <div class="row">
+                <h1>Thông tin chi tiết</h1>
+                <div class="product-single-w3l">
+                    @Html.Raw(Model.Detail)
+                </div>
+            </div>
+        }
     </div>
 </div>
 

@@ -159,7 +159,7 @@ namespace CAS.Controllers
             return View(model);
         }
 
-        [OutputCache(CacheProfile ="Cache1dayproduct")]
+        //[OutputCache(CacheProfile ="Cache1dayproduct")]
         public ActionResult Detail(long id)
         {
             new ProductDao().PlusViewCount(id);

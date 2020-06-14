@@ -103,7 +103,7 @@
                                         <div class="item-info-product text-center border-top mt-4">
                                             <h4 class="pt-1">
                                                 <a href="@url">
-                                                    @(item.Name.Length <= 50 ? item.Name : item.Name.Substring(0, 50) + "...")
+                                                    @(item.Name.Length <= 30 ? item.Name : item.Name.Substring(0, 30) + "...")
                                                 </a>
                                             </h4>
                                             <div class="info-product-price my-2">
@@ -162,7 +162,7 @@
                                         <div class="item-info-product text-center border-top mt-4">
                                             <h4 class="pt-1">
                                                 <a href="@url">
-                                                    @(item.Name.Length <= 50 ? item.Name : item.Name.Substring(0, 50) + "...")
+                                                    @(item.Name.Length <= 30 ? item.Name : item.Name.Substring(0, 30) + "...")
                                                 </a>
                                             </h4>
                                             <div class="info-product-price my-2">

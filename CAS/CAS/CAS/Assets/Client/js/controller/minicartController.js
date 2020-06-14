@@ -23,7 +23,7 @@
                         $('#itemcount').text("(" + res.count + ")");
                         if (res.alrhave == false) {
                             $('.iteminminicart').append('<tr>' +
-                                '<td style = "max-width:10px" >' + item.Descriptions + '</td>' +
+                                '<td style = "max-width:10px" >' + item.Name + '</td>' +
                                 '<td><img src="' + item.Image + '" width="100" /></td>' +
                                 //'<td><input type="number" class="txtQuantityFromMiniCart text-wrap" data-id="' + item.ID + '" value="' + res.quantity + '"readonly/></td>' +
                                 '<td><a class="txtQuantityFromMiniCart" data-id="' + item.ID + '">' + res.quantity + '</a></td>' +

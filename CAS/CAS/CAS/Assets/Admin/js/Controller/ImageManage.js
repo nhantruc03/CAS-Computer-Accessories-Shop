@@ -28,6 +28,10 @@
             customConfig: '/Assets/Admin/js/Plugins/ckeditor/config.js'
         })
 
+        var editor = CKEDITOR.replace('txtContent1', {
+            customConfig: '/Assets/Admin/js/Plugins/ckeditor/config.js'
+        })
+
         $('#btnSelectListImage').on('click', function (e) {
             e.preventDefault();
             var finder = new CKFinder();

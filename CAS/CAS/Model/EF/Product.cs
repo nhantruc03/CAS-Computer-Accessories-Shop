@@ -17,7 +17,7 @@ namespace Model.EF
         [StringLength(250)]
         public string Metatitle { get; set; }
 
-        [StringLength(500)]
+        [Column(TypeName = "ntext")]
         public string Descriptions { get; set; }
 
         [StringLength(250)]

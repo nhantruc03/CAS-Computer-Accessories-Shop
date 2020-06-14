@@ -30,6 +30,7 @@
                 e.preventDefault();
                 $(this).parent().remove();
             });
+
             var data2 = @Html.Raw(Json.Encode(Model.Image));
             var html2 = '<div class="px-2"><img src="' + data2 + '" width="100"/><a href="#" class="btn-delImages2"><i class="fa fa-times"></i></a><input type="hidden" class="hidImage" value=' + data2 + '></div>';
 
@@ -71,7 +72,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Descriptions, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Descriptions, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Descriptions, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
                 @Html.ValidationMessageFor(model => model.Descriptions, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -147,7 +148,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Detail, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Detail, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
+                @Html.TextAreaFor(model => model.Detail, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent1" })
                 @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
             </div>
         </div>

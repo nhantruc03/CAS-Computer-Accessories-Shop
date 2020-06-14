@@ -117,7 +117,7 @@
                                         </div>
                                         <div class="item-info-product text-center border-top mt-4">
                                             <h4 class="pt-1">
-                                                <a href="@url">    @(item.product.Name.Length <= 45 ? item.product.Name : item.product.Name.Substring(0, 45) + "...")</a>
+                                                <a href="@url">    @(item.product.Name.Length <= 35 ? item.product.Name : item.product.Name.Substring(0, 35) + "...")</a>
                                             </h4>
                                             <div class="info-product-price my-2">
 
@@ -253,7 +253,7 @@
                                         <a class="filter" href="@filter_url?filter=true&min=20000000&max=30000000">Từ 20 - 30 triệu</a>
                                     </li>
                                     <li class="mt-1">
-                                        <a class="filter" href="@filter_url?filter=true&min=30000000&max=99999999999999999999999999999999999999">Trên 30 triệu</a>
+                                        <a class="filter" href="@filter_url?filter=true&min=30000000&max=999999999">Trên 30 triệu</a>
                                     </li>
                                     <li>
                                         <a class="filter" href="@filter_url?filter=true&onsale=true" style="color:red;">*Đang giảm giá*</a>
