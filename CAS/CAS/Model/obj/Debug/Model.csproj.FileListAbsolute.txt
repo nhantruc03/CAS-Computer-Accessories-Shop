@@ -32,3 +32,21 @@ D:\CAS-Computer Accessories Shop\CAS\CAS\Model\obj\Debug\Model.dll
 D:\CAS-Computer Accessories Shop\CAS\CAS\Model\obj\Debug\Model.pdb
 D:\CAS-Computer Accessories Shop\CAS\CAS\Model\bin\Debug\Common.dll
 D:\CAS-Computer Accessories Shop\CAS\CAS\Model\bin\Debug\Common.pdb
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\Model.dll.config
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\Model.dll
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\Model.pdb
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\Common.dll
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\EntityFramework.dll
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\EntityFramework.SqlServer.dll
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\PagedList.dll
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\PagedList.Mvc.dll
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\Common.pdb
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\EntityFramework.xml
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\EntityFramework.SqlServer.xml
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\PagedList.xml
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\bin\Debug\PagedList.Mvc.xml
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\obj\Debug\Model.csprojAssemblyReference.cache
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\obj\Debug\Model.csproj.CopyComplete
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\obj\Debug\Model.dll
+E:\STUDY\.NET\CAS-Computer-Accessories-Shop\CAS\CAS\Model\obj\Debug\Model.pdb

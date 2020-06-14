@@ -31,17 +31,16 @@
     <div class="product-sec1 my-4">
         <div class="content px-4 py-2">
             <div class="section group">
-
-                <table class="table">
+                <table class="timetable_sub">
                     <thead>
                         <tr>
-                            <td>Mã SP</td>
-                            <td>Tên SP</td>
-                            <td>Ảnh SP</td>
-                            <td>Số lượng</td>
-                            <td>Đơn giá</td>
-                            <td>Thành tiền</td>
-                            <td>#</td>
+                            <th>Mã SP</th>
+                            <th>Tên SP</th>
+                            <th>Ảnh SP</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                            <th>#</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +75,7 @@
                                 <td><a href="#" data-id="@item.Product.ID" class="btn-delete">Xóa</a></td>
                             </tr>
                         }
-                        @if(dc != null)
+                        @if (dc != null)
                         {
                             var temp = sum;
                             normal = sum;
@@ -113,10 +112,10 @@
                 </div>
                 <br />
                 <div style="float:right">
-                    <button id="btnContinue" class="btn">Tiếp tục mua hàng</button>
+                    <button id="btnContinue" class="btn" style="background-color:green; color:white">Tiếp tục mua hàng</button>
                     <button id="btnUpdate" class="btn">Cập nhật giỏ hàng</button>
                     <button id="btnDeleteAll" class="btn">Xóa giỏ hàng</button>
-                    <button id="btnPayment" class="btn">Thanh toán</button>
+                    <button id="btnPayment" class="btn" style="background-color:rgb(244, 92, 93);color:white">Thanh toán</button>
 
                 </div>
                 <div class="clearfix"></div>

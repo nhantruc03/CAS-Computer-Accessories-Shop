@@ -4,6 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="services-breadcrumb">
     <div class="agile_inner_breadcrumb">
         <div class="container">
@@ -19,88 +20,97 @@
         </div>
     </div>
 </div>
-@if (Model.Count() > 0)
-{
-    <div class="product-sec1 my-4">
-        <div class="content px-4 py-2">
-            <div class="section group">
+<div class="banner-bootom-w3-agileits py-5">
+    <div class="container py-xl-4 py-lg-2">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+            <span>Tin</span>
+            <span>Tức</span>
+        </h3>
+        @if (Model.Count() > 0)
+        {
+            <div class="product-sec1 my-4">
+                <div class="content px-4 py-2">
+                    <div class="section group">
+                        
+                        <table class="table">
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><img src="@item.Image" width="200" /></td>
+                                        <td>
+                                            <h2>
+                                                <a href="/tin-tuc/@item.Metatitle-@item.ID">
+                                                    @item.Name
+                                                </a>
+                                            </h2>
+                                            <hr />
+                                            Được đăng ngày: @item.CreateDate bởi
+                                            <span><a href="#" style="color:black; text-decoration:underline;">@item.CreatedBy</a></span>
+                                            <h3>@item.Descriptions</h3>
+                                        </td>
 
-                <table class="table">
-                    <tbody>
-                        @foreach (var item in Model)
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <!--Phân trang-->
+                        @if (ViewBag.totalpage > 1)
                         {
-                            <tr>
-                                <td><img src="@item.Image" width="200" /></td>
-                                <td>
-                                    <h2>
-                                        <a href="/tin-tuc/@item.Metatitle-@item.ID">
-                                            @item.Name
-                                        </a>
-                                    </h2>
-                                    <hr />
-                                    Được đăng ngày: @item.CreateDate bởi
-                                    <span><a href="#" style="color:black; text-decoration:underline;">@item.CreatedBy</a></span>
-                                    <h3>@item.Descriptions</h3>
-                                </td>
+                            int pageDisplay = (int)ViewBag.maxpage;
+                            int totalpage = (int)ViewBag.totalpage;
+                            int currentpage = (int)ViewBag.page;
 
-                            </tr>
+                            var startpageindex = Math.Max(1, currentpage - pageDisplay / 2);
+                            var endpageindex = Math.Min(totalpage, currentpage + pageDisplay / 2);
+                            string link = "";
+                            link = "/tin-tuc/";
+
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination pagination-lg pt-4">
+                                    @if (currentpage > ViewBag.first)
+                                    {
+                                        <li class="page-item"><a href="@link?page=@ViewBag.first" title="Trang đầu" class="page-link"><i class="fa fa-angle-double-left"></i></a></li>
+                                        <li class="page-item"> <a href="@link?page=@ViewBag.prev" title="Trang trước" class="page-link"><i class="fa fa-angle-left"></i></a></li>
+
+
+                                    }
+                                    @for (int i = startpageindex; i <= endpageindex; i++)
+                                    {
+                                        if (i == currentpage)
+                                        {
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#">@i</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item"><a href="@link?page=@i" class="page-link" title="Trang @i">@i</a></li>
+                                        }
+
+                                    }
+                                    @if (currentpage < totalpage)
+                                    {
+                                        <li class="page-item"><a href="@link?page=@ViewBag.next" class="page-link" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
+                                        <li class="page-item"> <a href="@link?page=@ViewBag.last" class="page-link" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
+
+
+                                    }
+                                </ul>
+                            </nav>
                         }
-                    </tbody>
-                </table>
-                <!--Phân trang-->
-                @if (ViewBag.totalpage > 1)
-                {
-                    int pageDisplay = (int)ViewBag.maxpage;
-                    int totalpage = (int)ViewBag.totalpage;
-                    int currentpage = (int)ViewBag.page;
 
-                    var startpageindex = Math.Max(1, currentpage - pageDisplay / 2);
-                    var endpageindex = Math.Min(totalpage, currentpage + pageDisplay / 2);
-                    string link = "";
-                    link = "/tin-tuc/";
-
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination pagination-lg pt-4">
-                            @if (currentpage > ViewBag.first)
-                            {
-                                <li class="page-item"><a href="@link?page=@ViewBag.first" title="Trang đầu" class="page-link"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li class="page-item"> <a href="@link?page=@ViewBag.prev" title="Trang trước" class="page-link"><i class="fa fa-angle-left"></i></a></li>
-
-
-                            }
-                            @for (int i = startpageindex; i <= endpageindex; i++)
-                            {
-                                if (i == currentpage)
-                                {
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#">@i</a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="page-item"><a href="@link?page=@i" class="page-link" title="Trang @i">@i</a></li>
-                                }
-
-                            }
-                            @if (currentpage < totalpage)
-                            {
-                                <li class="page-item"><a href="@link?page=@ViewBag.next" class="page-link" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
-                                <li class="page-item"> <a href="@link?page=@ViewBag.last" class="page-link" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
-
-
-                            }
-                        </ul>
-                    </nav>
-                }
-
-                <!--//Phân trang-->
+                        <!--//Phân trang-->
+                    </div>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="py-4 section group">
+                <span class="alert alert-danger">Chưa có sản phẩm nào trong giỏ hàng</span>
+            </div>
+        }
     </div>
-}
-else
-{
-    <div class="py-4 section group">
-        <span class="alert alert-danger">Chưa có sản phẩm nào trong giỏ hàng</span>
-    </div>
-}
+</div>
