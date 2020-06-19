@@ -4,6 +4,10 @@
     var slides = (List<Model.EF.Slide>)ViewBag.Slides;
     var NewProducts = (List<Model.EF.Product>)ViewBag.NewProducts;
     var TopViewProducts = (List<Model.EF.Product>)ViewBag.TopViewProducts;
+    var TopContents = (List<Model.EF.Content>)ViewBag.TopContents;
+    var content1 = TopContents[0];
+    var content2 = TopContents[1];
+    var content3 = TopContents[2];
 }
 
 
@@ -206,13 +210,13 @@
                                     <div class="single-blog-post style-1" data-animation="fadeInUpBig" data-delay="100ms" data-duration="1000ms">
                                         <!-- Blog Thumbnail -->
                                         <div class="blog-thumbnail bg-overlay">
-                                            <a href="#"><img src="~/Assets/Client/images/1.jpg" alt=""></a>
+                                            <a href="/tin-tuc/@content1.Metatitle-@content1.ID"><img style="width:555px; height:349px;" src=@content1.Image alt="@content1.Metatitle"></a>
                                         </div>
 
                                         <!-- Blog Content -->
                                         <div class="blog-content">
-                                            <span class="post-date">June 20, 2018</span>
-                                            <a href="#" class="post-title">Traffic Problems in Time Square</a>
+                                            <span class="post-date">@content1.CreateDate</span>
+                                            <a href="/tin-tuc/@content1.Metatitle-@content1.ID" class="post-title">@content1.Descriptions</a>
                                         </div>
                                     </div>
                                 </div>
@@ -222,26 +226,25 @@
                                     <div class="single-blog-post style-1 mb-30" data-animation="fadeInUpBig" data-delay="300ms" data-duration="1000ms">
                                         <!-- Blog Thumbnail -->
                                         <div class="blog-thumbnail bg-overlay">
-                                            <a href="#"><img src="~/Assets/Client/images/2.jpg" alt=""></a>
+                                            <a href="/tin-tuc/@content2.Metatitle-@content2.ID"><img style="width:525px; height:169px;" src=@content2.Image alt="@content2.Metatitle"></a>
                                         </div>
 
                                         <!-- Blog Content -->
                                         <div class="blog-content">
-                                            <span class="post-date">June 20, 2018</span>
-                                            <a href="#" class="post-title">The best way to spend your holliday</a>
+                                            <span class="post-date">@content2.CreateDate</span>
+                                            <a href="/tin-tuc/@content2.Metatitle-@content2.ID" class="post-title">@content2.Descriptions</a>
                                         </div>
                                     </div>
                                     <!-- Single Blog Post Area -->
-                                    <div class="single-blog-post style-1" data-animation="fadeInUpBig" data-delay="500ms" data-duration="1000ms" style="margin-top:19px" ;>
+                                    <div class="single-blog-post style-1" data-animation="fadeInUpBig" data-delay="500ms" data-duration="1000ms" style="margin-top:19px">
                                         <!-- Blog Thumbnail -->
                                         <div class="blog-thumbnail bg-overlay">
-                                            <a href="#"><img src="~/Assets/Client/images/3.jpg" alt=""></a>
+                                            <a href="/tin-tuc/@content3.Metatitle-@content3.ID"><img style="width:525px; height:169px;" src=@content3.Image alt="@content3.Metatitle"></a>
                                         </div>
-
                                         <!-- Blog Content -->
                                         <div class="blog-content">
-                                            <span class="post-date">June 20, 2018</span>
-                                            <a href="#" class="post-title">Sport results for the weekend games</a>
+                                            <span class="post-date">@content3.CreateDate</span>
+                                            <a href="/tin-tuc/@content3.Metatitle-@content3.ID" class="post-title">@content3.Descriptions</a>
                                         </div>
                                     </div>
                                 </div>
@@ -251,7 +254,6 @@
                     <!-- //third section -->
                 </div>
             </div>
-
             <!-- //product left -->
         </div>
     </div>

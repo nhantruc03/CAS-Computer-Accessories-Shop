@@ -143,6 +143,11 @@ namespace Model.Dao
             db.SaveChanges();
         }
 
+        public List<Content> ListNewContent(int top)
+        {
+            return db.Contents.Where(x => x.Status == true).OrderByDescending(x => x.CreateDate).Take(top).ToList();
+        }
+
         public IEnumerable<Content> ListAll()
         {
             return db.Contents.OrderByDescending(x => x.CreateDate).ToList();

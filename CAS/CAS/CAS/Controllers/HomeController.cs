@@ -13,8 +13,10 @@ namespace CAS.Controllers
         {
             ViewBag.Slides = new SlideDao().ListAll();
             var productDao = new ProductDao();
+            
             ViewBag.NewProducts = productDao.ListNewProduct(12);
             ViewBag.TopViewProducts = productDao.ListTopViewProduct(6);
+            ViewBag.TopContents = new ContentDao().ListNewContent(3);
             return View();
         }
 

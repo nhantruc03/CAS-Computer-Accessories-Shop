@@ -46,6 +46,7 @@ namespace CAS.Areas.Admin.Controllers
             {
                 var session = (UserLogin)Session[CommonConstants.USER_SESSION];
                 content.CreatedBy = session.UserName;
+                content.CreateDate = DateTime.Now;
                 var result =new ContentDao().Insert(content);
                 if (result > 0)
                 {
