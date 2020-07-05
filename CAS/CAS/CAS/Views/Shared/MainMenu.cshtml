@@ -1,13 +1,57 @@
 ﻿@model List<Model.EF.Menu>
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto text-center mr-xl-5">
-        @foreach (var item in Model)
-        {
-            <li class="nav-item mr-lg-2 mb-lg-0 mb-2">
-                <a class="nav-link" href="@item.Link" target="@item.Target">
-                    @item.Text
-                </a>
+@{
+    var listcategory = (List<Model.EF.ProductCategory>)ViewBag.Category;
+}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <div class="navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li>
+                <a class="dropdown-toggle" data-toggle="dropdown">Danh mục sản phẩm<span class="caret"></span></a>
+                <ul class="dropdown-menu multi-level">
+                    @foreach (var item in listcategory.Where(x => x.ParentID == null))
+                    {
+                        var child = listcategory.Where(x => x.ParentID == item.ID);
+                        if (child.Count() > 0)
+                        {
+                            <li class="dropdown-submenu">
+                                <a href="/danh-muc-san-pham/@item.MetaTitle-@item.ID" class="dropdown-toggle pl-2" data-toggle="dropdown">@item.Name</a>
+                                <ul class="dropdown-menu">
+                                    @foreach (var childitem in child)
+                                    {
+                                        <li><a href="/danh-muc-san-pham/@childitem.MetaTitle-@childitem.ID" class="pl-2">@childitem.Name</a></li>
+                                    }
+
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a class="pl-2" href="/danh-muc-san-pham/@item.MetaTitle-@item.ID">@item.Name</a></li>
+                        }
+                    }
+                </ul>
             </li>
-        }
-    </ul>
-</div>
+        </ul>
+    </div><!--/.nav-collapse -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center mr-xl-5">
+            @foreach (var item in Model)
+            {
+                <li class="nav-item mr-lg-2 mb-lg-0 mb-2">
+                    <a class="nav-link" href="@item.Link" target="@item.Target">
+                        @item.Text
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+</nav>
+

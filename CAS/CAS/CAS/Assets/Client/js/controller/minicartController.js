@@ -21,11 +21,17 @@
                     if (res.status == true) {
                         var item = res.entity;
                         $('#itemcount').text("(" + res.count + ")");
+                        var tempName;
+                        if (item.Name.length <= 30) {
+                            tempName = item.Name;
+                        }
+                        else {
+                            tempName = item.Name.substring(0, 30) + "...";
+                        }
                         if (res.alrhave == false) {
                             $('.iteminminicart').append('<tr>' +
-                                '<td style = "max-width:10px" >' + item.Name + '</td>' +
+                                '<td style = "max-width:10px" >' + tempName + "..." + '</td>' +
                                 '<td><img src="' + item.Image + '" width="100" /></td>' +
-                                //'<td><input type="number" class="txtQuantityFromMiniCart text-wrap" data-id="' + item.ID + '" value="' + res.quantity + '"readonly/></td>' +
                                 '<td><a class="txtQuantityFromMiniCart" data-id="' + item.ID + '">' + res.quantity + '</a></td>' +
                                 '<td>' + res.Price + '</td>' +
                                 '<td>' + res.lastPrice + '</td>' +
@@ -39,30 +45,6 @@
                 }
             });
         });
-
-        //$('#btnUpdateFromMiniCart').off('click').on('click', function () {
-        //    var listProduct = $('.txtQuantityFromMiniCart');
-        //    var cartList = [];
-        //    $.each(listProduct, function (i, item) {
-        //        cartList.push({
-        //            Quantity: $(item).val(),
-        //            Product: {
-        //                ID: $(item).data('id')
-        //            }
-        //        });
-        //    });
-        //    $.ajax({
-        //        url: '/Cart/UpdateFromCart',
-        //        data: { cartModel: JSON.stringify(cartList) },
-        //        dataType: 'json',
-        //        type: 'POST',
-        //        success: function (res) {
-        //            if (res.status == true) {
-
-        //            }
-        //        }
-        //    })
-        //});
 
         $('#btnDeleteAllFromMiniCart').off('click').on('click', function () {
 

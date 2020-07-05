@@ -2850,7 +2850,6 @@
     <Content Include="Assets\Client\js\jquery-ui.js" />
     <Content Include="Assets\Client\js\jquery.flexslider.js" />
     <Content Include="Assets\Client\js\jquery.magnific-popup.js" />
-    <Content Include="Assets\Client\js\minicart.js" />
     <Content Include="Assets\Client\js\move-top.js" />
     <Content Include="Assets\Client\js\scroll.js" />
     <Content Include="Assets\Client\js\SmoothScroll.min.js" />
@@ -3150,7 +3149,6 @@
     <Content Include="Views\Shared\MainMenu.cshtml" />
     <Content Include="Views\Shared\TopMenu.cshtml" />
     <Content Include="Views\Shared\HelpMenu.cshtml" />
-    <Content Include="Views\Shared\ProductCategory.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Product\Category.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />

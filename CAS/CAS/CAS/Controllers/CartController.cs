@@ -93,78 +93,54 @@ namespace CAS.Controllers
                 status = true,
                 entity = product,
                 quantity = itemquantity,
-                promoPrice = product.PromotionPrice.GetValueOrDefault(0).ToString("N0"),
+                //promoPrice = product.PromotionPrice.GetValueOrDefault(0).ToString("N0"),
                 Price = price.GetValueOrDefault(0).ToString("N0"),
                 lastPrice = (price * itemquantity).GetValueOrDefault(0).ToString("N0"),
                 alrhave = alreadyhave
             }, JsonRequestBehavior.AllowGet);
         }
 
-
-
-        //public JsonResult UpdateFromCart(string cartModel)
+        //public ActionResult Additem(long productID, int quantity)
         //{
-        //    var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
-        //    var sessionCart = (List<CartItem>)Session[CommonConstants.CartSession];
-        //    if (sessionCart != null)
+        //    var product = new ProductDao().GetById(productID);
+        //    var cart = Session[CommonConstants.CartSession];
+        //    if (cart != null)
         //    {
-        //        foreach (var item in sessionCart)
+        //        var list = (List<CartItem>)cart;
+        //        if (list.Exists(x => x.Product.ID == productID))
         //        {
-        //            var jsonItem = jsonCart.SingleOrDefault(x => x.Product.ID == item.Product.ID);
-        //            if (jsonItem != null)
+        //            foreach (var item in list)
         //            {
-        //                item.Quantity = jsonItem.Quantity;
+        //                if (item.Product.ID == productID)
+        //                {
+        //                    item.Quantity += quantity;
+        //                }
         //            }
         //        }
-        //        Session[CommonConstants.CartSession] = sessionCart;
+        //        else
+        //        {
+        //            // Tạo mới item   
+        //            var item = new CartItem();
+        //            item.Product = product;
+        //            item.Quantity = quantity;
+        //            list.Add(item);
+        //        }
+        //        Session[CommonConstants.CartSession] = list;
+
         //    }
-        //    return Json(new
+        //    else
         //    {
-        //        status = true
-        //    });
+        //        // Tạo mới item
+        //        var item = new CartItem();
+        //        item.Product = product;
+        //        item.Quantity = quantity;
+        //        var list = new List<CartItem>();
+        //        list.Add(item);
+        //        // Gán session
+        //        Session[CommonConstants.CartSession] = list;
+        //    }
+        //    return RedirectToAction("Index");
         //}
-
-        public ActionResult Additem(long productID, int quantity)
-        {
-            var product = new ProductDao().GetById(productID);
-            var cart = Session[CommonConstants.CartSession];
-            if (cart != null)
-            {
-                var list = (List<CartItem>)cart;
-                if (list.Exists(x => x.Product.ID == productID))
-                {
-                    foreach (var item in list)
-                    {
-                        if (item.Product.ID == productID)
-                        {
-                            item.Quantity += quantity;
-                        }
-                    }
-                }
-                else
-                {
-                    // Tạo mới item
-                    var item = new CartItem();
-                    item.Product = product;
-                    item.Quantity = quantity;
-                    list.Add(item);
-                }
-                Session[CommonConstants.CartSession] = list;
-
-            }
-            else
-            {
-                // Tạo mới item
-                var item = new CartItem();
-                item.Product = product;
-                item.Quantity = quantity;
-                var list = new List<CartItem>();
-                list.Add(item);
-                // Gán session
-                Session[CommonConstants.CartSession] = list;
-            }
-            return RedirectToAction("Index");
-        }
 
 
         public JsonResult Update(string cartModel)

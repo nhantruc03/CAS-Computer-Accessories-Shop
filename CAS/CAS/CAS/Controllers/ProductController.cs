@@ -17,13 +17,7 @@ namespace CAS.Controllers
             return View();
         }
 
-        [ChildActionOnly]
-        [OutputCache(Duration =86400)]
-        public PartialViewResult ProductCategory()
-        {
-            var model = new ProductCategoryDao().ListAllParentID();
-            return PartialView(model);
-        }
+    
 
         public JsonResult ListName(string q)
         {

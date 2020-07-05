@@ -21,9 +21,11 @@ namespace CAS.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration = 86400)]
         public ActionResult MainMenu()
         {
             var model = new MenuDao().ListByGroupId(1);
+            ViewBag.Category = new ProductCategoryDao().ListAll();
             return PartialView(model);
         }
 

@@ -49,7 +49,7 @@ namespace CAS.Areas.Admin.Models
                              quantity = grp.Sum(x => x.dt.Quantity.Value),
                              total = (grp.Key.Price.Value * grp.Sum(x => x.dt.Quantity.Value)).ToString("N0"),
                              discount = grp.Key.DiscountCodeID,
-                             status = (grp.Key.Status == true ? "Hoàn thành" : "Chưa hoàn thành")    
+                             status = (grp.Key.Status == true ? "Hoan thanh" : "Chua hoan thanh")    
                          };
 
             return result;

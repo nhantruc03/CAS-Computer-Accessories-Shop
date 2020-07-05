@@ -43,14 +43,14 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <table class="table">
+                <table class="timetable_sub">
                     <thead>
                         <tr>
-                            <td>Tên SP</td>
-                            <td>Ảnh SP</td>
-                            <td>Số lượng</td>
-                            <td>Đơn giá</td>
-                            <td>Thành tiền</td>
+                            <th>Tên SP</th>
+                            <th>Ảnh SP</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
                         </tr>
                     </thead>
                     <tbody class="iteminminicart">
@@ -58,7 +58,7 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td style="max-width:10px">@item.Product.Name</td>
+                                <td style="max-width:10px">  @(item.Product.Name.Length <= 30 ? item.Product.Name : item.Product.Name.Substring(0, 30) + "...") </td>
                                 <td><img src="@item.Product.Image" width="100" /></td>
                                 <td><a class="txtQuantityFromMiniCart" data-id="@item.Product.ID">@item.Quantity</a></td>
                                 @if (item.Product.PromotionPrice.HasValue)
@@ -81,7 +81,6 @@
                 <a href="/gio-hang" style="color:black" class="btn btn-default">Chi tiết giỏ hàng</a>
                 <a id="btnDeleteAllFromMiniCart" class="btn btn-default">Xóa tất cả</a>
                 <a id="btnPaymentFromMiniCart" class="btn btn-default">Thanh toán</a>
-                @*<a class="btn btn-default" data-dismiss="modal">Đóng</a>*@
             </div>
         </div>
     </div>
