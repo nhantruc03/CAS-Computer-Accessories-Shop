@@ -12,11 +12,13 @@
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(Name = "Tin tức")]
         public long ContentID { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [StringLength(50)]
+        [Display(Name = "Loại tin tức")]
         public string TagID { get; set; }
     }
 }

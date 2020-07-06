@@ -5403,7 +5403,7 @@ button.close {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1050;
+  z-index: 10050;
   display: none;
   overflow: hidden;
   outline: 0;
@@ -9037,8 +9037,8 @@ a.dropdown-toggle {
     color: black;
 }
 
-.followScroll{
-    position:fixed;
-    z-index:10000;
-    top:0px;
+.followScroll {
+    position: fixed;
+    z-index: 1000;
+    top: 0px;
 }

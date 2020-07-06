@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -13,6 +13,7 @@ namespace Model.EF
         public string ID { get; set; }
 
         [StringLength(50)]
+        [Display(Name = "Tên nhóm người dùng")]
         public string Name { get; set; }
     }
 }

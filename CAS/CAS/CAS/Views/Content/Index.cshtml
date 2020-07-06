@@ -42,7 +42,7 @@
                                         <td>
                                             <h2>
                                                 <a href="/tin-tuc/@item.Metatitle-@item.ID">
-                                                    @item.Name
+                                                    @(item.Name.Length <= 80 ? item.Name : item.Name.Substring(0, 80) + "...")
                                                 </a>
                                             </h2>
                                             <hr />

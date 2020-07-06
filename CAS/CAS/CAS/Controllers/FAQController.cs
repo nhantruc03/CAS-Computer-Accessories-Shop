@@ -10,7 +10,7 @@ namespace CAS.Controllers
     public class FAQController : Controller
     {
         // GET: FAQ
-        [OutputCache(CacheProfile ="Cache1day")]
+       [OutputCache(CacheProfile ="Cache1day")]
         public ActionResult Index()
         {
             var model = new DocumentDao().GetByID("FAQ");

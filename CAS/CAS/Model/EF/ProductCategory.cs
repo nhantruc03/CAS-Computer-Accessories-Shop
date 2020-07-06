@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -12,13 +12,17 @@ namespace Model.EF
         public long ID { get; set; }
 
         [StringLength(250)]
+        [Display(Name = "Tên danh mục")]
         public string Name { get; set; }
 
         [StringLength(250)]
+        [Display(Name = "tên đường dẫn để hiển thị")]
         public string MetaTitle { get; set; }
 
+        [Display(Name = "Danh mục cha")]
         public long? ParentID { get; set; }
 
+        [Display(Name = "Thứ tự hiển thị")]
         public int? DisplayOrder { get; set; }
 
         public DateTime? CreateDate { get; set; }
@@ -31,6 +35,7 @@ namespace Model.EF
         [StringLength(50)]
         public string ModifiedBy { get; set; }
 
+        [Display(Name = "Trạng thái")]
         public bool Status { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -19,8 +19,10 @@ namespace Model.EF
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long OrderID { get; set; }
 
+        [Display(Name = "Số lượng")]
         public int? Quantity { get; set; }
 
+        [Display(Name = "Giá")]
         public decimal? Price { get; set; }
 
         public virtual Order Order { get; set; }

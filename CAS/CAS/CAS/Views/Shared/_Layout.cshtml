@@ -52,10 +52,10 @@
     <!-- shop locator (popup) -->
     <!-- //header-bottom -->
     <!-- navigation -->
-    <div class="navbar-inner" id="main-menu" >
+    <div class="navbar-inner" id="main-menu">
         <div class="container">
             @{Html.RenderAction("MainMenu", "Home"); }
-           
+
         </div>
 
     </div>
@@ -106,18 +106,12 @@
     <!-- smoothscroll -->
     <script src="/Assets/Client/js/SmoothScroll.min.js"></script>
     <!-- //smoothscroll -->
-    <!-- start-smooth-scrolling -->
+
     <script src="/Assets/Client/js/move-top.js"></script>
     <script src="/Assets/Client/js/easing.js"></script>
 
-    <script type="text/javascript">
-        function handleSelect(elm) {
-            window.location = elm.value;
-        }
 
-
-    </script>
-
+    <!-- Filter product -->
     <script>
         window.onload = function () {
             var selItem = sessionStorage.getItem("SelItem");
@@ -142,8 +136,9 @@
             });
         }
     </script>
+    <!-- Filter product -->
 
-
+    <!-- start-smooth-scrolling -->
     <script>
         jQuery(document).ready(function ($) {
             $(".scroll").click(function (event) {

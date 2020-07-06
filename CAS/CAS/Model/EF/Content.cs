@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -12,21 +12,24 @@ namespace Model.EF
         public long ID { get; set; }
 
         [StringLength(250)]
+        [Display(Name = "Tên tin tức")]
         public string Name { get; set; }
 
         [StringLength(250)]
+        [Display(Name = "Tên đường dẫn để hiển thị")]
         public string Metatitle { get; set; }
 
         [StringLength(500)]
+        [Display(Name = "Mô tả")]
         public string Descriptions { get; set; }
 
         [StringLength(250)]
+        [Display(Name = "Hình ảnh")]
         public string Image { get; set; }
 
         [Column(TypeName = "ntext")]
+        [Display(Name = "Chi tiết")]
         public string Detail { get; set; }
-
-        public int? Warranty { get; set; }
 
         public DateTime? CreateDate { get; set; }
 
@@ -38,11 +41,13 @@ namespace Model.EF
         [StringLength(50)]
         public string ModifiedBy { get; set; }
 
+        [Display(Name = "Trạng thái")]
         public bool Status { get; set; }
 
         public int? ViewCount { get; set; }
 
         [StringLength(500)]
+        [Display(Name = "Loại tin tức")]
         public string Tags { get; set; }
     }
 }

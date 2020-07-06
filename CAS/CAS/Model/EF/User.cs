@@ -54,6 +54,7 @@
         public bool Status { get; set; }
 
         [StringLength(20)]
+        [Display(Name = "Nhóm người dùng")]
         public string GroupID { get; set; }
     }
 }

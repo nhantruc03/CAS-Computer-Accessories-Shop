@@ -86,7 +86,6 @@
     <Compile Include="EF\DiscountCode.cs" />
     <Compile Include="EF\Document.cs" />
     <Compile Include="EF\FeedBack.cs" />
-    <Compile Include="EF\Footer.cs" />
     <Compile Include="EF\Menu.cs" />
     <Compile Include="EF\MenuType.cs" />
     <Compile Include="EF\Order.cs" />

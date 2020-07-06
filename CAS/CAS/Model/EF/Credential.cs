@@ -13,11 +13,13 @@
         [Key]
         [Column(Order = 0)]
         [StringLength(20)]
+        [Display(Name = "Nhóm người dùng")]
         public string UserGroupID { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [StringLength(50)]
+        [Display(Name = "Quyền")]
         public string RoleID { get; set; }
     }
 }

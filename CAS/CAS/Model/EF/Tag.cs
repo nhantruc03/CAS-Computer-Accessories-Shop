@@ -15,6 +15,7 @@ namespace Model.EF
         public string ID { get; set; }
 
         [StringLength(50)]
+        [Display(Name = "Tên tag")]
         public string Name { get; set; }
     }
 }
